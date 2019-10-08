@@ -1,17 +1,17 @@
 package versione_1;
 
-public abstract class Campo {
+public class Campo {
 	
 	private String nome;
 	private String descrizione;
 	private boolean obbligatorio = false;
-	private boolean inizializzato = false;
+	
 	
 	public Campo(String nome, String descrizione, boolean obbligatorio) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.obbligatorio = obbligatorio;
-		inizializzato = true;
+		
 	}
 
 	public String getNome() {
@@ -38,12 +38,11 @@ public abstract class Campo {
 		this.obbligatorio = obbligatorio;
 	}
 	
-	public boolean isInizializzato() {
-		return inizializzato;
+	public String toString() {
+		String str;
+		str=this.nome+"\t"+this.descrizione;
+		if(this.obbligatorio)str=str+"\t*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
+		return str;
 	}
-	
-	public abstract String toString();
-	
-	
 	
 }
