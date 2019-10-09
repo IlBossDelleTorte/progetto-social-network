@@ -66,7 +66,8 @@ public class Categoria {
 	 */
 	public String toString() {
 		StringBuffer str = new StringBuffer("");
-		int i=0;
+		int i=1;
+		str.append(this.nome + "\n" + this.descrizione + "\n");
 		for(Campo c:this.campi){
 			str.append(i+") "+c.toString()+"\n");
 			i++;
