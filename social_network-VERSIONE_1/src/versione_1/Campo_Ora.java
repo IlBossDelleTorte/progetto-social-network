@@ -25,7 +25,10 @@ public class Campo_Ora extends Campo {
 	}
 	
 	public String toString() {
-		return ore+":"+minuti;
+		String str = super.toString();
+		if(ore != VALORE_NULLO && minuti != VALORE_NULLO)
+			str = str +"\t" + ore + ":" + minuti;
+		return str;
 	}
 	
 	/**

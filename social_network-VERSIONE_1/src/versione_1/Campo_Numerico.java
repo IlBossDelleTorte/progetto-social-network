@@ -41,7 +41,7 @@ public class Campo_Numerico extends Campo {
 	public String toString() {
 		String str;
 		str=super.toString();
-		if(valore!=0)str=str+"\t"+valore;
+		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
 		return str;
 	}
 	

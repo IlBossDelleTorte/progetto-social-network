@@ -49,9 +49,14 @@ public class Categoria {
 		campi.add(new Campo_Stringa("Note","Informazioni aggiuntive",false));
 	}
 	
+	/**
+	 * Metodo che permette di inizializzare la categoria a partita di calcio
+	 */
 	public void partitaDiCalcio() {
 		this.nome="Partita di calcio";
 		this.descrizione="è una partita di calcio";
+		campi.add(new Campo_Stringa("Genere", "Il genere dei partecipanti", true));
+		campi.add(new Campo_Stringa("Fascia d'età", "Range d'età dei partecipanti", true));
 		
 	}
 	
@@ -60,13 +65,13 @@ public class Categoria {
 	 * Ad ogni linea della stringa viene aggiunto l'indice dell'ArrayList Campi utilizzato poi per la selezione degli stessi da linea di comando
 	 */
 	public String toString() {
-		String str="";
+		StringBuffer str = new StringBuffer("");
 		int i=0;
 		for(Campo c:this.campi){
-			str=i+") "+c.toString()+"\n";
+			str.append(i+") "+c.toString()+"\n");
 			i++;
 		}
-		return str;
+		return str.toString();
 	}
 	
 	public String getNome() {

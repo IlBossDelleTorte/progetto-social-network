@@ -51,8 +51,7 @@ public class Campo {
 	 * Metodo toString di un Campo che ritorna una stringa nome descrizione ed eventualmente un asterisco che indica l'obbligatorietà del campo stesso
 	 */
 	public String toString() {
-		String str;
-		str=this.nome+"\t"+this.descrizione;
+		String str = String.format("%-30s %s", this.nome, this.descrizione);
 		if(this.obbligatorio)str=str+"\t*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
 		return str;
 	}
