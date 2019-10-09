@@ -35,17 +35,17 @@ public class Categoria {
 	 * Metodo che aggiunge tutti i campi generali ad un oggetto di tipo Categoria
 	 */
 	public void inizializzazioneStandard() {
-		campi.add(new Campo_Stringa("Titolo", "nome di fantasia attribuito all'evento",false));
-		campi.add(new Campo_Numerico("Numero di partecipanti", "numero di persone da coinvolgere nell’evento", true));
-		campi.add(new Campo_Data("Termine ultimo di iscrizione","ultimo giorno utile per iscriversi all’evento",true));
-		campi.add(new Campo_Stringa("Luogo","l’indirizzo del luogo che ospiterà l’evento oppure il luogo di ritrovo dei partecipanti",true));
-		campi.add(new Campo_Data("Data","data in cui l’evento proposto deve svolgersi o ha inizio",true));
-		campi.add(new Campo_Ora("Ora","l’ora in cui i partecipanti dovranno ritrovarsi",true));
+		campi.add(new Campo_Stringa("Titolo", "Nome di fantasia attribuito all'evento",false));
+		campi.add(new Campo_Numerico("Numero di partecipanti", "Numero di persone da coinvolgere nell’evento", true));
+		campi.add(new Campo_Data("Termine ultimo di iscrizione","Ultimo giorno utile per iscriversi all’evento",true));
+		campi.add(new Campo_Stringa("Luogo","L’indirizzo del luogo che ospiterà l’evento oppure il luogo di ritrovo dei partecipanti",true));
+		campi.add(new Campo_Data("Data","Data in cui l’evento proposto deve svolgersi o ha inizio",true));
+		campi.add(new Campo_Ora("Ora","L’ora in cui i partecipanti dovranno ritrovarsi",true));
 		campi.add(new Campo_Ora("Durata","Numero di ore e minuti di durata dell'evento",false));
-		campi.add(new Campo_Numerico("Quota individuale","spesa che ogni partecipante dovrà sostenere",true));
+		campi.add(new Campo_Numerico("Quota individuale","Spesa che ogni partecipante dovrà sostenere",true));
 		campi.add(new Campo_Stringa("Compreso nella quota","Elenco delle voci comporesi nella quota idividuale",false));
 		campi.add(new Campo_Data("Data conclusiva","Data che fissa la conclusione dell'evento",false));
-		campi.add(new Campo_Ora("Ora conclusiva","stima dell'ora conclusiva dell'evento",false));
+		campi.add(new Campo_Ora("Ora conclusiva","Stima dell'ora conclusiva dell'evento",false));
 		campi.add(new Campo_Stringa("Note","Informazioni aggiuntive",false));
 	}
 	
@@ -54,7 +54,7 @@ public class Categoria {
 	 */
 	public void partitaDiCalcio() {
 		this.nome="Partita di calcio";
-		this.descrizione="è una partita di calcio";
+		this.descrizione="E' una partita di calcio";
 		campi.add(new Campo_Stringa("Genere", "Il genere dei partecipanti", true));
 		campi.add(new Campo_Stringa("Fascia d'età", "Range d'età dei partecipanti", true));
 		
@@ -69,7 +69,7 @@ public class Categoria {
 		int i=1;
 		str.append(this.nome + "\n" + this.descrizione + "\n");
 		for(Campo c:this.campi){
-			str.append(i+") "+c.toString()+"\n");
+			str.append(String.format("%2d",i)+") "+c.toString()+"\n");
 			i++;
 		}
 		return str.toString();
