@@ -8,17 +8,32 @@ public class Categoria {
 	private String descrizione;
 	private ArrayList<Campo> campi;
 	
+	
+	/**
+	 * Costruttore della classe Categoria.
+	 * All'interno viene richiamato il metodo inizializzazioneStandard() della stessa classe necessario per aggiungere il set base dei campi alla categoria
+	 * @param nome
+	 * @param descrizione
+	 */
 	public Categoria (String nome,String descrizione) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.campi=new ArrayList<Campo>();
 		this.inizializzazioneStandard();
 	}
-
+	
+	/**
+	 * Metodo che permette di aggiungere un campo all'elenco dei campi di una categoria 
+	 * @param c campo da aggiungere
+	 */
 	public void aggiungiCampo(Campo c) {
 		campi.add(c);
 	}
 	
+	
+	/**
+	 * Metodo che aggiunge tutti i campi generali ad un oggetto di tipo Categoria
+	 */
 	public void inizializzazioneStandard() {
 		campi.add(new Campo_Stringa("Titolo", "nome di fantasia attribuito all'evento",false));
 		campi.add(new Campo_Numerico("Numero di partecipanti", "numero di persone da coinvolgere nell’evento", true));
@@ -34,10 +49,22 @@ public class Categoria {
 		campi.add(new Campo_Stringa("Note","Informazioni aggiuntive",false));
 	}
 	
+	public void partitaDiCalcio() {
+		this.nome="Partita di calcio";
+		this.descrizione="è una partita di calcio";
+		
+	}
+	
+	/**
+	 * Metodo toString di Categoria.
+	 * Ad ogni linea della stringa viene aggiunto l'indice dell'ArrayList Campi utilizzato poi per la selezione degli stessi da linea di comando
+	 */
 	public String toString() {
 		String str="";
+		int i=0;
 		for(Campo c:this.campi){
-			str=c.toString()+"\n";
+			str=i+") "+c.toString()+"\n";
+			i++;
 		}
 		return str;
 	}

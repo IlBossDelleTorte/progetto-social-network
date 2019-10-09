@@ -7,13 +7,22 @@ public class Campo {
 	private boolean obbligatorio = false;
 	
 	
+	
+	/**
+	 * Costruttore per la classe Campo
+	 * @param nome
+	 * @param descrizione
+	 * @param obbligatorio
+	 */
 	public Campo(String nome, String descrizione, boolean obbligatorio) {
 		this.nome = nome;
 		this.descrizione = descrizione;
 		this.obbligatorio = obbligatorio;
 		
 	}
-
+	
+	
+	
 	public String getNome() {
 		return nome;
 	}
@@ -38,6 +47,9 @@ public class Campo {
 		this.obbligatorio = obbligatorio;
 	}
 	
+	/**
+	 * Metodo toString di un Campo che ritorna una stringa nome descrizione ed eventualmente un asterisco che indica l'obbligatorietà del campo stesso
+	 */
 	public String toString() {
 		String str;
 		str=this.nome+"\t"+this.descrizione;
