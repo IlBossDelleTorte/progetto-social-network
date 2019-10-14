@@ -42,5 +42,9 @@ public class Campo_Data extends Campo {
 		return false;
 	}
 	
+	public void compila() {
+		
+	}
+	
 
 }

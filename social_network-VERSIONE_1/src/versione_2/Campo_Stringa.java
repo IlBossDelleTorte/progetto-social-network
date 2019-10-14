@@ -3,6 +3,7 @@ package versione_2;
 public class Campo_Stringa extends Campo {
 	
 	private String valore;
+	public static final String VALORE_NULLO="*";
 	
 	
 	/**
@@ -13,6 +14,7 @@ public class Campo_Stringa extends Campo {
 	 */
 	public Campo_Stringa (String nome, String descrizione, boolean obbligatorio) {
 		super(nome,descrizione,obbligatorio);
+		valore=VALORE_NULLO;
 	}
 	
 	public void setValore(String valore) {
@@ -28,7 +30,7 @@ public class Campo_Stringa extends Campo {
 	 * @return true se inizializzato false altrimenti 
 	 */
 	public boolean isInizializzato(){
-		if(valore!=null)return true;
+		if(valore!=VALORE_NULLO)return true;
 		return false;
 	}
 	
@@ -38,8 +40,20 @@ public class Campo_Stringa extends Campo {
 	public String toString() {
 		String str;
 		str=super.toString();
-		if(valore!=null)str=str+"\t"+valore;
+		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
 		return str;
+	}
+	
+	/**
+	 * Il metodo compila permette all'utente di assegnare il valore al campo mediante una procedura interattiva 
+	 * per mezzo del metodo leggiStringa di Input
+	 */
+	public void compila() {
+		System.out.print(this.toString()+Menu.LINEA);
+		String str=Menu.COMPILAZIONE_STRINGA;
+		if(this.isObbligatorio())str=str+Menu.LINEA;
+		else str=str+Menu.FACOLTATIVO_STRINGA+Menu.LINEA;
+		this.valore=Input.leggiStringa(str,this.isObbligatorio());
 	}
 	
 }

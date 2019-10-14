@@ -3,7 +3,7 @@ package versione_2;
 public class Campo_Numerico extends Campo {
 	
 	private float valore;
-	public final float VALORE_NULLO=-1;
+	public static final float VALORE_NULLO=-1;
 	
 	/**
 	 * Costruttore della classe Campo_Numerico.
@@ -43,6 +43,18 @@ public class Campo_Numerico extends Campo {
 		str=super.toString();
 		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
 		return str;
+	}
+	
+	/**
+	 * Il metodo compila permette all'utente di assegnare il valore al campo mediante una procedura interattiva 
+	 * per mezzo del metodo leggiNumerico di Input
+	 */
+	public void compila() {
+		System.out.print(this.toString()+Menu.LINEA);
+		String str=Menu.COMPILAZIONE_NUMERICO;
+		if(this.isObbligatorio())str=str+Menu.LINEA;
+		else str=str+Menu.FACOLTATIVO_NUMERICO+Menu.LINEA;
+		this.valore=Input.leggiNumerico(str,this.isObbligatorio());
 	}
 	
 

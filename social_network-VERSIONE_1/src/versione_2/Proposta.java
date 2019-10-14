@@ -16,17 +16,23 @@ public class Proposta {
 	}
 	
 	public void compilazione() {
-		int i=1;
-		ArrayList c=categoria.getCampi();
-		while (i!=0 && i!=-1) {
-			System.out.print(categoria.toString());
-			i=Input.readInt(Menu.COMPILAZIONE);
-			
-			if(c.get(i) instanceof Campo_Numerico)
-			{
-				float f=Input.readFloat(c.get(i).toString()+Menu.COMPILAZIONE_FLOAT);
-			}
-		}
+		
+	}
+
+	public Stato getStato() {
+		return stato;
+	}
+
+	public void setStato(Stato stato) {
+		this.stato = stato;
+	}
+
+	public Utente getCreatore() {
+		return creatore;
+	}
+
+	public void setCreatore(Utente creatore) {
+		this.creatore = creatore;
 	}
 
 }

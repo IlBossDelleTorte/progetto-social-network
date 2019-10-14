@@ -32,7 +32,7 @@ public class Bacheca {
 	 */
 	public void pulizia() {
 		for(int i = 0; i < proposte.size(); i++) {
-			if (p.get(i).getStato == CONCLUSA || p.get(i).getStato == FALLITA)
+			if (proposte.get(i).getStato() == Stato.CONCLUSA || proposte .get(i).getStato() == Stato.FALLITA)
 					proposte.remove(i);		}
 	}
 	

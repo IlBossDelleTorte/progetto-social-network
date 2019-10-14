@@ -1,6 +1,6 @@
 package versione_2;
 
-public class Campo {
+public abstract class Campo {
 	
 	private String nome;
 	private String descrizione;
@@ -20,8 +20,6 @@ public class Campo {
 		this.obbligatorio = obbligatorio;
 		
 	}
-	
-	
 	
 	public String getNome() {
 		return nome;
@@ -55,5 +53,7 @@ public class Campo {
 		if(this.obbligatorio)str=str+"\t*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
 		return str;
 	}
+	
+	public abstract void compila();
 	
 }
