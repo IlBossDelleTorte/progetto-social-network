@@ -90,4 +90,12 @@ public class Categoria {
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
+
+	public ArrayList<Campo> getCampi() {
+		return campi;
+	}
+
+	public void setCampi(ArrayList<Campo> campi) {
+		this.campi = campi;
+	}
 }
