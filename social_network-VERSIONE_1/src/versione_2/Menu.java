@@ -9,5 +9,6 @@ public class Menu {
 	public static String COMPILAZIONE_DATA="Inserisci la data e ora nel formato gg/mm/aaaa hh:mm";
 	public static String FACOLTATIVO_STRINGA=" oppure * per saltare la compilazione di questo campo";
 	public static String FACOLTATIVO_NUMERICO=" oppure -1 per saltare la compilazione di questo campo";
+	public static String FACOLTATIVO_DATA=" oppure * per saltare la compilazione di questo campo";
 
 }

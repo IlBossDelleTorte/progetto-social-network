@@ -26,9 +26,9 @@ public class Campo_Data extends Campo {
 	 * @param mese
 	 * @param giorno
 	 */
-	public void setData(int anno,int mese, int giorno) {
+	public void setData(int anno,int mese, int giorno,int ore,int minuti) {
 		Calendar calendar=Calendar.getInstance();//viene istanziato un oggetto calendar con la data odierna
-		calendar.set(anno,mese,giorno);//l'oggetto calendar viene settato al valore desiderato 
+		calendar.set(anno,mese,giorno,ore,minuti);//l'oggetto calendar viene settato al valore desiderato 
 		valore=calendar.getTime();
 		
 	}
@@ -42,7 +42,19 @@ public class Campo_Data extends Campo {
 		return false;
 	}
 	
+	public String toString() {
+		String str;
+		str=super.toString();
+		if(valore!=null)str=str+"\t"+valore;
+		return str;
+	}
+	
 	public void compila() {
+		System.out.print(this.toString()+Menu.LINEA);
+		String str=Menu.COMPILAZIONE_DATA;
+		if(this.isObbligatorio())str=str+Menu.LINEA;
+		else str=str+Menu.FACOLTATIVO_DATA+Menu.LINEA;
+		this.valore=Input.leggiData(str,this.isObbligatorio());
 		
 	}
 	

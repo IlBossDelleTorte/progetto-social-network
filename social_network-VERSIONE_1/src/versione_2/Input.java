@@ -1,6 +1,10 @@
 package versione_2;
 import java.io.*;
 import java.io.FileReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
@@ -31,6 +35,32 @@ public class Input
 		return temp;
 	}
 	
+	public static Date leggiData(String message,boolean obbligatorio) {
+		String temp;
+		boolean getInput=false;
+		Date r=new Date();
+		do {
+			System.out.println(message);
+			temp=input.nextLine();
+			if(temp.trim().length()==0||(temp.equals("*")&& obbligatorio))System.out.println(ERRORE);
+			else if(temp.equals("*")&& !obbligatorio)return null;
+			else
+			{
+				SimpleDateFormat parser= new SimpleDateFormat("dd/MM/yyyy HH:mm");
+				try {
+					r=parser.parse(temp);
+					getInput=true;
+					System.out.println(r.toString());
+				} catch (ParseException e) {
+					getInput=false;
+					System.out.println(ERRORE);
+				}
+			}
+		}while(!getInput);
+		return r;
+	}
+	
+	
 	/**
 	 * Metodo con il quale viene visualizzato un messaggio a video e poi letto un float da terminale
 	 * @param message: messaggio che viene visualizzato
@@ -47,6 +77,7 @@ public class Input
 			try
 			{
 				temp=input.nextFloat();
+				input.nextLine();
 				getInput=true;
 				if(temp<0 && temp!=-1 ||(temp==-1 && obbligatorio)) {
 					getInput=false;
