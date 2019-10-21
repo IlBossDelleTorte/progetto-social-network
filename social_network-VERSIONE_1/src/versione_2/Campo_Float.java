@@ -1,6 +1,6 @@
 package versione_2;
 
-public class Campo_Numerico extends Campo {
+public class Campo_Float extends Campo {
 	
 	private float valore;
 	public static final float VALORE_NULLO=-1;
@@ -12,7 +12,7 @@ public class Campo_Numerico extends Campo {
 	 * @param descrizione
 	 * @param obbligatorio
 	 */
-	public Campo_Numerico(String nome, String descrizione, boolean obbligatorio) {
+	public Campo_Float(String nome, String descrizione, boolean obbligatorio) {
 		super(nome,descrizione,obbligatorio);
 		valore=VALORE_NULLO;
 	}
@@ -51,10 +51,10 @@ public class Campo_Numerico extends Campo {
 	 */
 	public void compila() {
 		System.out.print(this.toString()+Menu.LINEA);
-		String str=Menu.COMPILAZIONE_NUMERICO;
+		String str=Menu.COMPILAZIONE_FLOAT;
 		if(this.isObbligatorio())str=str+Menu.LINEA;
 		else str=str+Menu.FACOLTATIVO_NUMERICO+Menu.LINEA;
-		this.valore=Input.leggiNumerico(str,this.isObbligatorio());
+		this.valore=Input.leggiFloat(str,this.isObbligatorio());
 	}
 	
 

@@ -1,8 +1,7 @@
 package versione_2;
 
-public class Campo_Ora extends Campo {
-	private int ore;
-	private int minuti;
+public class Campo_Intero extends Campo {
+	private int valore;
 	public final int VALORE_NULLO=-1;
 	
 	
@@ -13,21 +12,15 @@ public class Campo_Ora extends Campo {
 	 * @param descrizione
 	 * @param obbligatorio
 	 */
-	public Campo_Ora(String nome,String descrizione,boolean obbligatorio) {
+	public Campo_Intero(String nome,String descrizione,boolean obbligatorio) {
 		super(nome,descrizione,obbligatorio);
-		ore=VALORE_NULLO;
-		minuti=VALORE_NULLO;
+		valore=VALORE_NULLO;
 	}
 	
-	public void setOra(int ore,int minuti) {
-		this.ore=ore;
-		this.minuti=minuti;
-	}
-	
+
 	public String toString() {
 		String str = super.toString();
-		if(ore != VALORE_NULLO && minuti != VALORE_NULLO)
-			str = str +"\t" + ore + ":" + minuti;
+		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
 		return str;
 	}
 	
@@ -37,9 +30,21 @@ public class Campo_Ora extends Campo {
 	 * @return true se inizializzato false altrimenti
 	 */
 	public boolean isInizializzato() {
-		if(ore!=VALORE_NULLO && minuti!=VALORE_NULLO)return true;
+		if(valore!=VALORE_NULLO)return true;
 		return false;
 		
+	}
+	
+	/**
+	 * Il metodo compila permette all'utente di assegnare il valore al campo mediante una procedura interattiva 
+	 * per mezzo del metodo leggiInt di Input
+	 */
+	public void compila() {
+		System.out.print(this.toString()+Menu.LINEA);
+		String str=Menu.COMPILAZIONE_INT;
+		if(this.isObbligatorio())str=str+Menu.LINEA;
+		else str=str+Menu.FACOLTATIVO_NUMERICO+Menu.LINEA;
+		this.valore=Input.leggiInt(str,this.isObbligatorio());
 	}
 
 }

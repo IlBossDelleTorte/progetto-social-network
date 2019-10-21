@@ -12,6 +12,7 @@ public class Input
 {
 	public static Scanner input= new Scanner(System.in);
 	public static final String ERRORE="Input non valido";
+	public static final String ERRORE_DATA="La data inserita non può essere anteriore a quella odierna";
 	//public static final String ERROR_NOT_FOUND="File non trovato";
 	public static final int LUNGHEZZA_MASSIMA=30;//lunghezza massima delle variabili di tipo stringa
 	
@@ -57,7 +58,11 @@ public class Input
 				try {
 					r=parser.parse(temp);
 					getInput=true;
-					System.out.println(r.toString());
+					if(r.before(new Date()))
+					{
+						System.out.println(ERRORE_DATA);
+						getInput=false;
+					}
 				} catch (ParseException e) {
 					getInput=false;
 					System.out.println(ERRORE);
@@ -74,7 +79,7 @@ public class Input
 	 * @param obbligatorio: obbligatorietà della lettura (se non obbligatoria si può usare il valore -1 per saltare la lettura ) 
 	 * @return
 	 */
-	public static float leggiNumerico(String message,boolean obbligatorio)
+	public static float leggiFloat(String message,boolean obbligatorio)
 	{
 		float temp=0;
 		boolean getInput=false;
@@ -100,6 +105,37 @@ public class Input
 		return temp;
 	}
 	
+	/**
+	 * Metodo con il quale viene visualizzato un messaggio a video e poi letto un untero da terminale
+	 * @param message: messaggio che viene visualizzato
+	 * @param obbligatorio: obbligatorietà della lettura (se non obbligatoria si può usare il valore -1 per saltare la lettura ) 
+	 * @return
+	 */
+	public static int leggiInt(String message,boolean obbligatorio)
+	{
+		int temp=0;
+		boolean getInput=false;
+		do
+		{
+			System.out.println(message);
+			try
+			{
+				temp=input.nextInt();
+				input.nextLine();
+				getInput=true;
+				if(temp<0 && temp!=-1 ||(temp==-1 && obbligatorio)) {
+					getInput=false;
+					System.out.println(ERRORE);
+				}
+			}
+			catch(InputMismatchException e)
+			{
+				System.out.println(ERRORE);
+				String trash=input.next();
+			}
+		}while(!getInput);
+		return temp;
+	}
 	
 	public static void closeScanner()
 	{

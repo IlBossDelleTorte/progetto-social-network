@@ -36,12 +36,12 @@ public class Categoria {
 	 */
 	public void inizializzazioneStandard() {
 		campi.add(new Campo_Stringa("Titolo", "Nome di fantasia attribuito all'evento",false));
-		campi.add(new Campo_Numerico("Numero di partecipanti", "Numero di persone da coinvolgere nell’evento", true));
+		campi.add(new Campo_Intero("Numero di partecipanti", "Numero di persone da coinvolgere nell’evento", true));
 		campi.add(new Campo_Data("Termine ultimo di iscrizione","Ultimo giorno utile per iscriversi all’evento",true));
 		campi.add(new Campo_Stringa("Luogo","L’indirizzo del luogo che ospiterà l’evento oppure il luogo di ritrovo dei partecipanti",true));
 		campi.add(new Campo_Data("Data e Ora di inizio","Data e orario in cui l’evento proposto deve svolgersi o ha inizio",true));
-		campi.add(new Campo_Numerico("Durata","Numero di ore e minuti di durata dell'evento",false));
-		campi.add(new Campo_Numerico("Quota individuale","Spesa che ogni partecipante dovrà sostenere",true));
+		campi.add(new Campo_Float("Durata","Numero di ore e minuti di durata dell'evento",false));
+		campi.add(new Campo_Float("Quota individuale","Spesa che ogni partecipante dovrà sostenere",true));
 		campi.add(new Campo_Stringa("Compreso nella quota","Elenco delle voci comporesi nella quota idividuale",false));
 		campi.add(new Campo_Data("Data e ora conclusiva","Data e orario che fissa la conclusione dell'evento",false));
 		campi.add(new Campo_Stringa("Note","Informazioni aggiuntive",false));
