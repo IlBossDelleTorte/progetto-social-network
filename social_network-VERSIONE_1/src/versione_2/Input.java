@@ -35,6 +35,13 @@ public class Input
 		return temp;
 	}
 	
+	/**
+	 * Metodo con il quale viene visualizzato un messaggio a video e poi letta una stringa da terminale che viene poi parsata in un oggetto data da
+	 * SimpleDataFormat
+	 * @param message: messaggio che viene visualizzato
+	 * @param obbligatorio: obligatorietà o meno della lettura (se non è obbligatoria può essere usato il carattere * per saltare la lettura)
+	 * @return
+	 */
 	public static Date leggiData(String message,boolean obbligatorio) {
 		String temp;
 		boolean getInput=false;

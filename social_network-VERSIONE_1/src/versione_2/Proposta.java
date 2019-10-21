@@ -17,6 +17,8 @@ public class Proposta {
 	
 	public void compilazione() {
 		
+		categoria.getCampi().forEach(c->c.compila());
+		System.out.print(categoria);
 	}
 
 	public Stato getStato() {

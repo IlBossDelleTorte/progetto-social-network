@@ -49,6 +49,11 @@ public class Campo_Data extends Campo {
 		return str;
 	}
 	
+	/**
+	 * Il metodo compila permette all'utente di assegnare il valore al campo mediante una procedura interattiva 
+	 * per mezzo del metodo leggiData di Input
+	 */
+	
 	public void compila() {
 		System.out.print(this.toString()+Menu.LINEA);
 		String str=Menu.COMPILAZIONE_DATA;
