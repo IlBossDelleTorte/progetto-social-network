@@ -17,12 +17,13 @@ public class Campo_Float extends Campo {
 		valore=VALORE_NULLO;
 	}
 	
-	public void setValore(float valore) {
-		this.valore=valore;
+	public void setValore(String s) {
+		valore = Float.parseFloat(s);
 	}
 	
-	public float getValore() {
-		return valore;
+	public String getValore() {
+		String str = String.format("%.2f", valore);
+		return str;
 	}
 	
 	/**

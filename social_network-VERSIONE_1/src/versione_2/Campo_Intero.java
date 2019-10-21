@@ -46,5 +46,14 @@ public class Campo_Intero extends Campo {
 		else str=str+Menu.FACOLTATIVO_NUMERICO+Menu.LINEA;
 		this.valore=Input.leggiInt(str,this.isObbligatorio());
 	}
+	
+	public String getValore() {
+		String str = String.format("%d", valore);
+		return str;
+	}
+	
+	public void setValore(String s) {
+		valore = Integer.parseInt(s);
+	}
 
 }

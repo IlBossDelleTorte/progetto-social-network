@@ -1,5 +1,7 @@
 package versione_2;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,16 +27,24 @@ public class Campo_Data extends Campo {
 	 * @param anno
 	 * @param mese
 	 * @param giorno
+	 * @throws ParseException 
 	 */
-	public void setData(int anno,int mese, int giorno,int ore,int minuti) {
-		Calendar calendar=Calendar.getInstance();//viene istanziato un oggetto calendar con la data odierna
-		calendar.set(anno,mese,giorno,ore,minuti);//l'oggetto calendar viene settato al valore desiderato 
-		valore=calendar.getTime();
+	public void setValore(String data) throws ParseException {
+		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		valore=parser.parse(data);
 		
 	}
 	
-	public String getData() {
-		return valore.toString();
+	public String getValore() {
+		Calendar c = Calendar.getInstance();
+		c.setTime(valore);
+		StringBuffer str = new StringBuffer();
+		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
+		str.append(c.get(Calendar.MONTH)+"/");
+		str.append(c.get(Calendar.YEAR)+" ");
+		str.append(c.get(Calendar.HOUR_OF_DAY)+":");
+		str.append(c.get(Calendar.MINUTE));
+		return str.toString();
 	}//il metodo non ritorna l'oggetto data bensì il suo metodo toString
 	
 	public boolean isInizializzato() {
@@ -45,7 +55,7 @@ public class Campo_Data extends Campo {
 	public String toString() {
 		String str;
 		str=super.toString();
-		if(valore!=null)str=str+"\t"+valore;
+		if(valore!=null)str=str+"\t"+getValore();
 		return str;
 	}
 	

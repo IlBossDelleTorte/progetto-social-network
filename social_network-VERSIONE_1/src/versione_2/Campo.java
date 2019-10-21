@@ -1,5 +1,7 @@
 package versione_2;
 
+import java.text.ParseException;
+
 public abstract class Campo {
 	
 	private String nome;
@@ -56,5 +58,11 @@ public abstract class Campo {
 	}
 	
 	public abstract void compila();
+	
+	public abstract String getValore();
+	
+	public abstract boolean isInizializzato();
+	
+	public abstract void setValore(String valore) throws ParseException;
 	
 }
