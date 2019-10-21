@@ -50,7 +50,8 @@ public abstract class Campo {
 	 */
 	public String toString() {
 		String str = String.format("%-30s %-100s", this.nome, this.descrizione);
-		if(this.obbligatorio)str=str+"\t*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
+		if(this.obbligatorio)str=str+"*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
+		else str=str+" ";
 		return str;
 	}
 	

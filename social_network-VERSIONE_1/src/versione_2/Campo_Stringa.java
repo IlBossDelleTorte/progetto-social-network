@@ -30,7 +30,7 @@ public class Campo_Stringa extends Campo {
 	 * @return true se inizializzato false altrimenti 
 	 */
 	public boolean isInizializzato(){
-		if(valore!=VALORE_NULLO)return true;
+		if(valore.trim()!=VALORE_NULLO)return true;
 		return false;
 	}
 	
@@ -40,7 +40,7 @@ public class Campo_Stringa extends Campo {
 	public String toString() {
 		String str;
 		str=super.toString();
-		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
+		if(!valore.trim().equals(VALORE_NULLO))str=str+"\t"+valore;
 		return str;
 	}
 	
