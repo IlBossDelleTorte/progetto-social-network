@@ -152,5 +152,11 @@ public class Input
 		return str.toString();
 	}
 	
+	public static Date stringToDate(String str) throws ParseException {
+		SimpleDateFormat parser= new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return parser.parse(str);
+		
+	}
+	
 
 }

@@ -16,14 +16,23 @@ public class Bacheca {
 	 */
 	public void aggiungiProposta (Proposta p) {
 		proposte.add(p);
+		p.setStato(Stato.APERTA);
 	}
 	
 	//da aggiungere controllo if per vedere se l'utente è creatore della proposta
 	public void iscrizioneProposta(int n, Utente u) {
-		proposte.get(n).aggiungiPartecipante(u);
+		if(proposte.get(n).getStato() == Stato.CHIUSA)
+			System.out.println("La proposta è già chiusa e non vi si può iscrivere.");
+		else {
+			if(proposte.get(n).getPartecipanti().contains(u))
+				System.out.println("Sei già iscritto a questa proposta");
+			else {
+				proposte.get(n).aggiungiPartecipante(u);
+				System.out.println("Iscrizione effettuata!");
+		}
+		}
 	}
 	
-	//da aggiungere controllo if per vedere se l'utente è creatore della proposta
 	public void rimuoviProposta(int n) {
 		proposte.remove(n);
 	}

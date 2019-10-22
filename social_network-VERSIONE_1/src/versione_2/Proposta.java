@@ -5,12 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Proposta {
 	private Categoria categoria;
 	private Stato stato;
-	private ArrayList<Utente> partecipanti=new ArrayList<Utente>();
+	private HashSet<Utente> partecipanti=new HashSet<Utente>();
 	private Utente creatore;
 	
 	public Proposta(Utente creatore) {
@@ -68,6 +69,27 @@ public class Proposta {
 		}
 		System.out.print(categoria);
 	}
+	
+	public void aggiungiPartecipante(Utente u) {
+		partecipanti.add(u);
+	}
+	
+	public void aggiornaStato() {
+		switch (this.stato) {
+		case VUOTA : 
+			stato = Stato.VALIDA;
+			break;
+		case VALIDA :
+			stato = Stato.APERTA;
+			break;
+		case APERTA :
+			if(Integer.parseInt(categoria.getCampi().get(1).getValore()) == partecipanti.size()
+			&& Input.stringToDate(categoria.getCampi().get))
+				stato = Stato.CHIUSA;
+			else
+			
+		}
+	}
 
 	public Stato getStato() {
 		return stato;
@@ -83,6 +105,10 @@ public class Proposta {
 
 	public void setCreatore(Utente creatore) {
 		this.creatore = creatore;
+	}
+
+	public HashSet<Utente> getPartecipanti() {
+		return partecipanti;
 	}
 
 }
