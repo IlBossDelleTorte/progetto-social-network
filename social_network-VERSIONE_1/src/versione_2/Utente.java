@@ -24,6 +24,10 @@ public class Utente {
  public void setNome(String nome) {
 	this.nome = nome;
  }
+ 
+ public void riceviNotifica(String s) {
+	 spazioPersonale.add(s);
+ }
 
  public void aggiungiPropostaValida(Proposta p) {
 	proposteValide.add(p);

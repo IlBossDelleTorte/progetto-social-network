@@ -129,5 +129,12 @@ public class Proposta {
 	public HashSet<Utente> getPartecipanti() {
 		return partecipanti;
 	}
+	
+	public String header() {
+		String str=String.format("%10s", creatore.getNome());
+		str=str+categoria.header();
+		return str;
+		
+	}
 
 }

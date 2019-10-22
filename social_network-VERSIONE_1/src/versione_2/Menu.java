@@ -14,5 +14,11 @@ public class Menu {
 	
 	public static String ERRORE_DATA_INIZIO="La data di inizio non può essere precedente al termine ultimo di iscrizione";
 	public static String ERRORE_DATA_FINE="La data di termine evento non può essere precedente alla data di inizio";
+	
+	public static String HEADER_BACHECA=String.format("%2s %10s %20s %14s %14s %10s %4s", "i","Creatore","Categoria","Data Evento","Scadenza"
+			,"Luogo","Prezzo");
+	
+	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
+	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è afallito, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
 
 }

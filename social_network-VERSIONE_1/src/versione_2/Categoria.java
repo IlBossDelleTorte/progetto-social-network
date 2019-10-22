@@ -30,6 +30,15 @@ public class Categoria {
 		campi.add(c);
 	}
 	
+	/**
+	 * Metodo che ritorna una stringa che riassume il contenuto della categoria 
+	 * @return
+	 */
+	public String header() {
+		String str=String.format("%20s %14s %14s %10s %4s", nome,campi.get(4).getValore(),campi.get(2).getValore(),
+				campi.get(3).getValore(),campi.get(6).getValore()+"€");
+		return str;
+	}
 	
 	/**
 	 * Metodo che aggiunge tutti i campi generali ad un oggetto di tipo Categoria
