@@ -142,6 +142,15 @@ public class Input
 		input.close();
 	}
 	
+	public static String calToString(Calendar c) {
+		StringBuffer str = new StringBuffer();
+		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
+		str.append(c.get(Calendar.MONTH)+"/");
+		str.append(c.get(Calendar.YEAR)+" ");
+		str.append(c.get(Calendar.HOUR_OF_DAY)+":");
+		str.append(c.get(Calendar.MINUTE));
+		return str.toString();
+	}
 	
 
 }

@@ -28,8 +28,7 @@ public class Proposta {
 			if(i == 4) {
 				c.get(i).compila();
 				if(parser_data.parse(c.get(i).getValore()).before(parser_data.parse(c.get(2).getValore()))) {
-					System.out.println("La data di inizio non può essere precedente"
-							+ " al termine ultimo di iscrizione");
+					System.out.println(Menu.ERRORE_DATA_INIZIO);
 					i--;
 				}
 			}
@@ -44,19 +43,19 @@ public class Proposta {
 					Calendar dataTerm = Calendar.getInstance();
 					dataTerm.setTime(data_inizio);
 					dataTerm.add(Calendar.MINUTE, ore+min);
-					StringBuffer val = new StringBuffer();
+					/*StringBuffer val = new StringBuffer();
 					val.append(dataTerm.get(Calendar.DAY_OF_MONTH)+"/");
 					val.append(dataTerm.get(Calendar.MONTH)+"/");
 					val.append(dataTerm.get(Calendar.YEAR)+" ");
 					val.append(dataTerm.get(Calendar.HOUR_OF_DAY)+":");
-					val.append(dataTerm.get(Calendar.MINUTE));
-					c.get(i).setValore(val.toString());
+					val.append(dataTerm.get(Calendar.MINUTE));*/
+					String val=Input.calToString(dataTerm);
+					c.get(i).setValore(val);
 				}
 				else {
 					c.get(i).compila();
 					if(parser_data.parse(c.get(i).getValore()).before(parser_data.parse(c.get(4).getValore()))) {
-						System.out.println("La data di termine evento non può essere precedente"
-								+ " alla data di inizio");
+						System.out.println(Menu.ERRORE_DATA_FINE);
 						i--;
 						}
 				}

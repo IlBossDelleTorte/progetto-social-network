@@ -38,14 +38,15 @@ public class Campo_Data extends Campo {
 	public String getValore() {
 		Calendar c = Calendar.getInstance();
 		c.setTime(valore);
-		StringBuffer str = new StringBuffer();
+		return Input.calToString(c);
+		/*StringBuffer str = new StringBuffer();
 		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
 		str.append(c.get(Calendar.MONTH)+"/");
 		str.append(c.get(Calendar.YEAR)+" ");
 		str.append(c.get(Calendar.HOUR_OF_DAY)+":");
 		str.append(c.get(Calendar.MINUTE));
-		return str.toString();
-	}//il metodo non ritorna l'oggetto data bensì il suo metodo toString
+		return str.toString();*/
+	}//il metodo non ritorna l'oggetto data bensì una stringa formattata "dd/MM/yyyy HH:mm"
 	
 	public boolean isInizializzato() {
 		if(valore!=null)return true;
