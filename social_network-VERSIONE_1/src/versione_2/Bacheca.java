@@ -1,5 +1,6 @@
 package versione_2;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class Bacheca {
@@ -13,10 +14,12 @@ public class Bacheca {
 	/**Metodo che permette di aggiungere una proposta alla bacheca
 	 * 
 	 * @param p la proposta da aggiungere
+	 * @throws ParseException 
+	 * @throws NumberFormatException 
 	 */
-	public void aggiungiProposta (Proposta p) {
+	public void aggiungiProposta (Proposta p) throws NumberFormatException, ParseException {
 		proposte.add(p);
-		p.setStato(Stato.APERTA);
+		p.aggiornaStato();
 	}
 	
 	//da aggiungere controllo if per vedere se l'utente è creatore della proposta

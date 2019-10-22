@@ -152,9 +152,17 @@ public class Input
 		return str.toString();
 	}
 	
-	public static Date stringToDate(String str) throws ParseException {
+	public static Date stringToDate(String str)  {
 		SimpleDateFormat parser= new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		return parser.parse(str);
+		Date d = null;
+		try {
+				d = parser.parse(str);
+		} catch (ParseException e) {
+			System.out.println("Il programma è andato incontro ad un errore, riavviare l'applicazione.");
+			System.exit(1);
+			e.printStackTrace();
+		}
+		return d;
 		
 	}
 	

@@ -67,14 +67,18 @@ public class Proposta {
 			else 
 				c.get(i).compila();
 		}
+		aggiungiPartecipante(creatore);
 		System.out.print(categoria);
+		this.aggiornaStato();
+		creatore.aggiungiPropostaValida(this);
+		System.out.println("La proposta è stata aggiunta con successo alla tua lista di proposte valide!");
 	}
 	
 	public void aggiungiPartecipante(Utente u) {
 		partecipanti.add(u);
 	}
 	
-	public void aggiornaStato() {
+	public void aggiornaStato() throws NumberFormatException, ParseException {
 		switch (this.stato) {
 		case VUOTA : 
 			stato = Stato.VALIDA;
@@ -84,9 +88,24 @@ public class Proposta {
 			break;
 		case APERTA :
 			if(Integer.parseInt(categoria.getCampi().get(1).getValore()) == partecipanti.size()
-			&& Input.stringToDate(categoria.getCampi().get))
+			&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date()))
 				stato = Stato.CHIUSA;
-			else
+			else if(partecipanti.size() < Integer.parseInt(categoria.getCampi().get(1).getValore())
+					&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date()))
+				stato = Stato.FALLITA;
+			break;
+		case CHIUSA :
+			Calendar c = Calendar.getInstance();
+			c.setTime(Input.stringToDate(categoria.getCampi().get(4).getValore()));
+			c.add(Calendar.DAY_OF_MONTH, 1);
+			Date d = c.getTime();
+			if(new Date().after(d))
+				stato = Stato.CONCLUSA;
+			break;
+		default :
+			break;
+		
+				
 			
 		}
 	}
