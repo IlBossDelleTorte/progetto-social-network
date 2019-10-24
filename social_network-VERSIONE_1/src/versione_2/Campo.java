@@ -1,8 +1,9 @@
 package versione_2;
 
+import java.io.Serializable;
 import java.text.ParseException;
 
-public abstract class Campo {
+public abstract class Campo implements Serializable {
 	
 	private String nome;
 	private String descrizione;

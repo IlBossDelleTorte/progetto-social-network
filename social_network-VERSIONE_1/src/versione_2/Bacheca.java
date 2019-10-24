@@ -1,10 +1,11 @@
 package versione_2;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-public class Bacheca {
+public class Bacheca implements Serializable {
 
 	private ArrayList<Proposta> proposteAperte;
 	private ArrayList<Proposta> proposteInvalide;
@@ -93,5 +94,13 @@ public class Bacheca {
 		}
 		return str.toString();
 		
+	}
+
+	public ArrayList<Proposta> getProposteAperte() {
+		return proposteAperte;
+	}
+
+	public void setProposteAperte(ArrayList<Proposta> proposteAperte) {
+		this.proposteAperte = proposteAperte;
 	}
 }

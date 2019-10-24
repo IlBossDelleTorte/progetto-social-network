@@ -1,8 +1,9 @@
 package versione_2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Categoria {
+public class Categoria implements Serializable {
 	
 	private String nome;
 	private String descrizione;

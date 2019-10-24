@@ -166,5 +166,22 @@ public class Input
 		
 	}
 	
+	public static int yesNo(String message)
+	{
+		String choice;
+		System.out.println(message);
+		choice=input.next();
+		switch(choice.toUpperCase().charAt(0))
+		{		
+		case('Y'):return 1;
+		
+		case('S'):return 1;
+		
+		case('N'):return -1;
+		
+		default:return 0;			
+		}		
+	}
+	
 
 }

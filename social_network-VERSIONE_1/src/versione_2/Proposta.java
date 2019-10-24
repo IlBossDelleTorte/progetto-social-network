@@ -1,5 +1,6 @@
 package versione_2;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class Proposta {
+public class Proposta implements Serializable {
 	private Categoria categoria;
 	private Stato stato;
 	private HashSet<Utente> partecipanti=new HashSet<Utente>();
@@ -33,7 +34,8 @@ public class Proposta {
 					i--;
 				}
 			}
-				else if(i == 8) {
+			
+			else if(i == 8) {
 				if(c.get(5).isInizializzato()) {
 					String str = c.get(5).getValore();
 					Date data_inizio = parser_data.parse(c.get(4).getValore());
@@ -44,21 +46,16 @@ public class Proposta {
 					Calendar dataTerm = Calendar.getInstance();
 					dataTerm.setTime(data_inizio);
 					dataTerm.add(Calendar.MINUTE, ore+min);
-					/*StringBuffer val = new StringBuffer();
-					val.append(dataTerm.get(Calendar.DAY_OF_MONTH)+"/");
-					val.append(dataTerm.get(Calendar.MONTH)+"/");
-					val.append(dataTerm.get(Calendar.YEAR)+" ");
-					val.append(dataTerm.get(Calendar.HOUR_OF_DAY)+":");
-					val.append(dataTerm.get(Calendar.MINUTE));*/
 					String val=Input.calToString(dataTerm);
 					c.get(i).setValore(val);
 				}
+				
 				else {
 					c.get(i).compila();
-					if(parser_data.parse(c.get(i).getValore()).before(parser_data.parse(c.get(4).getValore()))) {
+					if(c.get(i).isInizializzato() && parser_data.parse(c.get(i).getValore()).before(parser_data.parse(c.get(4).getValore()))) {
 						System.out.println(Menu.ERRORE_DATA_FINE);
 						i--;
-						}
+					}
 				}
 					
 			}

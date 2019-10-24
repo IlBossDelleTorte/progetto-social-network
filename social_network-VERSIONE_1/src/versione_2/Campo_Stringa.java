@@ -1,6 +1,8 @@
 package versione_2;
 
-public class Campo_Stringa extends Campo {
+import java.io.Serializable;
+
+public class Campo_Stringa extends Campo implements Serializable {
 	
 	private String valore;
 	public static final String VALORE_NULLO="*";

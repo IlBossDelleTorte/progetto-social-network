@@ -1,6 +1,8 @@
 package versione_2;
 
-public class Campo_Float extends Campo {
+import java.io.Serializable;
+
+public class Campo_Float extends Campo implements Serializable {
 	
 	private float valore;
 	public static final float VALORE_NULLO=-1;

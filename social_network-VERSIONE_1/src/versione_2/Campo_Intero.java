@@ -1,6 +1,8 @@
 package versione_2;
 
-public class Campo_Intero extends Campo {
+import java.io.Serializable;
+
+public class Campo_Intero extends Campo implements Serializable {
 	private int valore;
 	public final int VALORE_NULLO=-1;
 	

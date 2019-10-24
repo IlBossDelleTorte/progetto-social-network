@@ -17,8 +17,33 @@ public class Menu {
 	
 	public static String HEADER_BACHECA=String.format("%2s %10s %20s %14s %14s %10s %4s", "i","Creatore","Categoria","Data Evento","Scadenza"
 			,"Luogo","Prezzo");
+	public static String MESSAGGIO_BACHECA="Seleziona una proposta con il numero di indice per visualizzare i dettagli ed eventualmente iscriverti\n"
+			+ "Oppure 0 per tornare indietro"
+			+LINEA;
+	
+	public static String MESSAGGIO_PUBBLICAZIONE ="Seleziona una proposta con il numero di indice per visualizzare i dettagli ed eventualmente pubblicarla\n"
+			+ "Oppure 0 per tornare indietro"
+			+LINEA;
+	public static String ISCRIZIONE_PROPOSTA="Vuoi iscriverti alla proposta? (S/Y per accettare N per rifiutare)"+LINEA;
+	public static String PUBBLICAZIONE_PROPOSTA="Vuoi pubblicare la proposta? (S/Y per accettare N per rifiutare)"+LINEA;
 	
 	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è afallito, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
+	
+	public static String MENU_INIZIALE="Cosa vuoi fare?\n"
+			+ "1) Visualizza Bacheca\n"
+			+ "2) Gestisci Proposte\n"
+			+ "3) Accedi allo spazio personale\n"
+			+ "0) Salva e Esci"+LINEA;
+	
+	public static String MENU_PROPOSTE="Cosa vuoi fare?\n"
+			+ "1) Compila nuova proposta\n"
+			+ "2) Visualizza le proposte valide \n"
+			+ "0) Salva e Esci"+LINEA;
+	
+	public static String MENU_SPAZIO_PERSONALE="Cosa vuoi fare?\n"
+			+ "1) Visualizza Notifiche\n"
+			+ "2) Rimuovi una notifica\n"
+			+ "0) Salva e Esci"+LINEA;
 
 }
