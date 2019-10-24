@@ -30,6 +30,10 @@ public class Utente implements Serializable {
  public void riceviNotifica(String s) {
 	 spazioPersonale.add(s);
  }
+ 
+ public void rimuoviNotifica(int i) {
+	 spazioPersonale.remove(i);
+ }
 
  public void aggiungiPropostaValida(Proposta p) throws NumberFormatException, ParseException {
 	proposteValide.add(p);
@@ -68,6 +72,15 @@ public String elencoProposteValide() {
 	}
 	return str.toString();
 	
+}
+
+public String elencoNotifiche() {
+	StringBuffer str=new StringBuffer();
+	for(int i=0;i<spazioPersonale.size();i++)
+	{
+		str.append(String.format("%-2s %s", i+1,spazioPersonale.get(i))).append("\n");
+	}
+	return str.toString();
 }
  
 }

@@ -90,7 +90,7 @@ public class Bacheca implements Serializable {
 		str.append(Menu.LINEA);
 		
 		for(int i=0;i<proposteAperte.size();i++) {
-			str.append(String.format("%2s %s", i+1,proposteAperte.get(i).header())).append("\n");
+			str.append(String.format("%-2s %s", i+1,proposteAperte.get(i).header())).append("\n");
 		}
 		return str.toString();
 		

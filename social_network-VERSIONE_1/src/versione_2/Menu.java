@@ -2,7 +2,7 @@ package versione_2;
 
 public class Menu {
 	
-	public static String LINEA="\n______________________________________________________________________________________________\n";
+	public static String LINEA="\n___________________________________________________________________________________________________________________________\n\n";
 	
 	public static String COMPILAZIONE_FLOAT="Inserisci il valore numerico nel formato xxx,yyy";
 	public static String COMPILAZIONE_INT="Inserisci il valore numerico intero";
@@ -15,7 +15,7 @@ public class Menu {
 	public static String ERRORE_DATA_INIZIO="La data di inizio non può essere precedente al termine ultimo di iscrizione";
 	public static String ERRORE_DATA_FINE="La data di termine evento non può essere precedente alla data di inizio";
 	
-	public static String HEADER_BACHECA=String.format("%2s %10s %20s %14s %14s %10s %4s", "i","Creatore","Categoria","Data Evento","Scadenza"
+	public static String HEADER_BACHECA=String.format("%-2s %-10s %-20s %-14s %-14s %-10s %-4s", "i","Creatore","Categoria","Data Evento","Scadenza"
 			,"Luogo","Prezzo");
 	public static String MESSAGGIO_BACHECA="Seleziona una proposta con il numero di indice per visualizzare i dettagli ed eventualmente iscriverti\n"
 			+ "Oppure 0 per tornare indietro"
@@ -41,9 +41,6 @@ public class Menu {
 			+ "2) Visualizza le proposte valide \n"
 			+ "0) Salva e Esci"+LINEA;
 	
-	public static String MENU_SPAZIO_PERSONALE="Cosa vuoi fare?\n"
-			+ "1) Visualizza Notifiche\n"
-			+ "2) Rimuovi una notifica\n"
-			+ "0) Salva e Esci"+LINEA;
-
+	public static String MENU_SPAZIO_PERSONALE="Seleziona una notifica con il numero di indice per rimuoverla oppure 0 per toranre indietro"+LINEA;
+	public static String RIMOZIONE_NOTIFICA="Vuoi rimuovere la notifica selezionata? (S/Y per accettare N per rifiutare)"+LINEA;
 }

@@ -128,10 +128,16 @@ public class Proposta implements Serializable {
 	}
 	
 	public String header() {
-		String str=String.format("%10s", creatore.getNome());
+		String str=String.format("%-10s", creatore.getNome());
 		str=str+categoria.header();
 		return str;
 		
+	}
+	
+	public String toString() {
+		StringBuffer str= new StringBuffer();
+		str.append(creatore).append(Menu.LINEA).append(categoria);
+		return str.toString();
 	}
 
 }
