@@ -103,4 +103,12 @@ public class Bacheca implements Serializable {
 	public void setProposteAperte(ArrayList<Proposta> proposteAperte) {
 		this.proposteAperte = proposteAperte;
 	}
+
+	public ArrayList<Proposta> getProposteInvalide() {
+		return proposteInvalide;
+	}
+
+	public void setProposteInvalide(ArrayList<Proposta> proposteInvalide) {
+		this.proposteInvalide = proposteInvalide;
+	}
 }
