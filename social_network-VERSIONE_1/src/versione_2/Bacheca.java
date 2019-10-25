@@ -26,16 +26,20 @@ public class Bacheca implements Serializable {
 		p.aggiornaStato();
 	}
 	
-	//da aggiungere controllo if per vedere se l'utente è creatore della proposta
+	/**
+	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
+	 * @param n: indice della proposta nell'array di Bacheca 
+	 * @param u: utente che si vuole iscrivere
+	 */
 	public void iscrizioneProposta(int n, Utente u) {
 		if(proposteAperte.get(n).getStato() == Stato.CHIUSA)
-			System.out.println("La proposta è già chiusa e non vi si può iscrivere.");
+			System.out.println(Menu.PROPOSTA_CHIUSA);
 		else {
 			if(proposteAperte.get(n).getPartecipanti().contains(u))
-				System.out.println("Sei già iscritto a questa proposta");
+				System.out.println(Menu.ISCRIZIONE_RIDONDANTE);
 			else {
 				proposteAperte.get(n).aggiungiPartecipante(u);
-				System.out.println("Iscrizione effettuata!");
+				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);
 		}
 		}
 	}

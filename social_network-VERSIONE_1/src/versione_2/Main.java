@@ -9,9 +9,9 @@ public class Main {
 		Bacheca bacheca;
 		ListaUtenti listaUtenti;
 
-		if(IOFile.esistenzaDati("DATA.save"))
+		if(IOFile.esistenzaDati(Menu.DATI))
 		{
-			dati=(ContainerDati)IOFile.leggiDati("DATA.save");
+			dati=(ContainerDati)IOFile.leggiDati(Menu.DATI);
 			bacheca=dati.getBacheca();
 			listaUtenti=dati.getListaUtenti();
 		}
@@ -24,7 +24,7 @@ public class Main {
 		
 		String nome;
 		Utente utente;
-		nome=Input.leggiStringa("Inserisci il tuo nome utente..\n", true);
+		nome=Input.leggiStringa(Menu.UTENTE, true);
 		if(listaUtenti.contiene(nome))
 			utente=listaUtenti.estraiUtente(nome);
 		else{
@@ -47,7 +47,7 @@ public class Main {
 					{
 						int n=Input.yesNo(bacheca.getProposteAperte().get(b-1)+Menu.ISCRIZIONE_PROPOSTA);
 						if (n==1)bacheca.iscrizioneProposta(b-1, utente);
-						IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
+						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 					}
 				}while(b!=0);
 				break;
@@ -77,7 +77,7 @@ public class Main {
 									utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
 							}
 						}while(p2!=0);
-						IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
+						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 					}
 				}while(p!=0);
 				break;
@@ -94,7 +94,7 @@ public class Main {
 							}
 					}
 				}while(sp!=0);
-				IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
+				IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 				break;
 			case 4:
 				System.out.println("Spamming notifiche!!!\n\n");
@@ -113,7 +113,7 @@ public class Main {
 				break;
 		}
 		}while (i!=0);
-		IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
+		IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 	}
 
 }

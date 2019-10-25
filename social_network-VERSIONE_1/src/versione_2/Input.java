@@ -168,7 +168,10 @@ public class Input
 		
 	}
 	
-	
+	/**
+	 * Metodo con il quale viene implementata la scelta S/N e stampato a video un messaggio
+	 * @return 1 se si è selezionato S o Y, -1 se N e 0 in tutti gli altri casi 
+	 */
 	public static int yesNo(String message)
 	{
 		String choice;

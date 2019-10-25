@@ -23,29 +23,23 @@ public class Campo_Data extends Campo implements Serializable {
 	
 	
 	/**
-	 * Setter di valore.
-	 * Fa uso di un oggetto della classe Calendar il quale a sua volta genere un oggetto di Date contenente il valore assegnato al campo
-	 * @param anno
-	 * @param mese
-	 * @param giorno
-	 * @throws ParseException 
+	 * Metodo che imposta  valore attraverso una stringa formattata come indicato da Menu.FORMATO_DATA
 	 */
 	public void setValore(String data) throws ParseException {
-		valore=Input.parser_data.parse(data);
+		valore=Input.stringToDate(data);
 		
 	}
 	
+	/**
+	 * Metodo che ritorna una stringa nel formato Menu.FORMATO_DATA che indica valore
+	 */
 	public String getValore() {
 		return Input.dateToString(valore);
-		/*StringBuffer str = new StringBuffer();
-		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
-		str.append(c.get(Calendar.MONTH)+"/");
-		str.append(c.get(Calendar.YEAR)+" ");
-		str.append(c.get(Calendar.HOUR_OF_DAY)+":");
-		str.append(c.get(Calendar.MINUTE));
-		return str.toString();*/
-	}//il metodo non ritorna l'oggetto data bensì una stringa formattata "dd/MM/yyyy HH:mm"
+	}
 	
+	/**
+	 * Metodo con il quale è possibile stabilire se è stato attribuito o meno un valore al campo
+	 */
 	public boolean isInizializzato() {
 		if(valore!=null)return true;
 		return false;

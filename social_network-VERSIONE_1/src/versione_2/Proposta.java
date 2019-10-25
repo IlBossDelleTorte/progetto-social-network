@@ -16,6 +16,12 @@ public class Proposta implements Serializable {
 	private Utente creatore;
 	private ArrayList<String> logStati;
 	
+	
+	/**
+	 * Creatore della classe proposta
+	 * In fase di creazione un oggetto viene settato allo stato vuoto e ne viene creata la prima riga del file di log corrispondente
+	 * @param creatore: utente creatore della proposta
+	 */
 	public Proposta(Utente creatore) {
 		categoria=new Categoria(" "," ");
 		categoria.partitaDiCalcio();
@@ -25,14 +31,19 @@ public class Proposta implements Serializable {
 		aggiungiLog();
 	}
 	
+	/**
+	 * Metodo che elabora la routine per assegnare i valori ai campi di una proposta, il metodo effettua anche i controlli della validità
+	 * dei valori introdotti.
+	 * Le letture da terminale vengono effettuate dalla classe statica Input
+	 * @throws ParseException
+	 */
 	public void compilazione() throws ParseException {
 		ArrayList<Campo> c = categoria.getCampi();
 		int size = c.size();
-		SimpleDateFormat parser_data = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		for(int i = 0; i < size; i++) {
 			if(i == 4) {
 				c.get(i).compila();
-				if(parser_data.parse(c.get(i).getValore()).before(parser_data.parse(c.get(2).getValore()))) {
+				if(Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(2).getValore()))) {
 					System.out.println(Menu.ERRORE_DATA_INIZIO);
 					i--;
 				}
@@ -41,7 +52,7 @@ public class Proposta implements Serializable {
 			else if(i == 8) {
 				if(c.get(5).isInizializzato()) {
 					String str = c.get(5).getValore();
-					Date data_inizio = parser_data.parse(c.get(4).getValore());
+					Date data_inizio = Input.stringToDate(c.get(4).getValore());
 					Scanner s = new Scanner(str);
 					s.useDelimiter(",");
 					int ore = s.nextInt()*60;
@@ -55,7 +66,7 @@ public class Proposta implements Serializable {
 				
 				else {
 					c.get(i).compila();
-					if(c.get(i).isInizializzato() && parser_data.parse(c.get(i).getValore()).before(parser_data.parse(c.get(4).getValore()))) {
+					if(c.get(i).isInizializzato() && Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(4).getValore()))) {
 						System.out.println(Menu.ERRORE_DATA_FINE);
 						i--;
 					}
@@ -71,13 +82,18 @@ public class Proposta implements Serializable {
 		System.out.print(categoria);
 		this.aggiornaStato();
 		creatore.aggiungiPropostaValida(this);
-		System.out.println("La proposta è stata aggiunta con successo alla tua lista di proposte valide!");
+		System.out.println(Menu.COMPILAZIONE_EFFETTUATA);
 	}
 	
 	public void aggiungiPartecipante(Utente u) {
 		partecipanti.add(u);
 	}
 	
+	/**
+	 * Metodo con il quale viene cambiato lo stato di una proposta in accordo con le condizioni di transizione specifiche 
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
 	public void aggiornaStato() throws NumberFormatException, ParseException {
 		switch (this.stato) {
 		case VUOTA : 
@@ -127,6 +143,10 @@ public class Proposta implements Serializable {
 		}
 	}
 	
+	/**
+	 * Il metodo aggiunge una riga all'ArrayList dei log indicando:
+	 * Nome_Creatore Stato Data_attuale Numero_partecipanti_attuali
+	 */
 	public void aggiungiLog() {
 		logStati.add(String.format(Menu.FORMATO_LOG, creatore.getNome(), stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
 	}
@@ -151,6 +171,10 @@ public class Proposta implements Serializable {
 		return partecipanti;
 	}
 	
+	/**
+	 * Il metodo ritorna una stringa che riassume le informazioni principali di una proposta
+	 * @return
+	 */
 	public String header() {
 		String str=String.format("%-20s ", creatore.getNome());
 		str=str+categoria.header();
@@ -164,6 +188,9 @@ public class Proposta implements Serializable {
 		return str.toString();
 	}
 	
+	/**
+	 * Metodo di debug, stampa a video i logi riguardanti una proposta
+	 */
 	public void log() {
 		StringBuffer str=new StringBuffer();
 		logStati.forEach(s->str.append(s));

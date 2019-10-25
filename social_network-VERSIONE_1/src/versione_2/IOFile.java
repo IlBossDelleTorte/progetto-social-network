@@ -15,13 +15,19 @@ public class IOFile {
 	public static final String IO_ERROR="Errore di input/output";
 	public static final String ERROR="Errore";
 	
-	
+	/**
+	 * Metodo con il quale è possibile se i dati di salvataggio del programma esistono o meno, il controllo viene fatto nella stessa cartella
+	 * in cui è presente l'eseguibile del programma 
+	 */
 	public static boolean esistenzaDati(String name)
 	{
 		File f=new File(".",name);
 		return f.exists();
 	}
 	
+	/**
+	 * Metodo che crea il salvataggio dei dati del programma nella cartella in cui è posizionato l'eseguibile 
+	 */
 	public static void creaDati(String name) {
 		File f=new File(".",name);
 		try {
@@ -30,6 +36,12 @@ public class IOFile {
 			System.out.print(IO_ERROR);
 		}
 	}
+	
+	/**
+	 * Metodo che ritorna l'oggetto dei dati di salvataggio del programma 
+	 * @return leggiDati ritorna un oggetto di Object, è quindi necessario fare un casting alla classe rappresentate (nel nostro caso a 
+	 * ContainerDati)
+	 */
 	public static Object leggiDati(String name)
 	{
 		File f=new File(".",name);
@@ -57,7 +69,11 @@ public class IOFile {
 
 	}
 	
-	
+	/**
+	 * Metodo con il quale vengono salvati i dati del programma
+	 * @param name: nome del file di salvataggio
+	 * @param thing: classe container da salvare
+	 */
 	public static void salvaDati(String name,Object thing) 
 	{		
 		try

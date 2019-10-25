@@ -8,7 +8,7 @@ public class Campo_Float extends Campo implements Serializable {
 	public static final float VALORE_NULLO=-1;
 	
 	/**
-	 * Costruttore della classe Campo_Numerico.
+	 * Costruttore della classe Campo_Float.
 	 * L'assegnazione di VALORE_NULLO a valore è usata per determinare se è stato assegnato un valore alla classe.
 	 * @param nome
 	 * @param descrizione

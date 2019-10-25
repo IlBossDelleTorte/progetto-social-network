@@ -27,10 +27,18 @@ public class Utente implements Serializable {
 	this.nome = nome;
  }
  
+ /**
+  * Il metodo permette ad utente di ricevere una notifica, ovvero di aggiungere una stringa esterna al proprio spazio personale
+  * @param s: notifica ricevuta
+  */
  public void riceviNotifica(String s) {
 	 spazioPersonale.add(s);
  }
  
+ /**
+  * IL metodo effettua la cancellazione di una notifica dello spazio personale
+  * @param i: indice della notifica da rimuovere
+  */
  public void rimuoviNotifica(int i) {
 	 spazioPersonale.remove(i);
  }
