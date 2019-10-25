@@ -37,7 +37,9 @@ public class Main {
 		{
 			i=Input.leggiInt(Menu.MENU_INIZIALE, true);
 			switch(i) {
-			case 1://Accesso alla bacheca per iscriviersi ad una proposta
+			case 1://Accesso alla bacheca per iscriversi ad una proposta
+				bacheca.aggiorna();
+				bacheca.pulisci();
 				int b=0;
 				do {
 					b=Input.leggiInt(bacheca+Menu.MESSAGGIO_BACHECA, true);
@@ -64,12 +66,15 @@ public class Main {
 							p2=Input.leggiInt(utente.elencoProposteValide()+Menu.MESSAGGIO_PUBBLICAZIONE, true);
 							if(p2<=utente.getProposteValide().size() && p2>0)
 							{
-								int n=Input.yesNo(utente.getProposteValide().get(p2-1)+Menu.PUBBLICAZIONE_PROPOSTA);
+								int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Menu.GESTIONE_PROPOSTA,true);
 								if (n==1)
 									{
 									bacheca.aggiungiPropostaAperta(utente.getProposteValide().get(p2-1));
 									utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
+									System.out.print(Menu.PUBBLICAZIONE_EFFETTUATA);
 									}
+								if (n==2)
+									utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
 							}
 						}while(p2!=0);
 						IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati

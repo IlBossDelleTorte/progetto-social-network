@@ -22,11 +22,14 @@ public class Menu {
 			+ "Oppure 0 per tornare indietro"
 			+LINEA;
 	
-	public static String MESSAGGIO_PUBBLICAZIONE ="Seleziona una proposta con il numero di indice per visualizzare i dettagli ed eventualmente pubblicarla\n"
+	public static String MESSAGGIO_PUBBLICAZIONE ="Seleziona una proposta con il numero di indice per visualizzare i dettagli e pubblicarla o cancellarla\n"
 			+ "Oppure 0 per tornare indietro"
 			+LINEA;
 	public static String ISCRIZIONE_PROPOSTA="Vuoi iscriverti alla proposta? (S/Y per accettare N per rifiutare)"+LINEA;
-	public static String PUBBLICAZIONE_PROPOSTA="Vuoi pubblicare la proposta? (S/Y per accettare N per rifiutare)"+LINEA;
+	public static String GESTIONE_PROPOSTA="Cosa vuoi fare? "
+			+ "1) Pubblica la proposta"
+			+ "2) Elimina la proposta"
+			+ "0) Torna indietro";
 	
 	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è afallito, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
@@ -44,4 +47,6 @@ public class Menu {
 	
 	public static String MENU_SPAZIO_PERSONALE="Seleziona una notifica con il numero di indice per rimuoverla oppure 0 per toranre indietro"+LINEA;
 	public static String RIMOZIONE_NOTIFICA="Vuoi rimuovere la notifica selezionata? (S/Y per accettare N per rifiutare)"+LINEA;
+
+	public static String PUBBLICAZIONE_EFFETTUATA="La proposta è stata pubblicata con successo.\n";
 }

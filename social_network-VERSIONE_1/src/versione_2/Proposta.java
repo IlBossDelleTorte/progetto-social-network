@@ -14,12 +14,15 @@ public class Proposta implements Serializable {
 	private Stato stato;
 	private HashSet<Utente> partecipanti=new HashSet<Utente>();
 	private Utente creatore;
+	private ArrayList<String> logStati;
 	
 	public Proposta(Utente creatore) {
 		categoria=new Categoria(" "," ");
 		categoria.partitaDiCalcio();
 		this.creatore=creatore;
 		stato=Stato.VUOTA;
+		logStati = new ArrayList<>();
+		logStati.add(String.format(FORMATO_LOG, creatore, stato, Input.dateToString(new Date()), partecipanti.size()));
 	}
 	
 	public void compilazione() throws ParseException {
@@ -79,25 +82,42 @@ public class Proposta implements Serializable {
 		switch (this.stato) {
 		case VUOTA : 
 			stato = Stato.VALIDA;
+			aggiungiLog();
 			break;
 		case VALIDA :
+			//nel caso in cui l'utente avesse una proposta valida e le condizioni non fossero rispettate
+			//prima che questa venga pubblicata, questa passa direttamente a fallita
+			if(partecipanti.size() < Integer.parseInt(categoria.getCampi().get(1).getValore())
+					&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date())) {
+				stato = Stato.FALLITA;
+				aggiungiLog();
+			}
+			else {
 			stato = Stato.APERTA;
+			aggiungiLog();
+			}
 			break;
 		case APERTA :
 			if(Integer.parseInt(categoria.getCampi().get(1).getValore()) == partecipanti.size()
-			&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date()))
+			&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date())) {
 				stato = Stato.CHIUSA;
+				aggiungiLog();
+			}
 			else if(partecipanti.size() < Integer.parseInt(categoria.getCampi().get(1).getValore())
-					&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date()))
+					&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date())) {
 				stato = Stato.FALLITA;
+				aggiungiLog();
+			}
 			break;
 		case CHIUSA :
 			Calendar c = Calendar.getInstance();
 			c.setTime(Input.stringToDate(categoria.getCampi().get(4).getValore()));
 			c.add(Calendar.DAY_OF_MONTH, 1);
 			Date d = c.getTime();
-			if(new Date().after(d))
+			if(new Date().after(d)) {
 				stato = Stato.CONCLUSA;
+				aggiungiLog();
+			}
 			break;
 		default :
 			break;
@@ -105,6 +125,10 @@ public class Proposta implements Serializable {
 				
 			
 		}
+	}
+	
+	public void aggiungiLog() {
+		logStati.add(String.format(FORMATO_LOG, creatore, stato, Input.dateToString(new Date()), partecipanti.size()));
 	}
 
 	public Stato getStato() {
