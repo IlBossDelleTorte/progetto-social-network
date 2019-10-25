@@ -46,7 +46,7 @@ public class Proposta implements Serializable {
 					Calendar dataTerm = Calendar.getInstance();
 					dataTerm.setTime(data_inizio);
 					dataTerm.add(Calendar.MINUTE, ore+min);
-					String val=Input.calToString(dataTerm);
+					String val=Input.dateToString(dataTerm.getTime());
 					c.get(i).setValore(val);
 				}
 				

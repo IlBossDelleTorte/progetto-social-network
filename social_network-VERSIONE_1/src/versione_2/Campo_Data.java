@@ -37,9 +37,7 @@ public class Campo_Data extends Campo implements Serializable {
 	}
 	
 	public String getValore() {
-		Calendar c = Calendar.getInstance();
-		c.setTime(valore);
-		return Input.calToString(c);
+		return Input.dateToString(valore);
 		/*StringBuffer str = new StringBuffer();
 		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
 		str.append(c.get(Calendar.MONTH)+"/");

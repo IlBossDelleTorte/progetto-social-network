@@ -142,10 +142,12 @@ public class Input
 		input.close();
 	}
 	
-	public static String calToString(Calendar c) {
+	public static String dateToString(Date d) {
+		Calendar c= Calendar.getInstance();
+		c.setTime(d);
 		StringBuffer str = new StringBuffer();
 		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
-		str.append(c.get(Calendar.MONTH)+"/");
+		str.append((c.get(Calendar.MONTH)+1)+"/");//+1 perchè i mesi sono contati a partire da 0
 		str.append(c.get(Calendar.YEAR)+" ");
 		str.append(c.get(Calendar.HOUR_OF_DAY)+":");
 		str.append(c.get(Calendar.MINUTE));

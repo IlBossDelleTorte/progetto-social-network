@@ -2,7 +2,7 @@ package versione_2;
 
 public class Menu {
 	
-	public static String LINEA="\n___________________________________________________________________________________________________________________________\n\n";
+	public static String LINEA="\n________________________________________________________________________________________________________________________________________________________________________________________________________________________\n\n";
 	
 	public static String COMPILAZIONE_FLOAT="Inserisci il valore numerico nel formato xxx,yyy";
 	public static String COMPILAZIONE_INT="Inserisci il valore numerico intero";
