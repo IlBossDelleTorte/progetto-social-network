@@ -31,8 +31,7 @@ public class Campo_Data extends Campo implements Serializable {
 	 * @throws ParseException 
 	 */
 	public void setValore(String data) throws ParseException {
-		SimpleDateFormat parser = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		valore=parser.parse(data);
+		valore=Input.parser_data.parse(data);
 		
 	}
 	

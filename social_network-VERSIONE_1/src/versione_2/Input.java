@@ -11,6 +11,7 @@ import java.util.Vector;
 public class Input 
 {
 	public static Scanner input= new Scanner(System.in);
+	public static SimpleDateFormat parser_data= new SimpleDateFormat(Menu.FORMATO_DATA);
 	public static final String ERRORE="Input non valido";
 	public static final String ERRORE_DATA="La data inserita non può essere anteriore a quella odierna";
 	//public static final String ERROR_NOT_FOUND="File non trovato";
@@ -54,9 +55,8 @@ public class Input
 			else if(temp.equals("*")&& !obbligatorio)return null;
 			else
 			{
-				SimpleDateFormat parser= new SimpleDateFormat("dd/MM/yyyy HH:mm");
 				try {
-					r=parser.parse(temp);
+					r=parser_data.parse(temp);
 					getInput=true;
 					if(r.before(new Date()))
 					{
@@ -143,22 +143,14 @@ public class Input
 	}
 	
 	public static String dateToString(Date d) {
-		Calendar c= Calendar.getInstance();
-		c.setTime(d);
-		StringBuffer str = new StringBuffer();
-		str.append(c.get(Calendar.DAY_OF_MONTH)+"/");
-		str.append((c.get(Calendar.MONTH)+1)+"/");//+1 perchè i mesi sono contati a partire da 0
-		str.append(c.get(Calendar.YEAR)+" ");
-		str.append(c.get(Calendar.HOUR_OF_DAY)+":");
-		str.append(c.get(Calendar.MINUTE));
-		return str.toString();
+		return parser_data.format(d);
+		
 	}
 	
 	public static Date stringToDate(String str)  {
-		SimpleDateFormat parser= new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date d = null;
 		try {
-				d = parser.parse(str);
+				d = parser_data.parse(str);
 		} catch (ParseException e) {
 			System.out.println("Il programma è andato incontro ad un errore, riavviare l'applicazione.");
 			System.exit(1);

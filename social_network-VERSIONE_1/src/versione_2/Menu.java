@@ -4,6 +4,7 @@ public class Menu {
 	
 	public static String LINEA="\n________________________________________________________________________________________________________________________________________________________________________________________________________________________\n\n";
 	
+	public static String FORMATO_DATA="dd/MM/yyyy HH:mm";
 	public static String COMPILAZIONE_FLOAT="Inserisci il valore numerico nel formato xxx,yyy";
 	public static String COMPILAZIONE_INT="Inserisci il valore numerico intero";
 	public static String COMPILAZIONE_STRINGA="Inserisci il valore del campo (non può superare i trenta caratteri)";
@@ -15,7 +16,7 @@ public class Menu {
 	public static String ERRORE_DATA_INIZIO="La data di inizio non può essere precedente al termine ultimo di iscrizione";
 	public static String ERRORE_DATA_FINE="La data di termine evento non può essere precedente alla data di inizio";
 	
-	public static String HEADER_BACHECA=String.format("%-2s %-10s %-20s %-14s %-14s %-10s %-4s", "i","Creatore","Categoria","Data Evento","Scadenza"
+	public static String HEADER_BACHECA=String.format("%-2s %-20s %-30s %-24s %-24s %-20s %-14s", "i","Creatore","Categoria","Data Evento","Scadenza"
 			,"Luogo","Prezzo");
 	public static String MESSAGGIO_BACHECA="Seleziona una proposta con il numero di indice per visualizzare i dettagli ed eventualmente iscriverti\n"
 			+ "Oppure 0 per tornare indietro"

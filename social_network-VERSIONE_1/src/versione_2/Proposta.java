@@ -128,7 +128,7 @@ public class Proposta implements Serializable {
 	}
 	
 	public String header() {
-		String str=String.format("%-10s", creatore.getNome());
+		String str=String.format("%-20s ", creatore.getNome());
 		str=str+categoria.header();
 		return str;
 		
