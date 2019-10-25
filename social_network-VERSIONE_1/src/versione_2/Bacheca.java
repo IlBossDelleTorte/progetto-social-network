@@ -62,13 +62,13 @@ public class Bacheca implements Serializable {
 	 * Prima della rimozione viene inviata un'opportuna notifica a tutti i partecipanti della proposta rimossa
 	 */
 	public void pulisci() {
-		String notificas=Menu.NOTIFICA_SUCCESSO;
-		String notificaf=Menu.NOTIFICA_FALLIMENTO;
+		String notificas;
+		String notificaf;
 		for(int i = 0; i < proposteAperte.size(); i++) {
 			HashSet<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
-				notificas=notificas+proposteAperte.get(i).header();
+				notificas=Menu.NOTIFICA_SUCCESSO+"\t  "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
 					u.riceviNotifica(notificas);
 				}
@@ -76,7 +76,7 @@ public class Bacheca implements Serializable {
 			}
 			else if(proposteAperte .get(i).getStato() == Stato.FALLITA)
 			{
-				notificaf=notificaf+proposteAperte.get(i).header();
+				notificaf=Menu.NOTIFICA_FALLIMENTO+"\t  "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
 					u.riceviNotifica(notificaf);
 				}

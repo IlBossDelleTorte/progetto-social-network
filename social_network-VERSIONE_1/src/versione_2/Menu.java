@@ -32,7 +32,7 @@ public class Menu {
 			+ "2) Elimina la proposta"
 			+ "0) Torna indietro";
 	
-	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
+	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è afallito, eccoti il resoconto\n"+HEADER_BACHECA+"\n";
 	
 	public static String MENU_INIZIALE="Cosa vuoi fare?\n"
