@@ -5,6 +5,7 @@ public class Menu {
 	public static String LINEA="\n________________________________________________________________________________________________________________________________________________________________________________________________________________________\n\n";
 	
 	public static String FORMATO_DATA="dd/MM/yyyy HH:mm";
+	public static String FORMATO_LOG="%-20s %-12s %-24s %2d";
 	public static String COMPILAZIONE_FLOAT="Inserisci il valore numerico nel formato xxx,yyy";
 	public static String COMPILAZIONE_INT="Inserisci il valore numerico intero";
 	public static String COMPILAZIONE_STRINGA="Inserisci il valore del campo (non può superare i trenta caratteri)";

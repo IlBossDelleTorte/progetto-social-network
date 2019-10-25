@@ -22,7 +22,7 @@ public class Proposta implements Serializable {
 		this.creatore=creatore;
 		stato=Stato.VUOTA;
 		logStati = new ArrayList<>();
-		logStati.add(String.format(FORMATO_LOG, creatore, stato, Input.dateToString(new Date()), partecipanti.size()));
+		aggiungiLog();
 	}
 	
 	public void compilazione() throws ParseException {
@@ -128,7 +128,7 @@ public class Proposta implements Serializable {
 	}
 	
 	public void aggiungiLog() {
-		logStati.add(String.format(FORMATO_LOG, creatore, stato, Input.dateToString(new Date()), partecipanti.size()));
+		logStati.add(String.format(Menu.FORMATO_LOG, creatore, stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
 	}
 
 	public Stato getStato() {
@@ -162,6 +162,13 @@ public class Proposta implements Serializable {
 		StringBuffer str= new StringBuffer();
 		str.append(creatore).append(Menu.LINEA).append(categoria);
 		return str.toString();
+	}
+	
+	public void log() {
+		StringBuffer str=new StringBuffer();
+		logStati.forEach(s->str.append(s));
+		System.out.print(str.toString());
+		
 	}
 
 }

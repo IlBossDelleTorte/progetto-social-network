@@ -142,11 +142,19 @@ public class Input
 		input.close();
 	}
 	
+	/**
+	 * Metodo che converte una data in una stringa nel formato dd/MM/yyyy HH:mm
+	 * @param d data da convertire 
+	 */
 	public static String dateToString(Date d) {
 		return parser_data.format(d);
 		
 	}
 	
+	/**
+	 * Metodo che ritorna un oggetto Date parsato da una stringa nel formato dd/MM/yyyy HH:mm
+	 * @param str stringa da parsare 
+	 */
 	public static Date stringToDate(String str)  {
 		Date d = null;
 		try {
@@ -159,6 +167,7 @@ public class Input
 		return d;
 		
 	}
+	
 	
 	public static int yesNo(String message)
 	{
