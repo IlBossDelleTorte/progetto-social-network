@@ -100,7 +100,17 @@ public class Main {
 			case 4:
 				System.out.println("Spamming notifiche!!!\n\n");
 				utente.riceviNotifica("NEGRO");
-			}
+			case 5 :
+				for(Proposta proposta : utente.getProposteValide())
+					proposta.log();
+				}
+				for(Proposta proposta : bacheca.getProposteAperte()) {
+					proposta.log();
+				}
+				for(Proposta proposta : bacheca.getProposteInvalide()) {
+					proposta.log();
+				}
+			
 		}while (i!=0);
 		IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
 	}

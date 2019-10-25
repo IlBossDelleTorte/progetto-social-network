@@ -99,6 +99,7 @@ public class Bacheca implements Serializable {
 	public ArrayList<Proposta> getProposteAperte() {
 		return proposteAperte;
 	}
+	
 
 	public void setProposteAperte(ArrayList<Proposta> proposteAperte) {
 		this.proposteAperte = proposteAperte;
