@@ -78,7 +78,6 @@ public class Main {
 							}
 						}while(p2!=0);
 						IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
-						break;
 					}
 				}while(p!=0);
 				break;
@@ -100,17 +99,19 @@ public class Main {
 			case 4:
 				System.out.println("Spamming notifiche!!!\n\n");
 				utente.riceviNotifica("NEGRO");
+				break;
 			case 5 :
 				for(Proposta proposta : utente.getProposteValide())
 					proposta.log();
-				}
+				
 				for(Proposta proposta : bacheca.getProposteAperte()) {
 					proposta.log();
 				}
 				for(Proposta proposta : bacheca.getProposteInvalide()) {
 					proposta.log();
 				}
-			
+				break;
+		}
 		}while (i!=0);
 		IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
 	}

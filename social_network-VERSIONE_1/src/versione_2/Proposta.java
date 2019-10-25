@@ -128,7 +128,7 @@ public class Proposta implements Serializable {
 	}
 	
 	public void aggiungiLog() {
-		logStati.add(String.format(Menu.FORMATO_LOG, creatore, stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
+		logStati.add(String.format(Menu.FORMATO_LOG, creatore.getNome(), stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
 	}
 
 	public Stato getStato() {
