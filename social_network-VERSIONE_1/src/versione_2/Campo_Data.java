@@ -60,8 +60,8 @@ public class Campo_Data extends Campo implements Serializable {
 	public void compila() {
 		System.out.print(this.toString()+Menu.LINEA);
 		String str=Menu.COMPILAZIONE_DATA;
-		if(this.isObbligatorio())str=str+Menu.LINEA;
-		else str=str+Menu.FACOLTATIVO_DATA+Menu.LINEA;
+		if(this.isObbligatorio())str=str;
+		else str=str+Menu.FACOLTATIVO_DATA;
 		this.valore=Input.leggiData(str,this.isObbligatorio());
 		
 	}

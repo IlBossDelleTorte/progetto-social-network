@@ -3,7 +3,18 @@ package versione_2;
 public class Menu {
 	
 	//Utilities
-	public static String LINEA="\n_____________________________________________________________________________________________________________________________________________________________________________________\n";
+	public static String creaLinea() {
+		StringBuffer linea = new StringBuffer();
+		linea.append("\n");
+		for(int i=0; i < 150; i++) {
+			linea.append("_");
+		}
+		linea.append("\n");
+		return linea.toString();
+	}
+	
+	public static String LINEA=creaLinea();
+
 	
 	//Stringhe per il formato dei dati
 	public static String FORMATO_DATA="dd/MM/yyyy HH:mm";
@@ -14,7 +25,7 @@ public class Menu {
 	public static String COMPILAZIONE_INT="INSERISCI IL VALORE NUMERICO INTERO";
 	public static String COMPILAZIONE_STRINGA="INSERISCI IL VALORE DEL CAMPO (NON PUÒ SUPERARE I TRENTA CARATTERI)";
 	public static String COMPILAZIONE_DATA="INSERISCI LA DATA E ORA NEL FORMATO gg/mm/aaaa hh:mm";
-	public static String COMPILAZIONE_EFFETTUATA="LA PROPOSTA È STATA AGGIUNTA CON SUCCESSO ALLA TUA LISTA DI PROPOSTE VALIDE!";
+	public static String COMPILAZIONE_EFFETTUATA="\nLA PROPOSTA È STATA AGGIUNTA CON SUCCESSO ALLA TUA LISTA DI PROPOSTE VALIDE!";
 	
 	//Stringhe dei campi facoltativi 
 	public static String FACOLTATIVO_STRINGA=" OPPURE * PER SALTARE LA COMPILAZIONE DI QUESTO CAMPO";
@@ -30,8 +41,8 @@ public class Menu {
 			+ "OPPURE 0 PER TORNARE INDIETRO";
 	public static String HEADER_BACHECA=String.format("%-2s %-20s %-30s %-24s %-24s %-30s %-14s", "i","Creatore","Categoria","Data Evento","Scadenza"
 			,"Luogo","Prezzo");
-	public static String ISCRIZIONE_PROPOSTA="VUOI ISCRIVERTI ALLA PROPOSTA? (S/Y PER ACCETTARE N PER RIFIUTARE)";
-	public static String ISCRIZIONE_RIDONDANTE="SEI GIÀ ISCRITTO A QUESTA PROPOSTA";
+	public static String ISCRIZIONE_PROPOSTA=LINEA+"VUOI ISCRIVERTI ALLA PROPOSTA? (S/Y PER ACCETTARE N PER RIFIUTARE)";
+	public static String ISCRIZIONE_RIDONDANTE="SEI GIÀ ISCRITTO A QUESTA PROPOSTA"+LINEA;
 	public static String ISCRIZIONE_EFFETTUATA="ISCRIZIONE EFFETTUATA!";
 	public static String PROPOSTA_CHIUSA="LA PROPOSTA È GIÀ CHIUSA E NON VI SI PUÒ ISCRIVERE.";
 	public static String PROPOSTE_APERTE_VUOTO="NON È PRESENTE ALCUNA PROPOSTA APERTA NELLA BACHECA\n";

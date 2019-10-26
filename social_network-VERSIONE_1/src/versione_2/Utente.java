@@ -86,7 +86,7 @@ public String elencoNotifiche() {
 	StringBuffer str=new StringBuffer();
 	for(int i=0;i<spazioPersonale.size();i++)
 	{
-		str.append(String.format("%-2s %s", i+1,spazioPersonale.get(i))).append(Menu.LINEA);
+		str.append(String.format("%-2s %s", i+1,spazioPersonale.get(i))).append("\n\n");
 	}
 	return str.toString();
 }

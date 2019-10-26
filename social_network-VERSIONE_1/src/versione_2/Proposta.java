@@ -115,7 +115,7 @@ public class Proposta implements Serializable {
 			break;
 		case APERTA :
 			if(Integer.parseInt(categoria.getCampi().get(1).getValore()) == partecipanti.size()
-			&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date())) {
+			&& Input.stringToDate(categoria.getCampi().get(2).getValore()).after(new Date())) {
 				stato = Stato.CHIUSA;
 				aggiungiLog();
 			}

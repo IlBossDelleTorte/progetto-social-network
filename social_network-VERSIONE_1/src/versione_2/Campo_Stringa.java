@@ -53,8 +53,8 @@ public class Campo_Stringa extends Campo implements Serializable {
 	public void compila() {
 		System.out.print(this.toString()+Menu.LINEA);
 		String str=Menu.COMPILAZIONE_STRINGA;
-		if(this.isObbligatorio())str=str+Menu.LINEA;
-		else str=str+Menu.FACOLTATIVO_STRINGA+Menu.LINEA;
+		if(this.isObbligatorio())str=str;
+		else str=str+Menu.FACOLTATIVO_STRINGA;
 		this.valore=Input.leggiStringa(str,this.isObbligatorio());
 	}
 	

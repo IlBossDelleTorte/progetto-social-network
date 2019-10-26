@@ -38,13 +38,12 @@ public class Main {
 			i=Input.leggiInt(Menu.MENU_INIZIALE, true);
 			switch(i) {
 			case 1://Accesso alla bacheca per iscriversi ad una proposta
+				bacheca.aggiorna();
 				if(bacheca.getProposteAperte().size() == 0) {
 					System.out.print(Menu.PROPOSTE_APERTE_VUOTO);
 					break;
 				}
 				else {
-					bacheca.aggiorna();
-					bacheca.pulisci();
 					int b=0;
 					do {
 						b=Input.leggiInt(bacheca+Menu.MESSAGGIO_BACHECA, true);
@@ -58,6 +57,7 @@ public class Main {
 					break;
 				}
 			case 2://Accesso al menu proposta
+				bacheca.aggiorna();
 				int p=0;
 				do {
 					p=Input.leggiInt(Menu.MENU_PROPOSTE, true);
@@ -95,6 +95,7 @@ public class Main {
 				break;
 
 			case 3: //Accesso allo spazio personale
+				bacheca.aggiorna();
 				int sp=0;
 				if(utente.getSpazioPersonale().size() == 0)	{
 					System.out.print(Menu.SPAZIO_PERSONALE_VUOTO);
@@ -105,7 +106,7 @@ public class Main {
 						sp=Input.leggiInt(utente.elencoNotifiche()+Menu.MENU_SPAZIO_PERSONALE, true);
 						if(sp<=utente.getSpazioPersonale().size() && sp>0) {
 						
-							int n=Input.yesNo(utente.getSpazioPersonale().get(sp-1)+Menu.RIMOZIONE_NOTIFICA);
+							int n=Input.yesNo(utente.getSpazioPersonale().get(sp-1)+Menu.LINEA+Menu.RIMOZIONE_NOTIFICA);
 							if (n==1)
 								{
 								utente.rimuoviNotifica(sp-1);

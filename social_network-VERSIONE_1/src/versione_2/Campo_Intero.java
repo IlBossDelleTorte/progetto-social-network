@@ -44,8 +44,8 @@ public class Campo_Intero extends Campo implements Serializable {
 	public void compila() {
 		System.out.print(this.toString()+Menu.LINEA);
 		String str=Menu.COMPILAZIONE_INT;
-		if(this.isObbligatorio())str=str+Menu.LINEA;
-		else str=str+Menu.FACOLTATIVO_NUMERICO+Menu.LINEA;
+		if(this.isObbligatorio())str=str;
+		else str=str+Menu.FACOLTATIVO_NUMERICO;
 		this.valore=Input.leggiInt(str,this.isObbligatorio());
 	}
 	
