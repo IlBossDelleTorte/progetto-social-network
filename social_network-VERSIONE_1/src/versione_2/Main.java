@@ -84,6 +84,8 @@ public class Main {
 											}
 										if (n==2)
 											utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
+										if(utente.getProposteValide().size() == 0)
+											break;
 									}
 								}while(p2!=0);
 						}
@@ -103,13 +105,15 @@ public class Main {
 						sp=Input.leggiInt(utente.elencoNotifiche()+Menu.MENU_SPAZIO_PERSONALE, true);
 						if(sp<=utente.getSpazioPersonale().size() && sp>0) {
 						
-							int n=Input.yesNo(utente.getSpazioPersonale().get(sp-1)+Menu.LINEA+Menu.RIMOZIONE_NOTIFICA);
+							int n=Input.yesNo(utente.getSpazioPersonale().get(sp-1)+Menu.RIMOZIONE_NOTIFICA);
 							if (n==1)
 								{
 								utente.rimuoviNotifica(sp-1);
 								}
 						}
-					}while(sp!=0);
+						if(utente.getSpazioPersonale().size() == 0)
+							break;
+					}while(sp!=0);					
 					IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 					break;
 				}
