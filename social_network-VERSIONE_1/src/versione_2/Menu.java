@@ -59,7 +59,7 @@ public class Menu {
 			+ "1) Compila nuova proposta\n"
 			+ "2) Visualizza le proposte valide \n"
 			+ "0) Salva e Esci"+LINEA;
-	public static String MENU_SPAZIO_PERSONALE="Seleziona una notifica con il numero di indice per rimuoverla oppure 0 per toranre indietro"+LINEA;
+	public static String MENU_SPAZIO_PERSONALE="Seleziona una notifica con il numero di indice per rimuoverla oppure 0 per tornare indietro"+LINEA;
 	
 	
 	public static String RIMOZIONE_NOTIFICA="Vuoi rimuovere la notifica selezionata? (S/Y per accettare N per rifiutare)"+LINEA;

@@ -72,7 +72,7 @@ public class Bacheca implements Serializable {
 			HashSet<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
-				notificas=Menu.NOTIFICA_SUCCESSO+"\t  "+proposteAperte.get(i).header();
+				notificas=Menu.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
 					u.riceviNotifica(notificas);
 				}
@@ -80,7 +80,7 @@ public class Bacheca implements Serializable {
 			}
 			else if(proposteAperte .get(i).getStato() == Stato.FALLITA)
 			{
-				notificaf=Menu.NOTIFICA_FALLIMENTO+"\t  "+proposteAperte.get(i).header();
+				notificaf=Menu.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
 					u.riceviNotifica(notificaf);
 				}
