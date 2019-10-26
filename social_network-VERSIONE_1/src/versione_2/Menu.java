@@ -28,12 +28,13 @@ public class Menu {
 	//Stringhe della bacheca
 	public static String MESSAGGIO_BACHECA =LINEA+"SELEZIONA UNA PROPOSTA CON IL NUMERO DI INDICE PER VISUALIZZARE I DETTAGLI ED EVENTUALMENTE ISCRIVERTI\n"
 			+ "OPPURE 0 PER TORNARE INDIETRO";
-	public static String HEADER_BACHECA=String.format("%-2s %-20s %-30s %-24s %-24s %-20s %-14s", "i","Creatore","Categoria","Data Evento","Scadenza"
+	public static String HEADER_BACHECA=String.format("%-2s %-20s %-30s %-24s %-24s %-30s %-14s", "i","Creatore","Categoria","Data Evento","Scadenza"
 			,"Luogo","Prezzo");
 	public static String ISCRIZIONE_PROPOSTA="VUOI ISCRIVERTI ALLA PROPOSTA? (S/Y PER ACCETTARE N PER RIFIUTARE)"+LINEA;
 	public static String ISCRIZIONE_RIDONDANTE="SEI GIÀ ISCRITTO A QUESTA PROPOSTA";
 	public static String ISCRIZIONE_EFFETTUATA="ISCRIZIONE EFFETTUATA!";
 	public static String PROPOSTA_CHIUSA="LA PROPOSTA È GIÀ CHIUSA E NON VI SI PUÒ ISCRIVERE.";
+	public static String PROPOSTE_APERTE_VUOTO="NON È PRESENTE ALCUNA PROPOSTA APERTA NELLA BACHECA";
 	//Stringhe del menu delle proposte
 	public static String MESSAGGIO_PUBBLICAZIONE ="SELEZIONA UNA PROPOSTA CON IL NUMERO DI INDICE PER VISUALIZZARE I DETTAGLI E PUBBLICARLA O CANCELLARLA\n"
 			+ "OPPURE 0 PER TORNARE INDIETRO"
@@ -43,12 +44,12 @@ public class Menu {
 			+ "2) ELIMINA LA PROPOSTA\n"
 			+ "0) TORNA INDIETRO";
 	public static String PUBBLICAZIONE_EFFETTUATA="LA PROPOSTA È STATA PUBBLICATA CON SUCCESSO.\n";
+	public static String PROPOSTE_VALIDE_VUOTO = "NON È PRESENTE ALCUNA PROPOSTA VALIDA\n";
 	
 	
 	//Notifiche inviate automaticamente
 	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è fallito, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
-	
 	//Menu vari
 	public static String MENU_INIZIALE="COSA VUOI FARE?\n"
 			+ "1) VISUALIZZA BACHECA\n"
@@ -62,6 +63,7 @@ public class Menu {
 	public static String MENU_SPAZIO_PERSONALE="SELEZIONA UNA NOTIFICA CON IL NUMERO DI INDICE PER RIMUOVERLA OPPURE 0 PER TORNARE INDIETRO"+LINEA;
 	
 	
+	public static String SPAZIO_PERSONALE_VUOTO="NON HAI NESSUNA NUOVA NOTIFICA";
 	public static String RIMOZIONE_NOTIFICA="VUOI RIMUOVERE LA NOTIFICA SELEZIONATA? (S/Y PER ACCETTARE N PER RIFIUTARE)"+LINEA;
 	public static String UTENTE="INSERISCI IL TUO NOME UTENTE..\n";
 	public static String DATI="DATA.save";

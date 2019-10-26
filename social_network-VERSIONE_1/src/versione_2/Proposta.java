@@ -184,7 +184,7 @@ public class Proposta implements Serializable {
 	
 	public String toString() {
 		StringBuffer str= new StringBuffer();
-		str.append(creatore).append(Menu.LINEA).append(categoria);
+		str.append(creatore.getNome()).append(Menu.LINEA).append(categoria);
 		return str.toString();
 	}
 	
