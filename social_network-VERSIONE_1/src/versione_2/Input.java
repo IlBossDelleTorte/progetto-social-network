@@ -3,6 +3,7 @@ import java.io.*;
 import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -187,6 +188,16 @@ public class Input
 		
 		default:return 0;			
 		}		
+	}
+	
+	public static String proposteToString(ArrayList<Proposta> l) {
+		StringBuffer str= new StringBuffer(String.format(Menu.HEADER_BACHECA));
+		str.append(Menu.LINEA);
+		
+		for(int i=0;i<l.size();i++) {
+			str.append(String.format("%2s %s", i+1,l.get(i).header())).append("\n");
+		}
+		return str.toString();
 	}
 	
 

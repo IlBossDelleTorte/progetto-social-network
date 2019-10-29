@@ -73,10 +73,10 @@ public class Main {
 						}
 							else {
 								do {
-									p2=Input.leggiInt(utente.elencoProposteValide()+Menu.MESSAGGIO_PUBBLICAZIONE, true);
+									p2=Input.leggiInt(Input.proposteToString(utente.getProposteValide())+Menu.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 									if(p2<=utente.getProposteValide().size() && p2>0)
 									{
-										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Menu.GESTIONE_PROPOSTA,true);
+										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Menu.GESTIONE_PROPOSTA_VALIDA,true);
 										if (n==1){
 											bacheca.aggiungiPropostaAperta(utente.getProposteValide().get(p2-1));
 											utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
@@ -90,6 +90,17 @@ public class Main {
 								}while(p2!=0);
 						}
 						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+						break;
+					case 3: 
+						int p3=0;
+						if(bacheca.getIscrizioni(utente).size()==0) {
+							System.out.print(Menu.ELENCO_ISCRIZIONE_VUOTO);
+						}
+						else {
+							do {
+								p3=Input.leggiInt(bacheca.getIscrizioni(utente)+Menu.MESSAGGIO_SELEZIONE_PROPOSTA, true);
+							}
+						}
 						}
 					}while(p!=0);
 				break;

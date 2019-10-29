@@ -71,16 +71,16 @@ public void setProposteValide(ArrayList<Proposta> proposteValide) {
 	this.proposteValide = proposteValide;
 }
  
-public String elencoProposteValide() {
+/* public String elencoProposteValide() {
 	StringBuffer str= new StringBuffer(String.format(Menu.HEADER_BACHECA));
 	str.append(Menu.LINEA);
 	
 	for(int i=0;i<proposteValide.size();i++) {
 		str.append(String.format("%2s %s", i+1,proposteValide.get(i).header())).append("\n");
 	}
-	return str.toString();
+	return str.toString(); 
 	
-}
+} */
 
 public String elencoNotifiche() {
 	StringBuffer str=new StringBuffer();

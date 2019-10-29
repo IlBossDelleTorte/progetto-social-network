@@ -41,18 +41,18 @@ public class Proposta implements Serializable {
 		ArrayList<Campo> c = categoria.getCampi();
 		int size = c.size();
 		for(int i = 0; i < size; i++) {
-			if(i == 4) {
+			if(i == Menu.INDICE_DATA_INIZIO) {
 				c.get(i).compila();
-				if(Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(2).getValore()))) {
+				if(Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
 					System.out.println(Menu.ERRORE_DATA_INIZIO);
 					i--;
 				}
 			}
 			
-			else if(i == 8) {
-				if(c.get(5).isInizializzato()) {
-					String str = c.get(5).getValore();
-					Date data_inizio = Input.stringToDate(c.get(4).getValore());
+			else if(i == Menu.INDICE_DATA_FINE) {
+				if(c.get(Menu.INDICE_DURATA).isInizializzato()) {
+					String str = c.get(Menu.INDICE_DURATA).getValore();
+					Date data_inizio = Input.stringToDate(c.get(Menu.INDICE_DATA_INIZIO).getValore());
 					Scanner s = new Scanner(str);
 					s.useDelimiter(",");
 					int ore = s.nextInt()*60;
@@ -74,9 +74,24 @@ public class Proposta implements Serializable {
 					
 			}
 
-			
-			else 
+			else if(i == Menu.INDICE_TERMINE_RITIRO) {
+				c.get(Menu.INDICE_TERMINE_RITIRO).compila();
+				if(c.get(i).isInizializzato()) {
+					if(Input.stringToDate(c.get(i).getValore()).after(Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
+						System.out.print(Menu.ERRORE_TERMINE_RITIRO);
+						i--;
+					}
+				}
+				else
+					c.get(i).setValore(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
+	
+					
+			}
+			else
 				c.get(i).compila();
+		}
+		if(!c.get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).isInizializzato()){
+			c.get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).setValore("0");
 		}
 		aggiungiPartecipante(creatore);
 		System.out.print(categoria);
@@ -114,8 +129,11 @@ public class Proposta implements Serializable {
 			}
 			break;
 		case APERTA :
-			if(Integer.parseInt(categoria.getCampi().get(1).getValore()) == partecipanti.size()
-			&& Input.stringToDate(categoria.getCampi().get(2).getValore()).after(new Date())) {
+			if((Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore())+Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore()) == partecipanti.size()
+			&& Input.stringToDate(categoria.getCampi().get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()).after(new Date())) 
+			|| (Input.stringToDate(categoria.getCampi().get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()).before(new Date()) 
+			&& partecipanti.size() >= Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore())
+			&& partecipanti.size() <= Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore())+Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore()))){
 				stato = Stato.CHIUSA;
 				aggiungiLog();
 			}
@@ -141,6 +159,11 @@ public class Proposta implements Serializable {
 				
 			
 		}
+	}
+	
+	public void annullaIscrizione(Utente u) {
+		if(this.creatore != u)
+			this.partecipanti.remove(u);
 	}
 	
 	/**
@@ -169,6 +192,10 @@ public class Proposta implements Serializable {
 
 	public HashSet<Utente> getPartecipanti() {
 		return partecipanti;
+	}
+	
+	public void ritiraProposta() {
+		this.setStato(Stato.RITIRATA);
 	}
 	
 	/**

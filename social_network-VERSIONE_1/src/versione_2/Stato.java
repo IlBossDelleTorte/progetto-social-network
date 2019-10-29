@@ -12,6 +12,7 @@ public enum Stato implements Serializable {
 	APERTA,
 	CHIUSA,
 	CONCLUSA,
-	FALLITA;
+	FALLITA,
+	RITIRATA;
 
 }

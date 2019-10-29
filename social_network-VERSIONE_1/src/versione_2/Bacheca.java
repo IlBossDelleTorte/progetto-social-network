@@ -59,8 +59,7 @@ public class Bacheca implements Serializable {
 	 * @throws NumberFormatException 
 	 */
 	public void aggiorna() throws NumberFormatException, ParseException {
-		String notificas;
-		String notificaf;
+		String notifica;
 		for(int i = 0; i < proposteAperte.size(); i++) {
 			proposteAperte.get(i).aggiornaStato();
 		}
@@ -68,20 +67,28 @@ public class Bacheca implements Serializable {
 			HashSet<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
-				notificas=Menu.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
+				notifica=Menu.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
-					u.riceviNotifica(notificas);
+					u.riceviNotifica(notifica);
 				}
 				this.rimuoviProposta(i);
 			}
-			else if(proposteAperte .get(i).getStato() == Stato.FALLITA)
+			else if(proposteAperte.get(i).getStato() == Stato.FALLITA)
 			{
-				notificaf=Menu.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
+				notifica=Menu.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
-					u.riceviNotifica(notificaf);
+					u.riceviNotifica(notifica);
 				}
 				this.rimuoviProposta(i);
 			}
+			else if(proposteAperte.get(i).getStato() == Stato.RITIRATA) {
+				notifica=Menu.NOTIFICA_RITIRO+"\t   "+proposteAperte.get(i).header();
+				for(Utente u : partecipanti) {
+					u.riceviNotifica(notifica);
+				}
+				this.rimuoviProposta(i);
+			}
+				
 		}
 	}
 	
@@ -95,6 +102,26 @@ public class Bacheca implements Serializable {
 		return str.toString();
 		
 	}
+	
+	public ArrayList<Proposta> getProposteCreatore(Utente c){
+		ArrayList<Proposta> pCreatore = new ArrayList<Proposta>();
+		for(Proposta p : proposteAperte) {
+			if (p.getCreatore() == c)
+				pCreatore.add(p);
+		}
+		return pCreatore;
+	}
+	
+	public ArrayList<Proposta> getIscrizioni(Utente c){
+		ArrayList<Proposta> pIscrizioni = new ArrayList<Proposta>();
+		for(Proposta p : proposteAperte) {
+			if(!getProposteCreatore(c).contains(p) && p.getPartecipanti().contains(c))
+				pIscrizioni.add(p);
+				
+		}
+		return pIscrizioni;
+	}
+	
 
 	public ArrayList<Proposta> getProposteAperte() {
 		return proposteAperte;
