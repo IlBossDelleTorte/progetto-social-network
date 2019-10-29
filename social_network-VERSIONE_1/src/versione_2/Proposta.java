@@ -111,6 +111,11 @@ public class Proposta implements Serializable {
 	 * @throws ParseException
 	 */
 	public void aggiornaStato() throws NumberFormatException, ParseException {
+		
+		Date scadenza_iscrizione=Input.stringToDate(categoria.getCampi().get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
+		Date termine_ritiro=Input.stringToDate(categoria.getCampi().get(Menu.INDICE_TERMINE_RITIRO).getValore());
+		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore());
+		
 		switch (this.stato) {
 		case VUOTA : 
 			stato = Stato.VALIDA;
@@ -119,8 +124,8 @@ public class Proposta implements Serializable {
 		case VALIDA :
 			//nel caso in cui l'utente avesse una proposta valida e le condizioni non fossero rispettate
 			//prima che questa venga pubblicata, questa passa direttamente a fallita
-			if(partecipanti.size() < Integer.parseInt(categoria.getCampi().get(1).getValore())
-					&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date())) {
+			if(partecipanti.size() < numero_partecipanti
+					&& scadenza_iscrizione.before(new Date())) {
 				stato = Stato.FALLITA;
 				aggiungiLog();
 			}
@@ -130,23 +135,22 @@ public class Proposta implements Serializable {
 			}
 			break;
 		case APERTA :
-			if((Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore())+Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore()) == partecipanti.size()
-			&& Input.stringToDate(categoria.getCampi().get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()).after(new Date())) 
-			|| (Input.stringToDate(categoria.getCampi().get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()).before(new Date()) 
-			&& partecipanti.size() >= Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore())
-			&& partecipanti.size() <= Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore())+Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore()))){
+			int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
+			
+			if((scadenza_iscrizione.after(new Date()) && termine_ritiro.before(new Date()) && partecipanti.size() == massimo_partecipanti)
+				||(new Date().after(scadenza_iscrizione) && partecipanti.size()>=numero_partecipanti && partecipanti.size()<=massimo_partecipanti)){
 				stato = Stato.CHIUSA;
 				aggiungiLog();
 			}
-			else if(partecipanti.size() < Integer.parseInt(categoria.getCampi().get(1).getValore())
-					&& Input.stringToDate(categoria.getCampi().get(2).getValore()).before(new Date())) {
+			else if(partecipanti.size() < numero_partecipanti
+					&& scadenza_iscrizione.before(new Date())) {
 				stato = Stato.FALLITA;
 				aggiungiLog();
 			}
 			break;
 		case CHIUSA :
 			Calendar c = Calendar.getInstance();
-			c.setTime(Input.stringToDate(categoria.getCampi().get(4).getValore()));
+			c.setTime(Input.stringToDate(categoria.getCampi().get(Menu.INDICE_DATA_INIZIO).getValore()));
 			c.add(Calendar.DAY_OF_MONTH, 1);
 			Date d = c.getTime();
 			if(new Date().after(d)) {
