@@ -50,24 +50,20 @@ public class Bacheca implements Serializable {
 		
 	}
 	
+
 	/**
-	 * Metodo che aggiorna lo stato di tutte le proposte della bacheca in accordo con l'automa 
-	 * @throws NumberFormatException
-	 * @throws ParseException
+	 * Metodo che aggiorna lo stato di tutte le proposte della bacheca in accordo con l'automa e
+	 * permette la rimozione dalla bacheca delle proposte concluse o fallite.
+	 * Prima della rimozione viene inviata un'opportuna notifica a tutti i partecipanti della proposta rimossa
+	 * @throws ParseException 
+	 * @throws NumberFormatException 
 	 */
-	
 	public void aggiorna() throws NumberFormatException, ParseException {
+		String notificas;
+		String notificaf;
 		for(int i = 0; i < proposteAperte.size(); i++) {
 			proposteAperte.get(i).aggiornaStato();
 		}
-	}
-	/**
-	 * Metodo che permette la rimozione dalla bacheca delle proposte concluse o fallite.
-	 * Prima della rimozione viene inviata un'opportuna notifica a tutti i partecipanti della proposta rimossa
-	 */
-	public void pulisci() {
-		String notificas;
-		String notificaf;
 		for(int i = 0; i < proposteAperte.size(); i++) {
 			HashSet<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
@@ -94,7 +90,7 @@ public class Bacheca implements Serializable {
 		str.append(Menu.LINEA);
 		
 		for(int i=0;i<proposteAperte.size();i++) {
-			str.append(String.format("%2s %s", i+1,proposteAperte.get(i).header())).append("\n");
+			str.append(String.format("%-2s %s", i+1,proposteAperte.get(i).header())).append("\n");
 		}
 		return str.toString();
 		
