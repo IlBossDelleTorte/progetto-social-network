@@ -91,6 +91,7 @@ public class Main {
 						}
 						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 						break;
+						
 					case 3: 
 						int p3=0;
 						if(bacheca.getIscrizioni(utente).size()==0) {
@@ -98,10 +99,44 @@ public class Main {
 						}
 						else {
 							do {
-								p3=Input.leggiInt(bacheca.getIscrizioni(utente)+Menu.MESSAGGIO_SELEZIONE_PROPOSTA, true);
-							}
+								p3=Input.leggiInt(Input.proposteToString(bacheca.getIscrizioni(utente))+Menu.MESSAGGIO_SELEZIONE_PROPOSTA, true);
+								if(p3 <= bacheca.getIscrizioni(utente).size() && p3>0){
+									Proposta propostaSelezionata = bacheca.getIscrizioni(utente).get(p3-1);
+									int n=Input.leggiInt(propostaSelezionata+Menu.GESTIONE_RITIRO_ISCRIZIONE, true);
+				
+									if (n==1 && propostaSelezionata.isRitirabile()) {
+										propostaSelezionata.annullaIscrizione(utente);
+										System.out.print(Menu.MESSAGGIO_DISISCRIZIONE);
+									}
+								}
+									
+							}while(p3 != 0);
 						}
+						IOFile.salvaDati(Menu.DATI, dati);
+						break;
+						
+					case 4:
+						int p4=0;
+						if(bacheca.getProposteCreatore(utente).size()==0) {
+							System.out.print(Menu.ELENCO_CREAZIONI_VUOTO);
 						}
+						else {
+							do {
+								p4=Input.leggiInt(Input.proposteToString(bacheca.getProposteCreatore(utente))+Menu.GESTIONE_PROPOSTA_RITIRO,true);
+								if(p4 <= bacheca.getProposteCreatore(utente).size() && p4>0) {
+									Proposta propostaSelezionata = bacheca.getProposteCreatore(utente).get(p4-1);
+									int n=Input.leggiInt(propostaSelezionata+Menu.GESTIONE_PROPOSTA_RITIRO, true);
+				
+									if (n==1 && propostaSelezionata.isRitirabile()) {
+										bacheca.ritiraProposta(propostaSelezionata);
+										System.out.print(Menu.MESSAGGIO_RITIRO);
+									}
+								}
+							}while(p4!=0);
+						}
+						IOFile.salvaDati(Menu.DATI, dati);
+						break;
+					}
 					}while(p!=0);
 				break;
 

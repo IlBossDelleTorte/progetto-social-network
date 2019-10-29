@@ -122,6 +122,12 @@ public class Bacheca implements Serializable {
 		return pIscrizioni;
 	}
 	
+	public void ritiraProposta(Proposta p) throws NumberFormatException, ParseException {
+		p.setStato(Stato.RITIRATA);
+		this.aggiorna();
+		
+	}
+	
 
 	public ArrayList<Proposta> getProposteAperte() {
 		return proposteAperte;

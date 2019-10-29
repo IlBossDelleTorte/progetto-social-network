@@ -15,6 +15,7 @@ public class Proposta implements Serializable {
 	private HashSet<Utente> partecipanti=new HashSet<Utente>();
 	private Utente creatore;
 	private ArrayList<String> logStati;
+
 	
 	
 	/**
@@ -160,6 +161,12 @@ public class Proposta implements Serializable {
 			
 		}
 	}
+	public boolean isRitirabile() {
+		if(new Date().before(Input.stringToDate(categoria.getCampi().get(Menu.INDICE_TERMINE_RITIRO).getValore())))
+			return true;
+		else
+			return false;
+	}
 	
 	public void annullaIscrizione(Utente u) {
 		if(this.creatore != u)
@@ -194,9 +201,7 @@ public class Proposta implements Serializable {
 		return partecipanti;
 	}
 	
-	public void ritiraProposta() {
-		this.setStato(Stato.RITIRATA);
-	}
+
 	
 	/**
 	 * Il metodo ritorna una stringa che riassume le informazioni principali di una proposta
