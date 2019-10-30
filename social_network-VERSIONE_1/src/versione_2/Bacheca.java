@@ -34,9 +34,11 @@ public class Bacheca implements Serializable {
 	public void iscrizioneProposta(int n, Utente u) {
 		if(proposteAperte.get(n).getStato() == Stato.CHIUSA)
 			System.out.println(Menu.PROPOSTA_CHIUSA);
-		else {
+		else {	
 			if(proposteAperte.get(n).getPartecipanti().contains(u))
 				System.out.println(Menu.ISCRIZIONE_RIDONDANTE);
+			else if(proposteAperte.get(n).isFull())
+				System.out.print(Menu.ISCRIZIONE_PIENA);
 			else {
 				proposteAperte.get(n).aggiungiPartecipante(u);
 				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);

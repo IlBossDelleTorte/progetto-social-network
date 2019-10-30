@@ -108,6 +108,8 @@ public class Main {
 										propostaSelezionata.annullaIscrizione(utente);
 										System.out.print(Menu.MESSAGGIO_DISISCRIZIONE);
 									}
+									if(utente.getProposteValide().size() == 0)
+										break;
 								}
 									
 							}while(p3 != 0);
@@ -122,7 +124,7 @@ public class Main {
 						}
 						else {
 							do {
-								p4=Input.leggiInt(Input.proposteToString(bacheca.getProposteCreatore(utente))+Menu.GESTIONE_PROPOSTA_RITIRO,true);
+								p4=Input.leggiInt(Input.proposteToString(bacheca.getProposteCreatore(utente))+Menu.MESSAGGIO_SELEZIONE_PROPOSTA,true);
 								if(p4 <= bacheca.getProposteCreatore(utente).size() && p4>0) {
 									Proposta propostaSelezionata = bacheca.getProposteCreatore(utente).get(p4-1);
 									int n=Input.leggiInt(propostaSelezionata+Menu.GESTIONE_PROPOSTA_RITIRO, true);
@@ -130,7 +132,10 @@ public class Main {
 									if (n==1 && propostaSelezionata.isRitirabile()) {
 										bacheca.ritiraProposta(propostaSelezionata);
 										System.out.print(Menu.MESSAGGIO_RITIRO);
+										
 									}
+									if(utente.getProposteValide().size() == 0)
+										break;
 								}
 							}while(p4!=0);
 						}

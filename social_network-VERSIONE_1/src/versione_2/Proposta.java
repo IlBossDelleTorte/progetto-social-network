@@ -159,12 +159,25 @@ public class Proposta implements Serializable {
 			}
 			break;
 		default :
+			aggiungiLog();
 			break;
 		
 				
 			
 		}
 	}
+	
+	public boolean isFull() {
+		
+		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore());
+		int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
+		if(partecipanti.size() == massimo_partecipanti)
+			return true;
+			else
+				return false;
+		
+	}
+	
 	public boolean isRitirabile() {
 		if(new Date().before(Input.stringToDate(categoria.getCampi().get(Menu.INDICE_TERMINE_RITIRO).getValore())))
 			return true;
