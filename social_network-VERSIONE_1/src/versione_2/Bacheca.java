@@ -10,21 +10,31 @@ public class Bacheca implements Serializable {
 	private ArrayList<Proposta> proposteAperte;
 	private ArrayList<Proposta> proposteInvalide;
 	
+	
 	public Bacheca() {
 		this.proposteAperte = new ArrayList<Proposta>();
 		this.proposteInvalide=new ArrayList<Proposta>();
 	}
 	
-	/**Metodo che permette di aggiungere una proposta alla bacheca
+	/**Metodo che permette di aggiungere una proposta alla bacheca e mandare una notifica a tutti gli utenti che hanno tra 
+	 * i propri interessi la particolare categoria della proposta (e aggiunge tale proposta alla lista di proposte affini dell'utente)
 	 * 
 	 * @param p la proposta da aggiungere
+	 * @param l la lista degli utenti salvati nel programma
 	 * @throws ParseException 
 	 * @throws NumberFormatException 
 	 */
-	public void aggiungiPropostaAperta (Proposta p) throws NumberFormatException, ParseException {
+	public void aggiungiPropostaAperta (Proposta p, ListaUtenti l) throws NumberFormatException, ParseException {
 		proposteAperte.add(p);
+		for(Utente u : l.getUtenti()) {
+			if(u.getCategorieInteresse().contains(p.getCategoria().getNome())) {
+				u.riceviNotifica(Menu.NOTIFICA_PROPOSTA_AFFINE);
+				u.aggiungiPropostaAffine(p);
+			}
+		}
 		p.aggiornaStato();
 	}
+	
 	
 	/**
 	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
@@ -92,6 +102,33 @@ public class Bacheca implements Serializable {
 			}
 				
 		}
+	}
+	
+	public ArrayList<Utente> utentiCorrelati(Utente c, Proposta p) {
+		ArrayList<Utente> utentiCorrelati = new ArrayList<>();
+		for(Proposta x : proposteInvalide) {
+			//prende le proposte che sono state create in passato dallo stesso utente
+			if(x.getCreatore() == c) {
+				//prende le proposte concluse e chiuse che condividono la stessa categoria della proposta da aprire
+				if(p.getCategoria().getNome() == x.getCategoria().getNome())
+					if(x.getStato() == Stato.CHIUSA || x.getStato() == Stato.CONCLUSA) {
+						for(Utente u : x.getPartecipanti()) {
+							//Se il partecipante scelto dalla proposta non è contenuto nella lista degli utenti correlati, allora viene aggiunto
+							if(!utentiCorrelati.contains(u))
+								utentiCorrelati.add(u);	
+						}
+					}
+			}
+		}
+		return utentiCorrelati;
+	}
+	
+	public void invitaUtenti(ArrayList<Utente> utentiInvitati, Proposta p) {
+		for(Utente u : utentiInvitati) {
+			u.riceviNotifica(String.format(Menu.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome());
+			u.aggiungiInvito(p);
+		}
+		
 	}
 	
 	public String toString() {

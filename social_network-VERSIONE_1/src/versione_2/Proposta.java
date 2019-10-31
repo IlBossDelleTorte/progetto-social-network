@@ -247,4 +247,8 @@ public class Proposta implements Serializable {
 		
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
 }

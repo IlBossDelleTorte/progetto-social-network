@@ -200,5 +200,19 @@ public class Input
 		return str.toString();
 	}
 	
+	public static String leggiStringaFormattata(String message, String formato, boolean obbligatorio) {
+		String temp;
+		boolean getInput=false;
+		do {
+			System.out.println(message);
+			temp=input.nextLine();
+			if(!temp.matches(formato))
+				System.out.println(ERRORE);
+			else
+				getInput=true;
+		}while(!getInput);
+		return temp;
+	}
+	
 
 }

@@ -19,6 +19,7 @@ public class Menu {
 	//Stringhe per il formato dei dati
 	public static String FORMATO_DATA="dd/MM/yyyy HH:mm";
 	public static String FORMATO_LOG="%-20s %-12s %-24s %2d";
+	public static String FORMATO_RANGE="([1-9][0-9]-[1-9][0-9])|([1-9]-[1-9][0-9])|([1-9]-[1-9])";
 	
 	//Stringhe della fase di compilazione
 	public static String COMPILAZIONE_FLOAT="INSERISCI IL VALORE NUMERICO NEL FORMATO XXX,YY";
@@ -72,6 +73,9 @@ public class Menu {
 	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è fallito, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_RITIRO="Il creatore di uno degli eventi a cui sei iscritto ha ritirato la proposta, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
+	public static String NOTIFICA_PROPOSTA_AFFINE="E' stata pubblicata una nuova proposta affine ai tuoi interessi, visualizzala nel tuo spazio personale\n";
+	public static String NOTIFICA_INVITO="Hai ricevuto un'invito da %s riguardo ad una proposta della categoria %s. Vai nel tuo spazio personale\n"
+			+ "per visualizzarla\n";
 	//Menu vari
 	public static String MENU_INIZIALE=LINEA+"COSA VUOI FARE?\n"
 			+ "1) VISUALIZZA BACHECA\n"
