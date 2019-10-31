@@ -52,7 +52,7 @@ public abstract class Campo implements Serializable {
 	 * Metodo toString di un Campo che ritorna una stringa nome descrizione ed eventualmente un asterisco che indica l'obbligatorietà del campo stesso
 	 */
 	public String toString() {
-		String str = String.format("%-30s %-100s", this.nome, this.descrizione);
+		String str = String.format("%-35s %-100s", this.nome, this.descrizione);
 		if(this.obbligatorio)str=str+"*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
 		else str=str+" ";
 		return str;

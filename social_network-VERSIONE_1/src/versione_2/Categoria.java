@@ -54,8 +54,8 @@ public class Categoria implements Serializable {
 		campi.add(new Campo_Float("Quota individuale","Spesa che ogni partecipante dovrà sostenere",true));
 		campi.add(new Campo_Stringa("Compreso nella quota","Elenco delle voci comprese nella quota individuale",false));
 		campi.add(new Campo_Data("Data e ora conclusiva","Data e orario che fissa la conclusione dell'evento",false));
-		campi.add(new Campo_Intero("Tolleranza numero di partecipanti", "Quanti partecipanti sono accettabili in esubero rispetto al numero di partecipanti",false));
-		campi.add(new Campo_Data("Termine ultimo di ritiro iscrizione", "Data entro la quale è possibile rimuovere una iscrizione applicata",false));
+		campi.add(new Campo_Intero("Tolleranza partecipanti", "Quanti partecipanti sono accettabili in esubero rispetto al numero di partecipanti",false));
+		campi.add(new Campo_Data("Termine ultimo ritiro iscrizione", "Data entro la quale è possibile rimuovere una iscrizione applicata",false));
 		campi.add(new Campo_Stringa("Note","Informazioni aggiuntive",false));
 	}
 	
