@@ -125,7 +125,7 @@ public class Bacheca implements Serializable {
 	
 	public void invitaUtenti(ArrayList<Utente> utentiInvitati, Proposta p) {
 		for(Utente u : utentiInvitati) {
-			u.riceviNotifica(String.format(Menu.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome());
+			u.riceviNotifica(String.format(Menu.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome()));
 			u.aggiungiInvito(p);
 		}
 		
