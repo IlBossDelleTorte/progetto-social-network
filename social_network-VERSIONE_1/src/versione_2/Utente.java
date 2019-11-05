@@ -10,7 +10,8 @@ public class Utente implements Serializable {
 	private String nome;
 	private String fasciaEta = null;
 	private ArrayList<String> categorieInteresse;
-	private ArrayList<String> spazioPersonale;
+	
+	private ArrayList<String> notifiche;
 	private ArrayList<Proposta> proposteValide;
 	private ArrayList<Proposta> proposteAffini;
 	private ArrayList<Proposta> inviti;
@@ -20,7 +21,7 @@ public class Utente implements Serializable {
 	 this.nome = nome;
 	 this.fasciaEta=eta;
 	 this.categorieInteresse=categorie;
-	 spazioPersonale = new ArrayList<>();
+	 notifiche = new ArrayList<>();
 	 proposteValide = new ArrayList<>();
 	 categorieInteresse = new ArrayList<>();
 	 proposteAffini = new ArrayList<>();
@@ -62,7 +63,7 @@ public String getNome() {
   * @param s: notifica ricevuta
   */
  public void riceviNotifica(String s) {
-	 spazioPersonale.add(s);
+	 notifiche.add(s);
  }
  
  /**
@@ -70,7 +71,7 @@ public String getNome() {
   * @param i: indice della notifica da rimuovere
   */
  public void rimuoviNotifica(int i) {
-	 spazioPersonale.remove(i);
+	 notifiche.remove(i);
  }
 
  public void aggiungiPropostaValida(Proposta p) throws NumberFormatException, ParseException {
@@ -98,13 +99,13 @@ public String getNome() {
  }
 
 
-public ArrayList<String> getSpazioPersonale() {
-	return spazioPersonale;
+public ArrayList<String> getNotifiche() {
+	return notifiche;
 }
 
 
-public void setSpazioPersonale(ArrayList<String> spazioPersonale) {
-	this.spazioPersonale = spazioPersonale;
+public void setNotifiche(ArrayList<String> spazioPersonale) {
+	this.notifiche = spazioPersonale;
 }
 
 
@@ -137,9 +138,24 @@ public void setProposteValide(ArrayList<Proposta> proposteValide) {
 
 public String elencoNotifiche() {
 	StringBuffer str=new StringBuffer();
-	for(int i=0;i<spazioPersonale.size();i++)
+	for(int i=0;i<notifiche.size();i++)
 	{
-		str.append(String.format("%-2s %s", i+1,spazioPersonale.get(i))).append("\n\n");
+		str.append(String.format("%-2s %s", i+1,notifiche.get(i))).append("\n\n");
+	}
+	return str.toString();
+}
+
+/**
+ * Metodo toString di utente che ritorna una stringa contenente
+ * nome, fascia d'eta e categorie di interesse se queste sono disponibili
+ */
+public String toString() {
+	StringBuffer str=new StringBuffer();
+	str.append("NOME:"+nome);
+	if(fasciaEta!=null) str.append(" FASCIA D'ETA':"+fasciaEta);
+	if(categorieInteresse.size()!=0) {
+		str.append(" CATEGORIE D'INTERESSE:");
+		categorieInteresse.forEach(c->str.append(c+" "));
 	}
 	return str.toString();
 }

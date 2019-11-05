@@ -11,13 +11,13 @@ public class Main {
 		Bacheca bacheca;
 		ListaUtenti listaUtenti;
 
-		if(IOFile.esistenzaDati(Menu.DATI))
+		if(IOFile.esistenzaDati(Menu.DATI))//controllo dell'esistenza del salvataggio 
 		{
 			dati=(ContainerDati)IOFile.leggiDati(Menu.DATI);
 			bacheca=dati.getBacheca();
 			listaUtenti=dati.getListaUtenti();
 		}
-		else
+		else//creazione di un nuovo salvataggio nel caso non sia presente
 		{
 			bacheca=new Bacheca();
 			listaUtenti=new ListaUtenti();
@@ -116,7 +116,7 @@ public class Main {
 						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 						break;
 						
-					case 3: 
+					case 3: //visualizzazione dell'elenco iscrizioni e ritiro dell'iscrizione 
 						int p3=0;
 						if(bacheca.getIscrizioni(utente).size()==0) {
 							System.out.print(Menu.ELENCO_ISCRIZIONE_VUOTO);
@@ -141,7 +141,7 @@ public class Main {
 						IOFile.salvaDati(Menu.DATI, dati);
 						break;
 						
-					case 4:
+					case 4://visualizzazione dell'elenco delle proposte create e ritiro di queste 
 						int p4=0;
 						if(bacheca.getProposteCreatore(utente).size()==0) {
 							System.out.print(Menu.ELENCO_CREAZIONI_VUOTO);
@@ -172,27 +172,61 @@ public class Main {
 			case 3: //Accesso allo spazio personale
 				bacheca.aggiorna();
 				int sp=0;
-				if(utente.getSpazioPersonale().size() == 0)	{
-					System.out.print(Menu.SPAZIO_PERSONALE_VUOTO);
-					break;
-				}
-				else {
-					do {
-						sp=Input.leggiInt(utente.elencoNotifiche()+Menu.MENU_SPAZIO_PERSONALE, true);
-						if(sp<=utente.getSpazioPersonale().size() && sp>0) {
-						
-							int n=Input.yesNo(utente.getSpazioPersonale().get(sp-1)+Menu.LINEA+Menu.RIMOZIONE_NOTIFICA);
-							if (n==1)
-								{
-								utente.rimuoviNotifica(sp-1);
-								}
-						}
-						if(utente.getSpazioPersonale().size() == 0)
+				do {
+					sp=Input.leggiInt(Menu.MENU_SPAZIO_PERSONALE, true);
+					switch(sp) {
+					case 1://Accesso alle notifiche
+						int sp1=0;
+						if(utente.getNotifiche().size() == 0)	{//se non ci sono notifiche visualizza un messaggio e torna indietro
+							System.out.print(Menu.SPAZIO_PERSONALE_VUOTO);
 							break;
-					}while(sp!=0);					
-					IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
-					break;
-				}
+						}
+						else {
+							do {
+								sp1=Input.leggiInt(utente.elencoNotifiche()+Menu.MENU_NOTIFICHE, true);
+								if(sp1<=utente.getNotifiche().size() && sp>0) {
+								
+									int n=Input.yesNo(utente.getNotifiche().get(sp-1)+Menu.LINEA+Menu.RIMOZIONE_NOTIFICA);
+									if (n==1)
+										{
+										utente.rimuoviNotifica(sp1-1);
+										}
+								}
+								if(utente.getNotifiche().size() == 0)
+									break;
+							}while(sp1!=0);					
+							IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+							break;
+						}
+						
+					case 2://accesso al menu di modifica dei dati personali
+						System.out.print(utente.toString());
+						System.out.print(Menu.MESSAGGIO_RANGE+Range_eta.visualizzaRange());
+						int n=Input.leggiIntTra(false,1,4);//lettura dell'indice del range 
+						if(n!=-1) utente.setFasciaEta(Range_eta.values()[n-1].getRange());
+						
+						ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Menu.ELENCO_CATEGORIE));
+						ArrayList<String> categorieInteresse=new ArrayList<>();
+						do {
+							System.out.print(Menu.MESSAGGIO_INTERESSI);
+							for(int k=0;k<elencoCategorie.size();k++) { //stampa dell'elenco di tutte le categorie disponibili
+								System.out.println(k+1+")"+elencoCategorie.get(k));
+							}
+							n=Input.leggiIntTra(false,1,elencoCategorie.size());
+							if(n!=-1) {
+								categorieInteresse.add(elencoCategorie.get(n-1));
+								elencoCategorie.remove(n-1);
+							}
+						}while(n!=-1 && elencoCategorie.size()!=0);
+						utente.setCategorieInteresse(categorieInteresse);
+						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+						break;
+						
+					case 3;//da fare:Accesso agli inviti 
+						}
+				}while(sp!=0);
+				break;
+				
 			case 4:
 				System.out.println("Spamming notifiche!!!\n\n");
 				utente.riceviNotifica("NEGRO");

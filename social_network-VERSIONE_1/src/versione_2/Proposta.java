@@ -44,14 +44,17 @@ public class Proposta implements Serializable {
 		for(int i = 0; i < size; i++) {
 			if(i == Menu.INDICE_DATA_INIZIO) {
 				c.get(i).compila();
-				if(Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
+				
+				Date data_inizio=Input.stringToDate(c.get(i).getValore());
+				Date data_scadenza=Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
+				
+				if(data_inizio.before(data_scadenza)) {
 					System.out.println(Menu.ERRORE_DATA_INIZIO);
 					i--;
 				}
 			}
-			
 			else if(i == Menu.INDICE_DATA_FINE) {
-				if(c.get(Menu.INDICE_DURATA).isInizializzato()) {
+				if(c.get(Menu.INDICE_DURATA).isInizializzato()) {//se durata è inizializzata la data di scadenza viene calcolata in modo automatico
 					String str = c.get(Menu.INDICE_DURATA).getValore();
 					Date data_inizio = Input.stringToDate(c.get(Menu.INDICE_DATA_INIZIO).getValore());
 					Scanner s = new Scanner(str);
@@ -64,8 +67,7 @@ public class Proposta implements Serializable {
 					String val=Input.dateToString(dataTerm.getTime());
 					c.get(i).setValore(val);
 				}
-				
-				else {
+				else {//se la durata non è inizializzata la scadenza viene compilata da utente
 					c.get(i).compila();
 					if(c.get(i).isInizializzato() && Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(4).getValore()))) {
 						System.out.println(Menu.ERRORE_DATA_FINE);
@@ -76,7 +78,7 @@ public class Proposta implements Serializable {
 			}
 
 			else if(i == Menu.INDICE_TERMINE_RITIRO) {
-				c.get(Menu.INDICE_TERMINE_RITIRO).compila();
+				c.get(i).compila();
 				if(c.get(i).isInizializzato()) {
 					if(Input.stringToDate(c.get(i).getValore()).after(Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
 						System.out.print(Menu.ERRORE_TERMINE_RITIRO);
