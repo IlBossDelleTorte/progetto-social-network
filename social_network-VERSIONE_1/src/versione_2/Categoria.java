@@ -16,9 +16,7 @@ public class Categoria implements Serializable {
 	 * @param nome
 	 * @param descrizione
 	 */
-	public Categoria (String nome,String descrizione) {
-		this.nome = nome;
-		this.descrizione = descrizione;
+	public Categoria () {
 		this.campi=new ArrayList<Campo>();
 		this.inizializzazioneStandard();
 	}

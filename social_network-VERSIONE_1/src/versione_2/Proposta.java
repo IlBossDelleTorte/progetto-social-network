@@ -24,7 +24,7 @@ public class Proposta implements Serializable {
 	 * @param creatore: utente creatore della proposta
 	 */
 	public Proposta(Utente creatore) {
-		categoria=new Categoria(" "," ");
+		categoria=new Categoria();
 		categoria.partitaDiCalcio();
 		this.creatore=creatore;
 		stato=Stato.VUOTA;

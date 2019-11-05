@@ -1,6 +1,8 @@
 package versione_2;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main {
 
@@ -24,12 +26,34 @@ public class Main {
 		
 		String nome;
 		Utente utente;
-		nome=Input.leggiStringa(Menu.UTENTE, true);
+		
+		nome=Input.leggiStringa(Menu.UTENTE, true);//lettura del nome utente
 		if(listaUtenti.contiene(nome))
 			utente=listaUtenti.estraiUtente(nome);
-		else{
-			utente=new Utente(nome);
+		else{  //routine per la creazione di un nuovo utente
+			
+			String range=null;
+			System.out.print(Menu.MESSAGGIO_RANGE+Range_eta.visualizzaRange());
+			int n=Input.leggiIntTra(false,1,4);//lettura dell'indice del range 
+			if(n!=-1) 
+				range=Range_eta.values()[n-1].getRange(); //se l'utente ha deciso di inserire il range prende il rispettivo valore dall'enum
+			
+			ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Menu.ELENCO_CATEGORIE));//inizializzaione di un arraylist contente le categorie che l'utente può scegliere come interesse
+			ArrayList<String> categorieInteresse=new ArrayList<>();
+			do {
+				System.out.print(Menu.MESSAGGIO_INTERESSI);
+				for(int i=0;i<elencoCategorie.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
+					System.out.println(i+1+")"+elencoCategorie.get(i));
+				}
+				n=Input.leggiIntTra(false,1,elencoCategorie.size());
+				if(n!=-1) {
+					categorieInteresse.add(elencoCategorie.get(n-1));
+					elencoCategorie.remove(n-1);
+				}
+			}while(n!=-1 && elencoCategorie.size()!=0);
+			utente=new Utente(nome,range,categorieInteresse);
 			listaUtenti.aggiungiUtente(utente);
+			IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 		}
 		
 		int i=0;
@@ -78,7 +102,7 @@ public class Main {
 									{
 										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Menu.GESTIONE_PROPOSTA_VALIDA,true);
 										if (n==1){
-											bacheca.aggiungiPropostaAperta(utente.getProposteValide().get(p2-1));
+											bacheca.aggiungiPropostaAperta(utente.getProposteValide().get(p2-1),listaUtenti);
 											utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
 											System.out.print(Menu.PUBBLICAZIONE_EFFETTUATA);
 											}

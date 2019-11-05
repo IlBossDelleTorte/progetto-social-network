@@ -16,7 +16,8 @@ public class Bacheca implements Serializable {
 		this.proposteInvalide=new ArrayList<Proposta>();
 	}
 	
-	/**Metodo che permette di aggiungere una proposta alla bacheca e mandare una notifica a tutti gli utenti che hanno tra 
+	/**
+	 * Metodo che permette di aggiungere una proposta alla bacheca e mandare una notifica a tutti gli utenti che hanno tra 
 	 * i propri interessi la particolare categoria della proposta (e aggiunge tale proposta alla lista di proposte affini dell'utente)
 	 * 
 	 * @param p la proposta da aggiungere
@@ -123,6 +124,12 @@ public class Bacheca implements Serializable {
 		return utentiCorrelati;
 	}
 	
+	/**
+	 * Metodo per inviare inviti ad una lista di utenti aggiungendo la proposta 
+	 * invitata nell'array degli inviti di queste
+	 * @param utentiInvitati: elenco degli utenti che ricevono l'invito
+	 * @param p: proposta oggetto dell'invito
+	 */
 	public void invitaUtenti(ArrayList<Utente> utentiInvitati, Proposta p) {
 		for(Utente u : utentiInvitati) {
 			u.riceviNotifica(String.format(Menu.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome()));

@@ -16,8 +16,10 @@ public class Utente implements Serializable {
 	private ArrayList<Proposta> inviti;
 			
 
- public Utente(String nome) {
+ public Utente(String nome,String eta,ArrayList<String>categorie) {
 	 this.nome = nome;
+	 this.fasciaEta=eta;
+	 this.categorieInteresse=categorie;
 	 spazioPersonale = new ArrayList<>();
 	 proposteValide = new ArrayList<>();
 	 categorieInteresse = new ArrayList<>();

@@ -1,5 +1,5 @@
 package versione_2;
-import java.io.*;
+
 import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
+
+
 public class Input 
 {
 	public static Scanner input= new Scanner(System.in);
@@ -138,6 +140,31 @@ public class Input
 		return temp;
 	}
 	
+	public static int leggiIntTra(boolean obbligatorio,int min,int max)
+	{
+		int temp=0;
+		boolean getInput=false;
+		do
+		{
+			try
+			{
+				temp=input.nextInt();
+				input.nextLine();
+				getInput=true;
+				if((temp<min && temp!=-1)||temp>max||(temp==-1 && obbligatorio)) {
+					getInput=false;
+					System.out.println(ERRORE);
+				}
+			}
+			catch(InputMismatchException e)
+			{
+				System.out.println(ERRORE);
+				String trash=input.next();
+			}
+		}while(!getInput);
+		return temp;
+	}
+	
 	public static void closeScanner()
 	{
 		input.close();
@@ -213,6 +240,8 @@ public class Input
 		}while(!getInput);
 		return temp;
 	}
+	
+
 	
 
 }
