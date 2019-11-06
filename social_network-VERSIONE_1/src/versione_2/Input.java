@@ -241,7 +241,25 @@ public class Input
 		return temp;
 	}
 	
-
+public void routineIscrizione(ArrayList<Proposta>array,Utente u) {
+	if(array.size() == 0) {
+		System.out.print("ELENCO VUOTO");
+	}
+	else {
+		int b=0;
+		do {
+			b=Input.leggiInt(Input.proposteToString(array)+Menu.MESSAGGIO_BACHECA, true);
+			if(b<array.size()+1 && b!=0)
+			{
+				Proposta selezionata=array.get(b-1);
+				int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
+				if (n==1)selezionata.iscrizioneProposta(u);
+			}
+		}while(b!=0);
+	}
+	
+	
+}
 	
 
 }

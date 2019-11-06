@@ -187,6 +187,26 @@ public class Proposta implements Serializable {
 			return false;
 	}
 	
+	/**
+	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
+	 * @param n: indice della proposta nell'array di Bacheca 
+	 * @param u: utente che si vuole iscrivere
+	 */
+	public void iscrizioneProposta(Utente u) {
+		if(this.getStato() == Stato.CHIUSA)
+			System.out.println(Menu.PROPOSTA_CHIUSA);
+		else {	
+			if(this.getPartecipanti().contains(u))
+				System.out.println(Menu.ISCRIZIONE_RIDONDANTE);
+			else if(this.isFull())
+				System.out.print(Menu.ISCRIZIONE_PIENA);
+			else {
+				this.aggiungiPartecipante(u);
+				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);
+		}
+		}
+	}
+	
 	public void annullaIscrizione(Utente u) {
 		if(this.creatore != u)
 			this.partecipanti.remove(u);
