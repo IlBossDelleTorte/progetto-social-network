@@ -5,6 +5,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
+	
+	public static void routineIscrizione(ArrayList<Proposta>array,Utente u) {
+		if(array.size() == 0) {
+			System.out.print("ELENCO VUOTO");
+		}
+		else {
+			int b=0;
+			do {
+				b=Input.leggiInt(Input.proposteToString(array)+Menu.MESSAGGIO_BACHECA, true);
+				if(b<array.size()+1 && b!=0)
+				{
+					Proposta selezionata=array.get(b-1);
+					int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
+					if (n==1)selezionata.iscrizioneProposta(u);
+				}
+			}while(b!=0);
+		}
+		
+		
+	}
 
 	public static void main(String[] args) throws ParseException {
 		ContainerDati dati;
@@ -63,23 +83,9 @@ public class Main {
 			switch(i) {
 			case 1://Accesso alla bacheca per iscriversi ad una proposta
 				bacheca.aggiorna();
-				if(bacheca.getProposteAperte().size() == 0) {
-					System.out.print(Menu.PROPOSTE_APERTE_VUOTO);
-					break;
-				}
-				else {
-					int b=0;
-					do {
-						b=Input.leggiInt(bacheca+Menu.MESSAGGIO_BACHECA, true);
-						if(b<bacheca.getProposteAperte().size()+1 && b!=0)
-						{
-							int n=Input.yesNo(bacheca.getProposteAperte().get(b-1)+Menu.ISCRIZIONE_PROPOSTA);
-							if (n==1)bacheca.iscrizioneProposta(b-1, utente);
-							IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
-						}
-					}while(b!=0);
-					break;
-				}
+				routineIscrizione(bacheca.getProposteAperte(),utente);
+				IOFile.salvaDati(Menu.DATI, dati);
+				break;				
 			case 2://Accesso al menu proposta
 				bacheca.aggiorna();
 				int p=0;
@@ -222,7 +228,21 @@ public class Main {
 						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 						break;
 						
-					case 3;//da fare:Accesso agli inviti 
+					case 3://da fare:Accesso agli affini 
+						bacheca.aggiorna();
+						utente.aggiornaProposte();
+						routineIscrizione(utente.getProposteAffini(),utente);
+						IOFile.salvaDati(Menu.DATI, dati);
+						break;
+						
+					case 4: //Accesso agli inviti
+						bacheca.aggiorna();
+						utente.aggiornaProposte();
+						routineIscrizione(utente.getInviti(),utente);
+						IOFile.salvaDati(Menu.DATI, dati);
+						break;
+						
+						
 						}
 				}while(sp!=0);
 				break;

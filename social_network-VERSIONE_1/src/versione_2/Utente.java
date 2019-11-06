@@ -86,7 +86,12 @@ public String getNome() {
 	 proposteAffini.add(p);
  }
  
- public void rimuoviPropostaAffine(Proposta p) {
+ public ArrayList<Proposta> getProposteAffini() {
+	return proposteAffini;
+}
+
+
+public void rimuoviPropostaAffine(Proposta p) {
 	 proposteAffini.remove(p);
  }
  

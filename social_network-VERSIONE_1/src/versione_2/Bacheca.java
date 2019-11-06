@@ -42,6 +42,7 @@ public class Bacheca implements Serializable {
 	 * @param n: indice della proposta nell'array di Bacheca 
 	 * @param u: utente che si vuole iscrivere
 	 */
+	/*
 	public void iscrizioneProposta(int n, Utente u) {
 		if(proposteAperte.get(n).getStato() == Stato.CHIUSA)
 			System.out.println(Menu.PROPOSTA_CHIUSA);
@@ -55,7 +56,7 @@ public class Bacheca implements Serializable {
 				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);
 		}
 		}
-	}
+	}*/
 	
 	public void rimuoviProposta(int n) {
 		proposteInvalide.add(proposteAperte.get(n));
