@@ -164,5 +164,10 @@ public String toString() {
 	}
 	return str.toString();
 }
+
+
+public ArrayList<Proposta> getInviti() {
+	return inviti;
+}
  
 }

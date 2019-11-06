@@ -242,7 +242,6 @@ public class Main {
 						IOFile.salvaDati(Menu.DATI, dati);
 						break;
 						
-						
 						}
 				}while(sp!=0);
 				break;
