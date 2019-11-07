@@ -23,7 +23,7 @@ public class Utente implements Serializable {
 	 this.categorieInteresse=categorie;
 	 notifiche = new ArrayList<>();
 	 proposteValide = new ArrayList<>();
-	 categorieInteresse = new ArrayList<>();
+	 categorieInteresse = categorie;
 	 proposteAffini = new ArrayList<>();
 	 inviti = new ArrayList<>();
  }

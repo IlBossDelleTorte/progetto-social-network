@@ -61,7 +61,7 @@ public class Categoria implements Serializable {
 	 * Metodo che permette di inizializzare la categoria a partita di calcio
 	 */
 	public void partitaDiCalcio() {
-		this.nome="Partita di calcio";
+		this.nome="Partita di Calcio";
 		this.descrizione="Organizza una partita di calcio con i tuoi amici :)";
 		campi.add(new Campo_Stringa("Genere", "Il genere dei partecipanti", true));
 		campi.add(new Campo_Stringa("Fascia d'età", "Range d'età dei partecipanti", true));

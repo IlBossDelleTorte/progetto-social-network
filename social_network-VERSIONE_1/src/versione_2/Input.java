@@ -227,6 +227,15 @@ public class Input
 		return str.toString();
 	}
 	
+	public static String nomeUtentetoString(ArrayList<Utente>l) {
+		StringBuffer str=new StringBuffer();
+		for(int i=0;i<l.size();i++) {
+			str.append(i+1).append(". ").append(l.get(i).getNome()).append("\n");
+		}
+		return str.toString();
+		
+	}
+	
 	public static String leggiStringaFormattata(String message, String formato, boolean obbligatorio) {
 		String temp;
 		boolean getInput=false;

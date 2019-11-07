@@ -110,16 +110,17 @@ public class Bacheca implements Serializable {
 		ArrayList<Utente> utentiCorrelati = new ArrayList<>();
 		for(Proposta x : proposteInvalide) {
 			//prende le proposte che sono state create in passato dallo stesso utente
-			if(x.getCreatore() == c) {
+			if(x.getCreatore().getNome() == c.getNome()) {
 				//prende le proposte concluse e chiuse che condividono la stessa categoria della proposta da aprire
-				if(p.getCategoria().getNome() == x.getCategoria().getNome())
+				if(p.getCategoria().getNome().equals(x.getCategoria().getNome())) {
 					if(x.getStato() == Stato.CHIUSA || x.getStato() == Stato.CONCLUSA) {
 						for(Utente u : x.getPartecipanti()) {
 							//Se il partecipante scelto dalla proposta non è contenuto nella lista degli utenti correlati, allora viene aggiunto
-							if(!utentiCorrelati.contains(u))
+							if(!utentiCorrelati.contains(u)&& !u.equals(c))
 								utentiCorrelati.add(u);	
 						}
 					}
+				}
 			}
 		}
 		return utentiCorrelati;

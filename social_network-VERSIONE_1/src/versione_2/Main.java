@@ -7,12 +7,14 @@ import java.util.Arrays;
 public class Main {
 	
 	public static void routineIscrizione(ArrayList<Proposta>array,Utente u) {
+		u.aggiornaProposte();
 		if(array.size() == 0) {
 			System.out.print("ELENCO VUOTO");
 		}
 		else {
 			int b=0;
 			do {
+				u.aggiornaProposte();
 				b=Input.leggiInt(Input.proposteToString(array)+Menu.MESSAGGIO_BACHECA, true);
 				if(b<array.size()+1 && b!=0)
 				{
@@ -20,8 +22,10 @@ public class Main {
 					int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
 					if (n==1)selezionata.iscrizioneProposta(u);
 				}
-			}while(b!=0);
+			}while(b!=0 && array.size()!=0);
 		}
+		
+	
 		
 		
 	}
@@ -73,6 +77,7 @@ public class Main {
 			}while(n!=-1 && elencoCategorie.size()!=0);
 			utente=new Utente(nome,range,categorieInteresse);
 			listaUtenti.aggiungiUtente(utente);
+			System.out.println("UTENTE CREATO CON SUCCESSO\n"+utente.toString());
 			IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 		}
 		
@@ -107,12 +112,24 @@ public class Main {
 									if(p2<=utente.getProposteValide().size() && p2>0)
 									{
 										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Menu.GESTIONE_PROPOSTA_VALIDA,true);
-										if (n==1){
-											bacheca.aggiungiPropostaAperta(utente.getProposteValide().get(p2-1),listaUtenti);
-											utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
+										if (n==1){//pubblica una proposta valida (diviene aperta)
+											Proposta selezionata=utente.getProposteValide().get(p2-1);
+											bacheca.aggiungiPropostaAperta(selezionata,listaUtenti);
+											utente.rimuoviPropostaValida(selezionata);
 											System.out.print(Menu.PUBBLICAZIONE_EFFETTUATA);
-											}
-										if (n==2)
+											
+											//ROUTINE DI INVIO DEGLI INVITI ALLA PROPOSTA CORRENTE
+											ArrayList<Utente>correlati=bacheca.utentiCorrelati(utente, selezionata);
+											do {
+												System.out.print(Input.nomeUtentetoString(correlati)+Menu.MESSAGGIO_INVITI);
+												n=Input.leggiIntTra(false,1,correlati.size());
+												if(n!=-1) {
+													correlati.get(n-1).aggiungiInvito(selezionata);
+													correlati.remove(n-1);
+												}
+											}while(n!=-1 && correlati.size()!=0);
+										}
+										if (n==2)//rimuove una proposta dall'elenco delle proposte valide
 											utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));
 										if(utente.getProposteValide().size() == 0)
 											break;
@@ -190,7 +207,7 @@ public class Main {
 						else {
 							do {
 								sp1=Input.leggiInt(utente.elencoNotifiche()+Menu.MENU_NOTIFICHE, true);
-								if(sp1<=utente.getNotifiche().size() && sp>0) {
+								if(sp1<=utente.getNotifiche().size() && sp1>0) {
 								
 									int n=Input.yesNo(utente.getNotifiche().get(sp-1)+Menu.LINEA+Menu.RIMOZIONE_NOTIFICA);
 									if (n==1)
@@ -224,20 +241,19 @@ public class Main {
 								elencoCategorie.remove(n-1);
 							}
 						}while(n!=-1 && elencoCategorie.size()!=0);
-						utente.setCategorieInteresse(categorieInteresse);
+						if(!categorieInteresse.isEmpty())utente.setCategorieInteresse(categorieInteresse);//se l'utente ha scelto qualche categoria i dati sono aggiornati
+						System.out.print("ECCO I DATI AGGIORNATI:\n"+utente.toString());
 						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
 						break;
 						
 					case 3://da fare:Accesso agli affini 
 						bacheca.aggiorna();
-						utente.aggiornaProposte();
 						routineIscrizione(utente.getProposteAffini(),utente);
 						IOFile.salvaDati(Menu.DATI, dati);
 						break;
 						
 					case 4: //Accesso agli inviti
 						bacheca.aggiorna();
-						utente.aggiornaProposte();
 						routineIscrizione(utente.getInviti(),utente);
 						IOFile.salvaDati(Menu.DATI, dati);
 						break;
@@ -261,6 +277,9 @@ public class Main {
 					proposta.log();
 				}
 				break;
+				
+			case 6:System.out.println(Input.nomeUtentetoString(bacheca.utentiCorrelati(utente, null)));
+			System.out.println(Input.proposteToString(bacheca.getProposteInvalide()));
 		}
 		}while (i!=0);
 		IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
