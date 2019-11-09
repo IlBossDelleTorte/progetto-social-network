@@ -3,7 +3,7 @@ package versione_2;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+//
 public class Main {
 	
 	public static void routineIscrizione(ArrayList<Proposta>array,Utente u) {
