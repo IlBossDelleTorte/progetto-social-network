@@ -123,13 +123,13 @@ public void aggiornaProposte() {
 	for(int i = 0; i < proposteAffini.size(); i++) {
 		if(proposteAffini.get(i).getStato() != Stato.APERTA)
 			proposteAffini.remove(i);
-		if(proposteAffini.get(i).getPartecipanti().contains(this))
+		else if(proposteAffini.get(i).getPartecipanti().contains(this))
 			proposteAffini.remove(i);
 	}
 	for(int j = 0; j < inviti.size(); j++) {
 		if(inviti.get(j).getStato() != Stato.APERTA)
 			inviti.remove(j);
-		if(inviti.get(j).getPartecipanti().contains(this))
+		else if(inviti.get(j).getPartecipanti().contains(this))
 			inviti.remove(j);
 	}
 		

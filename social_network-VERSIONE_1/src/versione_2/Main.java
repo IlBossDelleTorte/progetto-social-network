@@ -14,7 +14,6 @@ public class Main {
 		else {
 			int b=0;
 			do {
-				u.aggiornaProposte();
 				b=Input.leggiInt(Input.proposteToString(array)+Menu.MESSAGGIO_BACHECA, true);
 				if(b<array.size()+1 && b!=0)
 				{
@@ -22,6 +21,7 @@ public class Main {
 					int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
 					if (n==1)selezionata.iscrizioneProposta(u);
 				}
+				u.aggiornaProposte();
 			}while(b!=0 && array.size()!=0);
 		}
 		
@@ -125,6 +125,8 @@ public class Main {
 												n=Input.leggiIntTra(false,1,correlati.size());
 												if(n!=-1) {
 													correlati.get(n-1).aggiungiInvito(selezionata);
+													correlati.get(n-1).riceviNotifica(String.format(Menu.NOTIFICA_INVITO,selezionata.getCreatore().getNome(),selezionata.getCategoria().getNome()));
+													//In seguito alla scelta di invitarte un utente, questo riceve una notifica con il nome del creatore della proposta e la categoria di appartenenza
 													correlati.remove(n-1);
 												}
 											}while(n!=-1 && correlati.size()!=0);
