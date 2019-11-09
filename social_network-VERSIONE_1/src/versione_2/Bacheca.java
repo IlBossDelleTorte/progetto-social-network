@@ -37,27 +37,7 @@ public class Bacheca implements Serializable {
 		p.aggiornaStato();
 	}
 	
-	
-	/**
-	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
-	 * @param n: indice della proposta nell'array di Bacheca 
-	 * @param u: utente che si vuole iscrivere
-	 */
-	/*
-	public void iscrizioneProposta(int n, Utente u) {
-		if(proposteAperte.get(n).getStato() == Stato.CHIUSA)
-			System.out.println(Menu.PROPOSTA_CHIUSA);
-		else {	
-			if(proposteAperte.get(n).getPartecipanti().contains(u))
-				System.out.println(Menu.ISCRIZIONE_RIDONDANTE);
-			else if(proposteAperte.get(n).isFull())
-				System.out.print(Menu.ISCRIZIONE_PIENA);
-			else {
-				proposteAperte.get(n).aggiungiPartecipante(u);
-				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);
-		}
-		}
-	}*/
+
 	
 	public void rimuoviProposta(int n) {
 		proposteInvalide.add(proposteAperte.get(n));
@@ -84,7 +64,8 @@ public class Bacheca implements Serializable {
 			{
 				notifica=Menu.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
-					u.riceviNotifica(notifica);
+					String messaggio_spese=String.format(Menu.NOTIFICA_SPESA_OPZIONALE, proposteAperte.get(i).spesaPersonale(u));
+					u.riceviNotifica(notifica+messaggio_spese);
 				}
 				this.rimuoviProposta(i);
 			}

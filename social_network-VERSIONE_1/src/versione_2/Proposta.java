@@ -205,6 +205,17 @@ public class Proposta implements Serializable {
 			return false;
 	}
 	
+	public boolean haveOptionalChoice() {
+		Campo spese_opzionali=getCategoria().getCampi().get(Menu.INDICE_SPESE_OPZIONALI);
+		if(this.getCategoria().getNome().equals("Escursione in montagna") && spese_opzionali.isInizializzato())
+			return true;
+		return false;
+	}
+	
+	public Float spesaPersonale(Utente u) {
+		return partecipanti.get(u);
+	}
+	
 	/**
 	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
 	 * @param n: indice della proposta nell'array di Bacheca 

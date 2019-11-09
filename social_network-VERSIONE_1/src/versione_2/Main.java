@@ -19,7 +19,29 @@ public class Main {
 				{
 					Proposta selezionata=array.get(b-1);
 					int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
-					if (n==1)selezionata.iscrizioneProposta(u,0);
+					if (n==1) {
+						float spesa=Float.parseFloat(selezionata.getCategoria().getCampi().get(Menu.INDICE_QUOTA_BASE).getValore().replace(',', '.'));
+						
+						//Caso in cui la proposta selezionata abbia delle spese opzionali da scegliere
+						if(selezionata.haveOptionalChoice()&& !selezionata.getPartecipanti().contains(u)){
+							Campo_Composto c=(Campo_Composto)selezionata.getCategoria().getCampi().get(Menu.INDICE_SPESE_OPZIONALI);
+							ArrayList<Campo> spese_opzionali=(ArrayList<Campo>)c.getElencoCampi().clone();
+							System.out.print(Menu.ISCRIZIONE_OPZIONALE);
+							do {
+								System.out.print(Menu.MESSAGGIO_SPESE);
+								for(int i=0;i<spese_opzionali.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
+									System.out.print(i+1+")"+spese_opzionali.get(i)+"\n");
+								}
+								n=Input.leggiIntTra(false,1,spese_opzionali.size());
+								if(n!=-1) {
+									spesa+=Float.parseFloat((spese_opzionali.get(n-1).getValore()).replace(',', '.'));
+									spese_opzionali.remove(n-1);
+								}
+							}while(n!=-1 && spese_opzionali.size()!=0);
+							
+						}
+						selezionata.iscrizioneProposta(u,spesa);
+					}
 				}
 				u.aggiornaProposte();
 			}while(b!=0 && array.size()!=0);
@@ -120,7 +142,8 @@ public class Main {
 											
 											//ROUTINE DI INVIO DEGLI INVITI ALLA PROPOSTA CORRENTE
 											ArrayList<Utente>correlati=bacheca.utentiCorrelati(utente, selezionata);
-											do {
+											if (correlati.size()!=0) {
+												do {
 												System.out.print(Input.nomeUtentetoString(correlati)+Menu.MESSAGGIO_INVITI);
 												n=Input.leggiIntTra(false,1,correlati.size());
 												if(n!=-1) {
@@ -130,6 +153,8 @@ public class Main {
 													correlati.remove(n-1);
 												}
 											}while(n!=-1 && correlati.size()!=0);
+											}
+											
 										}
 										if (n==2)//rimuove una proposta dall'elenco delle proposte valide
 											utente.rimuoviPropostaValida(utente.getProposteValide().get(p2-1));

@@ -17,6 +17,11 @@ public class Campo_Composto extends Campo {
 		valore.forEach(c->c.compila());
 
 	}
+	
+	public ArrayList<Campo> getElencoCampi()
+	{
+		return valore;
+	}
 
 	
 	public String getValore() {

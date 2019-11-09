@@ -45,10 +45,11 @@ public class Menu {
 	public static String MESSAGGIO_BACHECA =LINEA+"SELEZIONA UNA PROPOSTA CON IL NUMERO DI INDICE PER VISUALIZZARE I DETTAGLI ED EVENTUALMENTE ISCRIVERTI\n"
 			+ "OPPURE 0 PER TORNARE INDIETRO";
 	public static String HEADER_BACHECA=String.format("%-2s %-20s %-30s %-24s %-24s %-30s %-14s", "i","Creatore","Categoria","Data Evento","Scadenza"
-			,"Luogo","Prezzo");
+			,"Luogo","Spesa base");
 	public static String ISCRIZIONE_PROPOSTA=LINEA+"VUOI ISCRIVERTI ALLA PROPOSTA? (S/Y PER ACCETTARE N PER RIFIUTARE)\n";
 	public static String ISCRIZIONE_RIDONDANTE="SEI GIÀ ISCRITTO A QUESTA PROPOSTA"+LINEA;
 	public static String ISCRIZIONE_PIENA="LA PROPOSTA A CUI TI VUOI ISCRIVERE E' PIENA\n";
+	public static String ISCRIZIONE_OPZIONALE="LA PROPOSTA A CUI TI VUOI ISCRIVERE PREVEDE DELLE SPESE OPZIONALI DA SCEGLIERE";
 	public static String ISCRIZIONE_EFFETTUATA="ISCRIZIONE EFFETTUATA!\n";
 	public static String PROPOSTA_CHIUSA="LA PROPOSTA È GIÀ CHIUSA E NON VI SI PUÒ ISCRIVERE.\n";
 	public static String PROPOSTE_APERTE_VUOTO="NON È PRESENTE ALCUNA PROPOSTA APERTA NELLA BACHECA\n";
@@ -78,6 +79,7 @@ public class Menu {
 	//Notifiche inviate automaticamente
 	public static String NOTIFICA_SUCCESSO="Uno degli eventi a cui sei iscritto è andato a buon fine, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_FALLIMENTO="Uno degli eventi a cui sei iscritto è fallito, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
+	public static String NOTIFICA_SPESA_OPZIONALE="\n   Secondo le tue scelte nelle spese opzionali la spesa complessiva è di %3.2f €\n";
 	public static String NOTIFICA_RITIRO="Il creatore di uno degli eventi a cui sei iscritto ha ritirato la proposta, eccoti il resoconto\n\t"+HEADER_BACHECA+"\n";
 	public static String NOTIFICA_PROPOSTA_AFFINE="E' stata pubblicata una nuova proposta affine ai tuoi interessi, visualizzala nel tuo spazio personale\n";
 	public static String NOTIFICA_INVITO="Hai ricevuto un'invito da %s riguardo ad una proposta della categoria %s. Vai nel tuo spazio personale\n"
@@ -107,6 +109,7 @@ public class Menu {
 	public static String UTENTE="INSERISCI IL TUO NOME UTENTE..\n";
 	public static String MESSAGGIO_RANGE=LINEA+"SELEZIONA IL RANGE DI ETA' A CUI APPARTIENI CON L'INDICE OPPURE -1 PER SLATARE LA COMPILAZIONE\n";
 	public static String MESSAGGIO_INTERESSI=LINEA+"SELEZIONA LE TUE CATEGORIE DI INTERESSE CON L'INDICE (UNA PER VOLTA) PREMI -1 PER TERMINARE LA SELEZIONE\n";
+	public static String MESSAGGIO_SPESE=LINEA+"SELEZIONA LA SPESA CHE VUOI AFFRONTARE CON L'INDICE (UNA PER VOLTA) PREMI -1 PER TERMINARE LA SELEZIONE\n";
 	public static String MESSAGGIO_INVITI=LINEA+"IN QUESTA SEZIONE PUOI INVITARE GLI UTENTI CHE HANNO GIA' PARTECIPATO AD UN TUO EVENTO\n"
 			+ "SELEZIONA GLI UTENTI DA INVITARE CON L'INDICE (UNO PER VOLTA) PREMI -1 PER TERMINARE LA SELEZIONE\n";
 	public static String DATI="DATA.save";
@@ -120,6 +123,7 @@ public class Menu {
 	public static int INDICE_TERMINE_RITIRO = 10;
 	public static int INDICE_TOLLERANZA_PARTECIPANTI = 9;
 	public static int INDICE_QUOTA_BASE=6;
+	public static int INDICE_SPESE_OPZIONALI=12;
 	
 	public static String[] ELENCO_CATEGORIE= {"Partita di Calcio","Escursione in montagna"};
 	

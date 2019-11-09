@@ -34,8 +34,8 @@ public class Categoria implements Serializable {
 	 * @return
 	 */
 	public String header() {
-		String str=String.format("%-30s %-24s %-24s %-30s %-14s", nome,campi.get(4).getValore(),campi.get(2).getValore(),
-				campi.get(3).getValore(),campi.get(6).getValore()+"€");
+		String str=String.format("%-30s %-24s %-24s %-30s %-14s",
+				nome,campi.get(4).getValore(),campi.get(2).getValore(),campi.get(3).getValore(),campi.get(6).getValore()+"€");
 		return str;
 	}
 	
