@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Bacheca implements Serializable {
 
@@ -78,7 +79,7 @@ public class Bacheca implements Serializable {
 			proposteAperte.get(i).aggiornaStato();
 		}
 		for(int i = 0; i < proposteAperte.size(); i++) {
-			HashSet<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
+			Set<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
 				notifica=Menu.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();

@@ -1,5 +1,7 @@
 package versione_2;
 
+import java.util.ArrayList;
+
 public class Menu {
 	
 	//Utilities
@@ -22,10 +24,12 @@ public class Menu {
 	public static String FORMATO_RANGE="([1-9][0-9]-[1-9][0-9])|([1-9]-[1-9][0-9])|([1-9]-[1-9])";
 	
 	//Stringhe della fase di compilazione
+	public static String SELEZIONE_CATEGORIA=LINEA+"SELEZIONA LA CATEGORIA DELLA PROPOSTA DA COMPILARE CON L'INDICE\n";
 	public static String COMPILAZIONE_FLOAT="INSERISCI IL VALORE NUMERICO NEL FORMATO XXX,YY";
 	public static String COMPILAZIONE_INT="INSERISCI IL VALORE NUMERICO INTERO";
 	public static String COMPILAZIONE_STRINGA="INSERISCI IL VALORE DEL CAMPO (NON PUÒ SUPERARE I TRENTA CARATTERI)";
 	public static String COMPILAZIONE_DATA="INSERISCI LA DATA E ORA NEL FORMATO gg/mm/aaaa hh:mm";
+	public static String COMPILAZIONE_COMPOSTO="QUESTO E' UN CAMPO COMPOSTO DA:\n";
 	public static String COMPILAZIONE_EFFETTUATA="\nLA PROPOSTA È STATA AGGIUNTA CON SUCCESSO ALLA TUA LISTA DI PROPOSTE VALIDE!";
 	
 	//Stringhe dei campi facoltativi 
@@ -115,8 +119,15 @@ public class Menu {
 	public static int INDICE_PARTECIPANTI = 1;
 	public static int INDICE_TERMINE_RITIRO = 10;
 	public static int INDICE_TOLLERANZA_PARTECIPANTI = 9;
+	public static int INDICE_QUOTA_BASE=6;
 	
-	public static String[] ELENCO_CATEGORIE= {"Partita di Calcio"};
+	public static String[] ELENCO_CATEGORIE= {"Partita di Calcio","Escursione in montagna"};
 	
+	public static ArrayList<Campo> speseOpzionaliEscursione(){
+		ArrayList <Campo> array=new ArrayList<>();
+		array.add(new Campo_Float("Trasporto","Spesa per raggiungere il luogo dell'escursione",false));
+		array.add(new Campo_Float("Pasto","Spesa del pasto nel rifugio",false));
+		return array;
+	}
 	
 }

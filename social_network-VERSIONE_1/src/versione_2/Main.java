@@ -19,7 +19,7 @@ public class Main {
 				{
 					Proposta selezionata=array.get(b-1);
 					int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
-					if (n==1)selezionata.iscrizioneProposta(u);
+					if (n==1)selezionata.iscrizioneProposta(u,0);
 				}
 				u.aggiornaProposte();
 			}while(b!=0 && array.size()!=0);

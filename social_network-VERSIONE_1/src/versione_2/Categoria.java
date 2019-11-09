@@ -68,6 +68,13 @@ public class Categoria implements Serializable {
 		
 	}
 	
+	public void escursione() {
+		this.nome="Escursione in montagna";
+		this.descrizione="Organizza un esursione in montagna con i tuoi amici :)";
+		campi.add(new Campo_Composto("Spese opzionali","",false
+				,Menu.speseOpzionaliEscursione()));
+	}
+	
 	/**
 	 * Metodo toString di Categoria.
 	 * Ad ogni linea della stringa viene aggiunto l'indice dell'ArrayList Campi utilizzato poi per la selezione degli stessi da linea di comando

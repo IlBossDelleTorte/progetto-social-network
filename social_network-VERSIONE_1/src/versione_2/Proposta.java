@@ -1,18 +1,22 @@
 package versione_2;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Proposta implements Serializable {
 	private Categoria categoria;
 	private Stato stato;
-	private HashSet<Utente> partecipanti=new HashSet<Utente>();
+	private HashMap<Utente,Float> partecipanti=new HashMap<Utente,Float>();
 	private Utente creatore;
 	private ArrayList<String> logStati;
 
@@ -25,7 +29,6 @@ public class Proposta implements Serializable {
 	 */
 	public Proposta(Utente creatore) {
 		categoria=new Categoria();
-		categoria.partitaDiCalcio();
 		this.creatore=creatore;
 		stato=Stato.VUOTA;
 		logStati = new ArrayList<>();
@@ -40,6 +43,21 @@ public class Proposta implements Serializable {
 	 */
 	public void compilazione() throws ParseException {
 		ArrayList<Campo> c = categoria.getCampi();
+		ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Menu.ELENCO_CATEGORIE));
+		
+		for(int i=0;i<elencoCategorie.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
+			System.out.println(i+1+")"+elencoCategorie.get(i));
+		}
+		System.out.print(Menu.SELEZIONE_CATEGORIA);
+		int n=Input.leggiIntTra(true,1,elencoCategorie.size());
+		switch(n) {
+		case 1:
+			categoria.partitaDiCalcio();
+			break;
+		case 2:
+			categoria.escursione();
+			break;
+		}
 		int size = c.size();
 		for(int i = 0; i < size; i++) {
 			if(i == Menu.INDICE_DATA_INIZIO) {
@@ -96,15 +114,15 @@ public class Proposta implements Serializable {
 		if(!c.get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).isInizializzato()){
 			c.get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).setValore("0");
 		}
-		aggiungiPartecipante(creatore);
+		aggiungiPartecipante(creatore,Float.parseFloat(c.get(Menu.INDICE_QUOTA_BASE).getValore().replace(',', '.')));
 		System.out.print(categoria);
 		this.aggiornaStato();
 		creatore.aggiungiPropostaValida(this);
 		System.out.println(Menu.COMPILAZIONE_EFFETTUATA);
 	}
 	
-	public void aggiungiPartecipante(Utente u) {
-		partecipanti.add(u);
+	public void aggiungiPartecipante(Utente u,Float f) {
+		partecipanti.put(u,f);
 	}
 	
 	/**
@@ -192,7 +210,7 @@ public class Proposta implements Serializable {
 	 * @param n: indice della proposta nell'array di Bacheca 
 	 * @param u: utente che si vuole iscrivere
 	 */
-	public void iscrizioneProposta(Utente u) {
+	public void iscrizioneProposta(Utente u,float f ) {
 		if(this.getStato() == Stato.CHIUSA)
 			System.out.println(Menu.PROPOSTA_CHIUSA);
 		else {	
@@ -201,7 +219,7 @@ public class Proposta implements Serializable {
 			else if(this.isFull())
 				System.out.print(Menu.ISCRIZIONE_PIENA);
 			else {
-				this.aggiungiPartecipante(u);
+				this.aggiungiPartecipante(u,new Float(f));
 				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);
 		}
 		}
@@ -236,8 +254,8 @@ public class Proposta implements Serializable {
 		this.creatore = creatore;
 	}
 
-	public HashSet<Utente> getPartecipanti() {
-		return partecipanti;
+	public Set<Utente> getPartecipanti() {
+		return partecipanti.keySet();
 	}
 	
 
