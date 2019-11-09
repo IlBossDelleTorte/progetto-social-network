@@ -120,6 +120,7 @@ public class Main {
 											
 											//ROUTINE DI INVIO DEGLI INVITI ALLA PROPOSTA CORRENTE
 											ArrayList<Utente>correlati=bacheca.utentiCorrelati(utente, selezionata);
+											if(correlati.size() != 0)
 											do {
 												System.out.print(Input.nomeUtentetoString(correlati)+Menu.MESSAGGIO_INVITI);
 												n=Input.leggiIntTra(false,1,correlati.size());
