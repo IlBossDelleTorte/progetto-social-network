@@ -90,7 +90,7 @@ public class Menu {
 	public static String SPAZIO_PERSONALE_VUOTO="NON HAI NESSUNA NUOVA NOTIFICA\n";
 	public static String RIMOZIONE_NOTIFICA="VUOI RIMUOVERE LA NOTIFICA SELEZIONATA? (S/Y PER ACCETTARE N PER RIFIUTARE)";
 	public static String UTENTE="INSERISCI IL TUO NOME UTENTE..\n";
-	public static String DATI="DATA.save";
+	public static String DATI="DATA3.save";
 
 	
 	public static int INDICE_DATA_INIZIO = 4;
