@@ -182,6 +182,11 @@ public class Main {
 										propostaSelezionata.annullaIscrizione(utente);
 										System.out.print(Menu.MESSAGGIO_DISISCRIZIONE);
 									}
+
+									if (n==1 && !propostaSelezionata.isRitirabile())
+									{
+										System.out.print(Menu.MESSAGGIO_NON_RITIRABILE);
+									}
 									if(utente.getProposteValide().size() == 0)
 										break;
 								}
@@ -207,6 +212,10 @@ public class Main {
 										bacheca.ritiraProposta(propostaSelezionata);
 										System.out.print(Menu.MESSAGGIO_RITIRO);
 										
+									}
+									if (n==1 && !propostaSelezionata.isRitirabile())
+									{
+										System.out.print(Menu.MESSAGGIO_NON_RITIRABILE);
 									}
 									if(utente.getProposteValide().size() == 0)
 										break;
