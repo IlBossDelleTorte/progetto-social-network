@@ -1,4 +1,4 @@
-package versione_2;
+package versione_3;
 
 import java.io.Serializable;
 import java.util.HashSet;
