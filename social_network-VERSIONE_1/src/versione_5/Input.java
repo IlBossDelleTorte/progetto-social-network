@@ -140,6 +140,13 @@ public class Input
 		return temp;
 	}
 	
+	/**
+	 * Metodo con il quale viene letto un numero intero appartenenete ad un intervallo indicato 
+	 * @param obbligatorio : boolean che  indica se la lettura è obbligatoria 
+	 * @param min : estremo sinistro del range 
+	 * @param max : estremo destro del range
+	 * @return
+	 */
 	public static int leggiIntTra(boolean obbligatorio,int min,int max)
 	{
 		int temp=0;
@@ -217,6 +224,11 @@ public class Input
 		}		
 	}
 	
+	/**
+	 * Metodo con il quale è possibile converitre un eleno di proposte in una stringa riassuntiva dell'elenco 
+	 * @param l : elenco delle proposte da riassumere 
+	 * @return
+	 */
 	public static String proposteToString(ArrayList<Proposta> l) {
 		StringBuffer str= new StringBuffer(String.format(Menu.HEADER_BACHECA));
 		str.append(Menu.LINEA);
@@ -227,6 +239,11 @@ public class Input
 		return str.toString();
 	}
 	
+	/**
+	 * Metodo con il quale è possibile convertire un elenco di utenti in una stringa 
+	 * @param l : elenco da convertire 
+	 * @return
+	 */
 	public static String nomeUtentetoString(ArrayList<Utente>l) {
 		StringBuffer str=new StringBuffer();
 		for(int i=0;i<l.size();i++) {

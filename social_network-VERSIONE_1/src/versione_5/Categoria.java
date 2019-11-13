@@ -68,6 +68,9 @@ public class Categoria implements Serializable {
 		
 	}
 	
+	/**
+	 * Metodo che permette di inizializzare una categoria a escursione in montagna 
+	 */
 	public void escursione() {
 		this.nome="Escursione in montagna";
 		this.descrizione="Organizza un esursione in montagna con i tuoi amici :)";

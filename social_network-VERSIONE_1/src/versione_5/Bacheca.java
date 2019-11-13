@@ -88,6 +88,12 @@ public class Bacheca implements Serializable {
 		}
 	}
 	
+	/**
+	 * Il metodo genera l'elenco di tutti gli utenti correlati con l'utente c relativi alla proposta p
+	 * @param c creatore della proposta
+	 * @param p proposta da cui si attinge la categoria 
+	 * @return un'arrayList di utenti correlati 
+	 */
 	public ArrayList<Utente> utentiCorrelati(Utente c, Proposta p) {
 		ArrayList<Utente> utentiCorrelati = new ArrayList<>();
 		for(Proposta x : proposteInvalide) {
@@ -110,7 +116,7 @@ public class Bacheca implements Serializable {
 	
 	/**
 	 * Metodo per inviare inviti ad una lista di utenti aggiungendo la proposta 
-	 * invitata nell'array degli inviti di queste
+	 * invitata nell'array degli inviti di questi
 	 * @param utentiInvitati: elenco degli utenti che ricevono l'invito
 	 * @param p: proposta oggetto dell'invito
 	 */
@@ -133,6 +139,11 @@ public class Bacheca implements Serializable {
 		
 	}
 	
+	/**
+	 * Metodo che ritorna l'elenco delle proposte di cui c è creatore
+	 * @param c : utente di cui si vogliono trovare le proposte create 
+	 * @return ArrayList di proposte create
+	 */
 	public ArrayList<Proposta> getProposteCreatore(Utente c){
 		ArrayList<Proposta> pCreatore = new ArrayList<Proposta>();
 		for(Proposta p : proposteAperte) {
@@ -142,6 +153,11 @@ public class Bacheca implements Serializable {
 		return pCreatore;
 	}
 	
+	/**
+	 * Metodo che ritorna le proposte a cui è iscritto l'utente c e di cui non è creatore 
+	 * @param c : utente di cui si vogliono trovare le iscrizioni
+	 * @return ArrayList di proposte a cui l'utente è iscritto
+	 */
 	public ArrayList<Proposta> getIscrizioni(Utente c){
 		ArrayList<Proposta> pIscrizioni = new ArrayList<Proposta>();
 		for(Proposta p : proposteAperte) {
@@ -152,6 +168,12 @@ public class Bacheca implements Serializable {
 		return pIscrizioni;
 	}
 	
+	/**
+	 * Metodo che imposta una proposta ritirata effettuando anche la rimozione di questa dalla bacheca
+	 * @param p : proposta da ritirare
+	 * @throws NumberFormatException
+	 * @throws ParseException
+	 */
 	public void ritiraProposta(Proposta p) throws NumberFormatException, ParseException {
 		p.setStato(Stato.RITIRATA);
 		this.aggiorna();
