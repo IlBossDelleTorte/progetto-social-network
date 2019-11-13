@@ -1,4 +1,4 @@
-package versione_2;
+package versione_4;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -265,24 +265,6 @@ public class Main {
 				}while(sp!=0);
 				break;
 				
-			case 4:
-				System.out.println("Spamming notifiche!!!\n\n");
-				utente.riceviNotifica("NEGRO");
-				break;
-			case 5 :
-				for(Proposta proposta : utente.getProposteValide())
-					proposta.log();
-				
-				for(Proposta proposta : bacheca.getProposteAperte()) {
-					proposta.log();
-				}
-				for(Proposta proposta : bacheca.getProposteInvalide()) {
-					proposta.log();
-				}
-				break;
-				
-			case 6:System.out.println(Input.nomeUtentetoString(bacheca.utentiCorrelati(utente, null)));
-			System.out.println(Input.proposteToString(bacheca.getProposteInvalide()));
 		}
 		}while (i!=0);
 		IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
