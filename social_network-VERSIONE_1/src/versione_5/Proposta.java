@@ -48,7 +48,7 @@ public class Proposta implements Serializable {
 		for(int i=0;i<elencoCategorie.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
 			System.out.println(i+1+")"+elencoCategorie.get(i));
 		}
-		System.out.print(Menu.SELEZIONE_CATEGORIA);
+		System.out.print(Menu.SELEZIONE_CATEGORIA);//scelta della categoria della proposta 
 		int n=Input.leggiIntTra(true,1,elencoCategorie.size());
 		switch(n) {
 		case 1:
@@ -58,6 +58,7 @@ public class Proposta implements Serializable {
 			categoria.escursione();
 			break;
 		}
+		
 		int size = c.size();
 		for(int i = 0; i < size; i++) {
 			if(i == Menu.INDICE_DATA_INIZIO) {
@@ -105,8 +106,23 @@ public class Proposta implements Serializable {
 				}
 				else
 					c.get(i).setValore(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
-	
-					
+				}
+			else if(n==1 && i==Menu.INDICE_GENERE) {//se la categoria è partita di calcio e si sta compilando il genere
+				c.get(i).compila();
+				String genere=c.get(i).getValore();
+				if(!(genere.equalsIgnoreCase("MASCHIO")||genere.equalsIgnoreCase("FEMMINA")||genere.equalsIgnoreCase("MISTO"))){
+					System.out.print(Menu.ERRORE_GENERE);
+					i--;
+				}
+			}
+			
+			else if (n==1 && i==Menu.INDICE_RANGE) {//se la categoria è partita di calcio e si sta comilando il range d'eta
+				System.out.print(c.get(i).toString()+Menu.LINEA);
+				String str;
+				if(c.get(i).isObbligatorio())str=Menu.COMPILAZIONE_STRINGA_RANGE;
+				else str=Menu.COMPILAZIONE_STRINGA_RANGE+Menu.FACOLTATIVO_STRINGA;
+				String v=Input.leggiStringaFormattata(str, Menu.FORMATO_RANGE, c.get(i).isObbligatorio());
+				c.get(i).setValore(v);
 			}
 			else
 				c.get(i).compila();
