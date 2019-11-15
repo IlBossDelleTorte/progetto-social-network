@@ -2,7 +2,7 @@ package versione_3;
 
 import java.text.ParseException;
 
-public class Main {
+public class Main3 {
 
 	public static void main(String[] args) throws ParseException {
 		ContainerDati dati;
