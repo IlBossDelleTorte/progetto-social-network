@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import view.Costanti;
+import view.Messaggi;
 
 public class CampoComposto extends Campo {
 
@@ -19,7 +20,7 @@ public class CampoComposto extends Campo {
 	 * Essendo valore un ArrayList di Campi, compila viene di fatto eseguito su ogni singolo elemento di questo
 	 */
 	public void compila() {
-		System.out.print(String.format("%-35s %-100s", this.getNome(), this.getDescrizione())+Costanti.COMPILAZIONE_COMPOSTO);
+		Messaggi.stampa(String.format("%-35s %-100s", this.getNome(), this.getDescrizione())+Costanti.COMPILAZIONE_COMPOSTO);
 		valore.forEach(c->c.compila());
 
 	}

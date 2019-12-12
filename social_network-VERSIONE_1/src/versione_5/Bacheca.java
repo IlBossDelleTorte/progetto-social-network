@@ -41,7 +41,7 @@ public class Bacheca implements Serializable {
 	
 
 	
-	public void rimuoviProposta(int n) {
+	public void rimuoviPropostaAperta(int n) {
 		proposteInvalide.add(proposteAperte.get(n));
 		proposteAperte.remove(n);
 		
@@ -58,33 +58,33 @@ public class Bacheca implements Serializable {
 	public void aggiorna() throws NumberFormatException, ParseException {
 		String notifica;
 		for(int i = 0; i < proposteAperte.size(); i++) {
-			proposteAperte.get(i).aggiornaStato();
+			proposteAperte.forEach(p->ControllerStato.aggiornaProposta(p));
 		}
 		for(int i = 0; i < proposteAperte.size(); i++) {
-			Set<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
+			Set<Notificabile> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
 				notifica=Costanti.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
-				for(Utente u : partecipanti) {
+				for(Notificabile u : partecipanti) {
 					String messaggio_spese=String.format(Costanti.NOTIFICA_SPESA_OPZIONALE, proposteAperte.get(i).spesaPersonale(u));
 					u.riceviNotifica(notifica+messaggio_spese);
 				}
-				this.rimuoviProposta(i);
+				this.rimuoviPropostaAperta(i);
 			}
 			else if(proposteAperte.get(i).getStato() == Stato.FALLITA)
 			{
 				notifica=Costanti.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
-				for(Utente u : partecipanti) {
+				for(Notificabile u : partecipanti) {
 					u.riceviNotifica(notifica);
 				}
-				this.rimuoviProposta(i);
+				this.rimuoviPropostaAperta(i);
 			}
 			else if(proposteAperte.get(i).getStato() == Stato.RITIRATA) {
 				notifica=Costanti.NOTIFICA_RITIRO+"\t   "+proposteAperte.get(i).header();
-				for(Utente u : partecipanti) {
+				for(Notificabile u : partecipanti) {
 					u.riceviNotifica(notifica);
 				}
-				this.rimuoviProposta(i);
+				this.rimuoviPropostaAperta(i);
 			}
 				
 		}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 
-public class Utente implements Serializable {
+public class Utente implements Serializable,Notificabile {
 	private String nome;
 	private String fasciaEta = null;
 	private ArrayList<String> categorieInteresse;
@@ -76,7 +76,7 @@ public String getNome() {
 
  public void aggiungiPropostaValida(Proposta p) throws NumberFormatException, ParseException {
 	proposteValide.add(p);
-	p.aggiornaStato();
+	ControllerStato.aggiornaProposta(p);
  }
  public void rimuoviPropostaValida(Proposta p) {
 	proposteValide.remove(p);

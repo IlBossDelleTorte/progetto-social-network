@@ -15,11 +15,12 @@ import java.util.Set;
 
 import campo.Campo;
 import view.Costanti;
+import view.Messaggi;
 
 public class Proposta implements Serializable {
 	private Categoria categoria;
 	private Stato stato;
-	private HashMap<Utente,Float> partecipanti=new HashMap<Utente,Float>();
+	private HashMap<Notificabile,Float> partecipanti=new HashMap<Notificabile,Float>();
 	private Utente creatore;
 	private ArrayList<String> logStati;
 
@@ -31,13 +32,110 @@ public class Proposta implements Serializable {
 	 * @param creatore: utente creatore della proposta
 	 */
 	public Proposta(Utente creatore) {
-		categoria=new Categoria();
 		this.creatore=creatore;
 		stato=Stato.VUOTA;
 		logStati = new ArrayList<>();
 		aggiungiLog();
 	}
+
 	
+	
+	public String valoreCampo(int i) {
+		return this.categoria.valoreDi(i);
+	}
+	
+	public boolean isFull() {
+		
+		int numero_partecipanti=Integer.parseInt(categoria.valoreDi(Costanti.INDICE_PARTECIPANTI));
+		int massimo_partecipanti=Integer.parseInt(categoria.valoreDi(Costanti.INDICE_TOLLERANZA_PARTECIPANTI))+numero_partecipanti;
+		if(partecipanti.size() == massimo_partecipanti)
+			return true;
+			else
+				return false;
+		
+	}
+	
+	public boolean isRitirabile() {
+		if(new Date().before(Input.stringToDate(categoria.valoreDi(Costanti.INDICE_TERMINE_RITIRO))))
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
+	public Float spesaPersonale(Notificabile  u) {
+		return partecipanti.get(u);
+	}
+	
+	/**
+	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
+	 * @param n: indice della proposta nell'array di Bacheca 
+	 * @param u: utente che si vuole iscrivere
+	 */
+	public void aggiungiPartecipante(Notificabile u,float f ) {
+		if(this.getStato() == Stato.CHIUSA)
+			Messaggi.stampa(Costanti.PROPOSTA_CHIUSA);
+		else {	
+			if(this.getPartecipanti().contains(u))
+				Messaggi.stampa(Costanti.ISCRIZIONE_RIDONDANTE);
+			else if(this.isFull())
+				Messaggi.stampa(Costanti.ISCRIZIONE_PIENA);
+			else {
+				partecipanti.put(u,new Float(f));
+				Messaggi.stampa(Costanti.ISCRIZIONE_EFFETTUATA);
+		}
+		}
+	}
+	
+	public void rimuoviPartecipante(Utente u) {
+		if(this.creatore != u)
+			this.partecipanti.remove(u);
+	}
+	
+	/**
+	 * Il metodo aggiunge una riga all'ArrayList dei log indicando:
+	 * Nome_Creatore Stato Data_attuale Numero_partecipanti_attuali
+	 */
+	public void aggiungiLog() {
+		logStati.add(String.format(Costanti.FORMATO_LOG, creatore.getNome(), stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
+	}
+
+	public Stato getStato() {
+		return stato;
+	}
+
+	public void setStato(Stato stato) {
+		this.stato = stato;
+	}
+
+	public Utente getCreatore() {
+		return creatore;
+	}
+	
+	public Set<Notificabile> getPartecipanti() {
+		return partecipanti.keySet();
+	}
+	
+	
+	/**
+	 * Metodo di debug, stampa a video i logi riguardanti una proposta
+	 */
+	public void log() {
+		StringBuffer str=new StringBuffer();
+		logStati.forEach(s->str.append(s));
+		System.out.print(str.toString());
+		
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	
+	public void setCategoria(Categoria c) {
+		this.categoria=c;
+	}
+
 	/**
 	 * Metodo che elabora la routine per assegnare i valori ai campi di una proposta, il metodo effettua anche i controlli della validità
 	 * dei valori introdotti.
@@ -55,10 +153,10 @@ public class Proposta implements Serializable {
 		int n=Input.leggiIntTra(true,1,elencoCategorie.size());
 		switch(n) {
 		case 1:
-			categoria.partitaDiCalcio();
+			categoria=new PartitaDiCalcio();
 			break;
 		case 2:
-			categoria.escursione();
+			categoria=new Escursione();
 			break;
 		}
 		
@@ -139,168 +237,4 @@ public class Proposta implements Serializable {
 		creatore.aggiungiPropostaValida(this);
 		System.out.println(Costanti.COMPILAZIONE_EFFETTUATA);
 	}
-	
-	public void aggiungiPartecipante(Utente u,Float f) {
-		partecipanti.put(u,f);
-	}
-	
-	/**
-	 * Metodo con il quale viene cambiato lo stato di una proposta in accordo con le condizioni di transizione specifiche 
-	 * @throws NumberFormatException
-	 * @throws ParseException
-	 */
-	public void aggiornaStato() throws NumberFormatException, ParseException {
-		
-		Date scadenza_iscrizione=Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore());
-		Date termine_ritiro=Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_TERMINE_RITIRO).getValore());
-		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_PARTECIPANTI).getValore());
-		
-		switch (this.stato) {
-		case VUOTA : 
-			stato = Stato.VALIDA;
-			aggiungiLog();
-			break;
-		case VALIDA :
-			//nel caso in cui l'utente avesse una proposta valida e le condizioni non fossero rispettate
-			//prima che questa venga pubblicata, questa passa direttamente a fallita
-			if(partecipanti.size() < numero_partecipanti
-					&& scadenza_iscrizione.before(new Date())) {
-				stato = Stato.FALLITA;
-				aggiungiLog();
-			}
-			else {
-			stato = Stato.APERTA;
-			aggiungiLog();
-			}
-			break;
-		case APERTA :
-			int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
-			
-			if((scadenza_iscrizione.after(new Date()) && termine_ritiro.before(new Date()) && partecipanti.size() == massimo_partecipanti)
-				||(new Date().after(scadenza_iscrizione) && partecipanti.size()>=numero_partecipanti && partecipanti.size()<=massimo_partecipanti)){
-				stato = Stato.CHIUSA;
-				aggiungiLog();
-			}
-			else if(partecipanti.size() < numero_partecipanti
-					&& scadenza_iscrizione.before(new Date())) {
-				stato = Stato.FALLITA;
-				aggiungiLog();
-			}
-			break;
-		case CHIUSA :
-			Calendar c = Calendar.getInstance();
-			c.setTime(Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_DATA_INIZIO).getValore()));
-			c.add(Calendar.DAY_OF_MONTH, 1);
-			Date d = c.getTime();
-			if(new Date().after(d)) {
-				stato = Stato.CONCLUSA;
-				aggiungiLog();
-			}
-			break;
-		default :
-			aggiungiLog();
-			break;
-		
-				
-			
-		}
-	}
-	
-	public boolean isFull() {
-		
-		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_PARTECIPANTI).getValore());
-		int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
-		if(partecipanti.size() == massimo_partecipanti)
-			return true;
-			else
-				return false;
-		
-	}
-	
-	public boolean isRitirabile() {
-		if(new Date().before(Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_TERMINE_RITIRO).getValore())))
-			return true;
-		else
-			return false;
-	}
-	
-	public boolean haveOptionalChoice() {
-		Campo spese_opzionali=getCategoria().getCampi().get(Costanti.INDICE_SPESE_OPZIONALI);
-		if(this.getCategoria().getNome().equals("Escursione in montagna") && spese_opzionali.isInizializzato())
-			return true;
-		return false;
-	}
-	
-	public Float spesaPersonale(Utente u) {
-		return partecipanti.get(u);
-	}
-	
-	/**
-	 * Metodo che permette ad un utente di isriversi ad una proposta, ovvero aggiungersi all'elenco dei partecipanti di un evento
-	 * @param n: indice della proposta nell'array di Bacheca 
-	 * @param u: utente che si vuole iscrivere
-	 */
-	public void iscrizioneProposta(Utente u,float f ) {
-		if(this.getStato() == Stato.CHIUSA)
-			System.out.println(Costanti.PROPOSTA_CHIUSA);
-		else {	
-			if(this.getPartecipanti().contains(u))
-				System.out.println(Costanti.ISCRIZIONE_RIDONDANTE);
-			else if(this.isFull())
-				System.out.print(Costanti.ISCRIZIONE_PIENA);
-			else {
-				this.aggiungiPartecipante(u,new Float(f));
-				System.out.println(Costanti.ISCRIZIONE_EFFETTUATA);
-		}
-		}
-	}
-	
-	public void annullaIscrizione(Utente u) {
-		if(this.creatore != u)
-			this.partecipanti.remove(u);
-	}
-	
-	/**
-	 * Il metodo aggiunge una riga all'ArrayList dei log indicando:
-	 * Nome_Creatore Stato Data_attuale Numero_partecipanti_attuali
-	 */
-	public void aggiungiLog() {
-		logStati.add(String.format(Costanti.FORMATO_LOG, creatore.getNome(), stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
-	}
-
-	public Stato getStato() {
-		return stato;
-	}
-
-	public void setStato(Stato stato) {
-		this.stato = stato;
-	}
-
-	public Utente getCreatore() {
-		return creatore;
-	}
-
-	public void setCreatore(Utente creatore) {
-		this.creatore = creatore;
-	}
-
-	public Set<Utente> getPartecipanti() {
-		return partecipanti.keySet();
-	}
-	
-	
-	/**
-	 * Metodo di debug, stampa a video i logi riguardanti una proposta
-	 */
-	public void log() {
-		StringBuffer str=new StringBuffer();
-		logStati.forEach(s->str.append(s));
-		System.out.print(str.toString());
-		
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
 }

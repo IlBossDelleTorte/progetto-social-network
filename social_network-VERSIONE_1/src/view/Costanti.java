@@ -121,17 +121,17 @@ public class Costanti {
 	public static String DATI="DATA5.save";
 
 	
-	public static int INDICE_DATA_INIZIO = 4;
-	public static int INDICE_DATA_FINE = 8;
-	public static int INDICE_DURATA = 5;
-	public static int INDICE_SCADENZA_ISCRIZIONE = 2;
-	public static int INDICE_PARTECIPANTI = 1;
-	public static int INDICE_TERMINE_RITIRO = 10;
-	public static int INDICE_TOLLERANZA_PARTECIPANTI = 9;
-	public static int INDICE_QUOTA_BASE=6;
-	public static int INDICE_SPESE_OPZIONALI=12;
-	public static int INDICE_GENERE=12;
-	public static int INDICE_RANGE=13;
+	public static final int INDICE_DATA_INIZIO = 4;
+	public static final int INDICE_DATA_FINE = 8;
+	public static final int INDICE_DURATA = 5;
+	public static final int INDICE_SCADENZA_ISCRIZIONE = 2;
+	public static final int INDICE_PARTECIPANTI = 1;
+	public static final int INDICE_TERMINE_RITIRO = 10;
+	public static final int INDICE_TOLLERANZA_PARTECIPANTI = 9;
+	public static final int INDICE_QUOTA_BASE=6;
+	public static final int INDICE_SPESE_OPZIONALI=12;
+	public static final int INDICE_GENERE=12;
+	public static final int INDICE_RANGE=13;
 	
 	public static String[] ELENCO_CATEGORIE= {"Partita di Calcio","Escursione in montagna"};
 	

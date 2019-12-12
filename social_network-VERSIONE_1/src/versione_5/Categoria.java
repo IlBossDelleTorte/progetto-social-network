@@ -11,7 +11,7 @@ import campo.CampoIntero;
 import campo.CampoStringa;
 import view.Costanti;
 
-public class Categoria implements Serializable {
+public abstract class  Categoria implements Serializable {
 	
 	private String nome;
 	private String descrizione;
@@ -24,25 +24,21 @@ public class Categoria implements Serializable {
 	 * @param nome
 	 * @param descrizione
 	 */
-	public Categoria () {
+	public Categoria (String nome,String descrizione) {
+		this.nome=nome;
+		this.descrizione=descrizione;
 		this.campi=new ArrayList<Campo>();
-		this.inizializzazioneStandard();
-	}
-	
-	/**
-	 * Metodo che permette di aggiungere un campo all'elenco dei campi di una categoria 
-	 * @param c campo da aggiungere
-	 */
-	public void aggiungiCampo(Campo c) {
-		campi.add(c);
+		this.inizializzazione();
 	}
 	
 	
+	
+	public  abstract boolean  haveOptionalChoice();
 	
 	/**
 	 * Metodo che aggiunge tutti i campi generali ad un oggetto di tipo Categoria
 	 */
-	public void inizializzazioneStandard() {
+	public void inizializzazione() {
 		campi.add(new CampoStringa("Titolo", "Nome di fantasia attribuito all'evento",false));
 		campi.add(new CampoIntero("Numero di partecipanti", "Numero di persone da coinvolgere nell’evento", true));
 		campi.add(new CampoData("Termine ultimo di iscrizione","Ultimo giorno utile per iscriversi all’evento",true));
@@ -57,43 +53,17 @@ public class Categoria implements Serializable {
 		campi.add(new CampoStringa("Note","Informazioni aggiuntive",false));
 	}
 	
-	/**
-	 * Metodo che permette di inizializzare la categoria a partita di calcio
-	 */
-	public void partitaDiCalcio() {
-		this.nome="Partita di Calcio";
-		this.descrizione="Organizza una partita di calcio con i tuoi amici :)";
-		campi.add(new CampoStringa("Genere", "Il genere dei partecipanti", true));
-		campi.add(new CampoStringa("Fascia d'età", "Range d'età dei partecipanti", true));
-		
-	}
 	
-	/**
-	 * Metodo che permette di inizializzare una categoria a escursione in montagna 
-	 */
-	public void escursione() {
-		this.nome="Escursione in montagna";
-		this.descrizione="Organizza un esursione in montagna con i tuoi amici :)";
-		campi.add(new CampoComposto("Spese opzionali","",false
-				,Costanti.speseOpzionaliEscursione()));
-	}
 	
 	
 	public String getNome() {
 		return nome;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
+	
 	public String getDescrizione() {
 		return descrizione;
 	}
 
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
 
 	public ArrayList<Campo> getCampi() {
 		return campi;
@@ -103,7 +73,4 @@ public class Categoria implements Serializable {
 		return campi.get(i).getValore();
 	}
 
-	public void setCampi(ArrayList<Campo> campi) {
-		this.campi = campi;
-	}
 }

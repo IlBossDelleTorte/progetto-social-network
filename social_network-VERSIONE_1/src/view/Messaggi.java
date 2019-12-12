@@ -32,5 +32,9 @@ public class Messaggi {
 	public static void errore() {
 		System.out.println(ERROR);
 	}
+	
+	public static void stampaLinea() {
+		System.out.print(Costanti.LINEA);
+	}
 
 }

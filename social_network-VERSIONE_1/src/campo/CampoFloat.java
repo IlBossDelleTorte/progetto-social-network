@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import versione_5.Input;
 import view.Costanti;
+import view.Messaggi;
+import view.ObjectPrinter;
 
 public class CampoFloat extends Campo implements Serializable {
 	
@@ -48,10 +50,10 @@ public class CampoFloat extends Campo implements Serializable {
 	 * per mezzo del metodo leggiNumerico di Input
 	 */
 	public void compila() {
-		System.out.print(this.toString()+Costanti.LINEA);
+		ObjectPrinter.stampaCampo(this);
+		Messaggi.stampaLinea();
 		String str=Costanti.COMPILAZIONE_FLOAT;
-		if(this.isObbligatorio())str=str;
-		else str=str+Costanti.FACOLTATIVO_NUMERICO;
+		if(!this.isObbligatorio())str=str+Costanti.FACOLTATIVO_NUMERICO;
 		this.valore=Input.leggiFloat(str,this.isObbligatorio());
 	}
 	

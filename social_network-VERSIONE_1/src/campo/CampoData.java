@@ -8,6 +8,8 @@ import java.util.Date;
 
 import versione_5.Input;
 import view.Costanti;
+import view.Messaggi;
+import view.ObjectPrinter;
 
 
 public class CampoData extends Campo implements Serializable {
@@ -55,10 +57,10 @@ public class CampoData extends Campo implements Serializable {
 	 */
 	
 	public void compila() {
-		System.out.print(this.toString()+Costanti.LINEA);
+		ObjectPrinter.stampaCampo(this);
+		Messaggi.stampaLinea();
 		String str=Costanti.COMPILAZIONE_DATA;
-		if(this.isObbligatorio())str=str;
-		else str=str+Costanti.FACOLTATIVO_DATA;
+		if (!isObbligatorio())str=str+Costanti.FACOLTATIVO_DATA;
 		this.valore=Input.leggiData(str,this.isObbligatorio());
 		
 	}

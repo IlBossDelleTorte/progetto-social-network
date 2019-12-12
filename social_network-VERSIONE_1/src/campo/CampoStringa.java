@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import versione_5.Input;
 import view.Costanti;
+import view.Messaggi;
+import view.ObjectPrinter;
 
 public class CampoStringa extends Campo implements Serializable {
 	
@@ -46,10 +48,10 @@ public class CampoStringa extends Campo implements Serializable {
 	 * per mezzo del metodo leggiStringa di Input
 	 */
 	public void compila() {
-		System.out.print(this.toString()+Costanti.LINEA);
+		ObjectPrinter.stampaCampo(this);
+		Messaggi.stampaLinea();
 		String str=Costanti.COMPILAZIONE_STRINGA;
-		if(this.isObbligatorio())str=str;
-		else str=str+Costanti.FACOLTATIVO_STRINGA;
+		if(!this.isObbligatorio())str=str+Costanti.FACOLTATIVO_STRINGA;
 		this.valore=Input.leggiStringa(str,this.isObbligatorio());
 	}
 	

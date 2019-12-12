@@ -14,13 +14,10 @@ public class Main5 {
 	
 	public static void routineIscrizione(ArrayList<Proposta>array,Utente u) {
 		u.aggiornaProposte();
-		if(array.size() == 0) {
-			System.out.print("ELENCO VUOTO");
-		}
-		else {
+		ObjectPrinter.stampaListaProposte(array);
+		if(array.size()!=0){
 			int b=0;
 			do {
-				ObjectPrinter.stampaListaProposte(array);
 				b=Input.leggiInt(Costanti.MESSAGGIO_BACHECA, true);
 				if(b<array.size()+1 && b!=0)
 				{
@@ -30,11 +27,12 @@ public class Main5 {
 						float spesa=Float.parseFloat(selezionata.getCategoria().getCampi().get(Costanti.INDICE_QUOTA_BASE).getValore().replace(',', '.'));
 						
 						//Caso in cui la proposta selezionata abbia delle spese opzionali da scegliere
-						if(selezionata.haveOptionalChoice()&& !selezionata.getPartecipanti().contains(u)){
+						if(selezionata.getCategoria().haveOptionalChoice()&& !selezionata.getPartecipanti().contains(u)){
 							CampoComposto c=(CampoComposto)selezionata.getCategoria().getCampi().get(Costanti.INDICE_SPESE_OPZIONALI);
 							ArrayList<Campo> spese_opzionali=(ArrayList<Campo>)c.getElencoCampi().clone();
 							Messaggi.stampa(Costanti.ISCRIZIONE_OPZIONALE);
 							do {
+								Messaggi.stampa(Costanti.MESSAGGIO_SPESE);
 								ObjectPrinter.stampaListaCampi(spese_opzionali);
 								n=Input.leggiIntTra(false,1,spese_opzionali.size());
 								if(n!=-1) {
@@ -44,7 +42,7 @@ public class Main5 {
 							}while(n!=-1 && spese_opzionali.size()!=0);
 							
 						}
-						selezionata.iscrizioneProposta(u,spesa);
+						selezionata.aggiungiPartecipante(u,spesa);
 					}
 				}
 				u.aggiornaProposte();
@@ -183,7 +181,7 @@ public class Main5 {
 									int n=Input.leggiInt(propostaSelezionata+Costanti.GESTIONE_RITIRO_ISCRIZIONE, true);
 				
 									if (n==1 && propostaSelezionata.isRitirabile()) {
-										propostaSelezionata.annullaIscrizione(utente);
+										propostaSelezionata.rimuoviPartecipante(utente);
 										System.out.print(Costanti.MESSAGGIO_DISISCRIZIONE);
 									}
 

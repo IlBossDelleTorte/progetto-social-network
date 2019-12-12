@@ -146,11 +146,17 @@ public class ObjectPrinter {
 
 
 	public static void stampaListaCampi(ArrayList<Campo> lista) {
-		System.out.print(Costanti.MESSAGGIO_SPESE);
 		for(int i=0;i<lista.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
-			System.out.print(i+1+")"+lista.get(i)+"\n");
+			System.out.print(i+1+")");
+			stampaCampo(lista.get(i));
+			System.out.print("\n");
 		}
 	}
 	
+	public static void stampaLista(ArrayList<String> lista) {
+		for(int i=0;i<lista.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
+			System.out.println(i+1+")"+lista.get(i));
+		}
+	}
 
 }
