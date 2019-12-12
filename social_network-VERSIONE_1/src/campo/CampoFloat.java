@@ -1,8 +1,11 @@
-package versione_5;
+package campo;
 
 import java.io.Serializable;
 
-public class Campo_Float extends Campo implements Serializable {
+import versione_5.Input;
+import view.Costanti;
+
+public class CampoFloat extends Campo implements Serializable {
 	
 	private float valore;
 	public static final float VALORE_NULLO=-1;
@@ -14,7 +17,7 @@ public class Campo_Float extends Campo implements Serializable {
 	 * @param descrizione
 	 * @param obbligatorio
 	 */
-	public Campo_Float(String nome, String descrizione, boolean obbligatorio) {
+	public CampoFloat(String nome, String descrizione, boolean obbligatorio) {
 		super(nome,descrizione,obbligatorio);
 		valore=VALORE_NULLO;
 	}
@@ -38,25 +41,17 @@ public class Campo_Float extends Campo implements Serializable {
 		return false;
 	}
 	
-	/**
-	 * Il metodo richiama lo stesso della classe padre e nel caso in cui  il campo sia stato inizializzato appende alla stringa padre valore
-	 */
-	public String toString() {
-		String str;
-		str=super.toString();
-		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
-		return str;
-	}
+	
 	
 	/**
 	 * Il metodo compila permette all'utente di assegnare il valore al campo mediante una procedura interattiva 
 	 * per mezzo del metodo leggiNumerico di Input
 	 */
 	public void compila() {
-		System.out.print(this.toString()+Menu.LINEA);
-		String str=Menu.COMPILAZIONE_FLOAT;
+		System.out.print(this.toString()+Costanti.LINEA);
+		String str=Costanti.COMPILAZIONE_FLOAT;
 		if(this.isObbligatorio())str=str;
-		else str=str+Menu.FACOLTATIVO_NUMERICO;
+		else str=str+Costanti.FACOLTATIVO_NUMERICO;
 		this.valore=Input.leggiFloat(str,this.isObbligatorio());
 	}
 	

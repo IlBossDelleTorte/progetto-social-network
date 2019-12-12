@@ -10,14 +10,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
 
+import view.Costanti;
+import view.Messaggi;
+
 
 public class Input 
 {
 	public static Scanner input= new Scanner(System.in);
-	public static SimpleDateFormat parser_data= new SimpleDateFormat(Menu.FORMATO_DATA);
-	public static final String ERRORE="Input non valido";
-	public static final String ERRORE_DATA="La data inserita non può essere anteriore a quella odierna";
-	//public static final String ERROR_NOT_FOUND="File non trovato";
+	public static SimpleDateFormat parser_data= new SimpleDateFormat(Costanti.FORMATO_DATA);
 	public static final int LUNGHEZZA_MASSIMA=30;//lunghezza massima delle variabili di tipo stringa
 	
 	/**
@@ -32,9 +32,10 @@ public class Input
 		boolean getInput=false;
 		do
 		{
-			System.out.println(message);
+			Messaggi.stampa(message);
 			temp=input.nextLine();
-			if(temp.length()>LUNGHEZZA_MASSIMA||temp.trim().length()==0||(temp.equals("*") && obbligatorio))System.out.println(ERRORE);
+			if(temp.length()>LUNGHEZZA_MASSIMA||temp.trim().length()==0||(temp.equals("*") && obbligatorio))
+				Messaggi.erroreInput();
 			else getInput=true;			
 		}while(!getInput);
 		return temp;
@@ -52,10 +53,12 @@ public class Input
 		boolean getInput=false;
 		Date r=new Date();
 		do {
-			System.out.println(message);
+			Messaggi.stampa(message);
 			temp=input.nextLine();
-			if(temp.trim().length()==0||(temp.equals("*")&& obbligatorio))System.out.println(ERRORE);
-			else if(temp.equals("*")&& !obbligatorio)return null;
+			if(temp.trim().length()==0||(temp.equals("*")&& obbligatorio))
+				Messaggi.erroreInput();
+			else if(temp.equals("*")&& !obbligatorio)
+				return null;
 			else
 			{
 				try {
@@ -63,12 +66,12 @@ public class Input
 					getInput=true;
 					if(r.before(new Date()))
 					{
-						System.out.println(ERRORE_DATA);
+						Messaggi.erroreInput();;
 						getInput=false;
 					}
 				} catch (ParseException e) {
 					getInput=false;
-					System.out.println(ERRORE);
+					Messaggi.erroreInput();;
 				}
 			}
 		}while(!getInput);
@@ -88,7 +91,7 @@ public class Input
 		boolean getInput=false;
 		do
 		{
-			System.out.println(message);
+			Messaggi.stampa(message);;
 			try
 			{
 				temp=input.nextFloat();
@@ -96,12 +99,12 @@ public class Input
 				getInput=true;
 				if(temp<0 && temp!=-1 ||(temp==-1 && obbligatorio)) {
 					getInput=false;
-					System.out.println(ERRORE);
+					Messaggi.erroreInput();;
 				}
 			}
 			catch(InputMismatchException e)
 			{
-				System.out.println(ERRORE);
+				Messaggi.erroreInput();;
 				String trash=input.next();
 			}
 		}while(!getInput);
@@ -120,7 +123,7 @@ public class Input
 		boolean getInput=false;
 		do
 		{
-			System.out.println(message);
+			Messaggi.stampa(message);;
 			try
 			{
 				temp=input.nextInt();
@@ -128,12 +131,12 @@ public class Input
 				getInput=true;
 				if(temp<0 && temp!=-1 ||(temp==-1 && obbligatorio)) {
 					getInput=false;
-					System.out.println(ERRORE);
+					Messaggi.erroreInput();
 				}
 			}
 			catch(InputMismatchException e)
 			{
-				System.out.println(ERRORE);
+				Messaggi.erroreInput();
 				String trash=input.next();
 			}
 		}while(!getInput);
@@ -160,12 +163,12 @@ public class Input
 				getInput=true;
 				if((temp<min && temp!=-1)||temp>max||(temp==-1 && obbligatorio)) {
 					getInput=false;
-					System.out.println(ERRORE);
+					Messaggi.erroreInput();;
 				}
 			}
 			catch(InputMismatchException e)
 			{
-				System.out.println(ERRORE);
+				Messaggi.erroreInput();;
 				String trash=input.next();
 			}
 		}while(!getInput);
@@ -210,7 +213,7 @@ public class Input
 	public static int yesNo(String message)
 	{
 		String choice;
-		System.out.println(message);
+		Messaggi.stampa(message);
 		choice=input.next();
 		switch(choice.toUpperCase().charAt(0))
 		{		
@@ -224,47 +227,20 @@ public class Input
 		}		
 	}
 	
-	/**
-	 * Metodo con il quale è possibile converitre un eleno di proposte in una stringa riassuntiva dell'elenco 
-	 * @param l : elenco delle proposte da riassumere 
-	 * @return
-	 */
-	public static String proposteToString(ArrayList<Proposta> l) {
-		StringBuffer str= new StringBuffer(String.format(Menu.HEADER_BACHECA));
-		str.append(Menu.LINEA);
-		
-		for(int i=0;i<l.size();i++) {
-			str.append(String.format("%2s %s", i+1,l.get(i).header())).append("\n");
-		}
-		return str.toString();
-	}
-	
-	/**
-	 * Metodo con il quale è possibile convertire un elenco di utenti in una stringa 
-	 * @param l : elenco da convertire 
-	 * @return
-	 */
-	public static String nomeUtentetoString(ArrayList<Utente>l) {
-		StringBuffer str=new StringBuffer();
-		for(int i=0;i<l.size();i++) {
-			str.append(i+1).append(". ").append(l.get(i).getNome()).append("\n");
-		}
-		return str.toString();
-		
-	}
-	
 	public static String leggiStringaFormattata(String message, String formato, boolean obbligatorio) {
 		String temp;
 		boolean getInput=false;
 		do {
-			System.out.println(message);
+			Messaggi.stampa(message);;
 			temp=input.nextLine();
 			if(!temp.matches(formato))
-				System.out.println(ERRORE);
+				Messaggi.erroreInput();
 			else
 				getInput=true;
 		}while(!getInput);
 		return temp;
 	}
+	
+	
 
 }

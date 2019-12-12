@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import view.Costanti;
+
 public class Bacheca implements Serializable {
 
 	private ArrayList<Proposta> proposteAperte;
@@ -30,7 +32,7 @@ public class Bacheca implements Serializable {
 		proposteAperte.add(p);
 		for(Utente u : l.getUtenti()) {
 			if(u.getCategorieInteresse().contains(p.getCategoria().getNome())) {
-				u.riceviNotifica(Menu.NOTIFICA_PROPOSTA_AFFINE);
+				u.riceviNotifica(Costanti.NOTIFICA_PROPOSTA_AFFINE);
 				u.aggiungiPropostaAffine(p);
 			}
 		}
@@ -62,23 +64,23 @@ public class Bacheca implements Serializable {
 			Set<Utente> partecipanti = proposteAperte.get(i).getPartecipanti();
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
-				notifica=Menu.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
+				notifica=Costanti.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
-					String messaggio_spese=String.format(Menu.NOTIFICA_SPESA_OPZIONALE, proposteAperte.get(i).spesaPersonale(u));
+					String messaggio_spese=String.format(Costanti.NOTIFICA_SPESA_OPZIONALE, proposteAperte.get(i).spesaPersonale(u));
 					u.riceviNotifica(notifica+messaggio_spese);
 				}
 				this.rimuoviProposta(i);
 			}
 			else if(proposteAperte.get(i).getStato() == Stato.FALLITA)
 			{
-				notifica=Menu.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
+				notifica=Costanti.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
 					u.riceviNotifica(notifica);
 				}
 				this.rimuoviProposta(i);
 			}
 			else if(proposteAperte.get(i).getStato() == Stato.RITIRATA) {
-				notifica=Menu.NOTIFICA_RITIRO+"\t   "+proposteAperte.get(i).header();
+				notifica=Costanti.NOTIFICA_RITIRO+"\t   "+proposteAperte.get(i).header();
 				for(Utente u : partecipanti) {
 					u.riceviNotifica(notifica);
 				}
@@ -122,22 +124,13 @@ public class Bacheca implements Serializable {
 	 */
 	public void invitaUtenti(ArrayList<Utente> utentiInvitati, Proposta p) {
 		for(Utente u : utentiInvitati) {
-			u.riceviNotifica(String.format(Menu.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome()));
+			u.riceviNotifica(String.format(Costanti.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome()));
 			u.aggiungiInvito(p);
 		}
 		
 	}
 	
-	public String toString() {
-		StringBuffer str= new StringBuffer(String.format(Menu.HEADER_BACHECA));
-		str.append(Menu.LINEA);
-		
-		for(int i=0;i<proposteAperte.size();i++) {
-			str.append(String.format("%-2s %s", i+1,proposteAperte.get(i).header())).append("\n");
-		}
-		return str.toString();
-		
-	}
+	
 	
 	/**
 	 * Metodo che ritorna l'elenco delle proposte di cui c è creatore

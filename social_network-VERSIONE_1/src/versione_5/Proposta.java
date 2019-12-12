@@ -13,6 +13,9 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+import campo.Campo;
+import view.Costanti;
+
 public class Proposta implements Serializable {
 	private Categoria categoria;
 	private Stato stato;
@@ -43,12 +46,12 @@ public class Proposta implements Serializable {
 	 */
 	public void compilazione() throws ParseException {
 		ArrayList<Campo> c = categoria.getCampi();
-		ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Menu.ELENCO_CATEGORIE));
+		ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Costanti.ELENCO_CATEGORIE));
 		
 		for(int i=0;i<elencoCategorie.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
 			System.out.println(i+1+")"+elencoCategorie.get(i));
 		}
-		System.out.print(Menu.SELEZIONE_CATEGORIA);//scelta della categoria della proposta 
+		System.out.print(Costanti.SELEZIONE_CATEGORIA);//scelta della categoria della proposta 
 		int n=Input.leggiIntTra(true,1,elencoCategorie.size());
 		switch(n) {
 		case 1:
@@ -61,21 +64,21 @@ public class Proposta implements Serializable {
 		
 		int size = c.size();
 		for(int i = 0; i < size; i++) {
-			if(i == Menu.INDICE_DATA_INIZIO) {
+			if(i == Costanti.INDICE_DATA_INIZIO) {
 				c.get(i).compila();
 				
 				Date data_inizio=Input.stringToDate(c.get(i).getValore());
-				Date data_scadenza=Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
+				Date data_scadenza=Input.stringToDate(c.get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore());
 				
 				if(data_inizio.before(data_scadenza)) {
-					System.out.println(Menu.ERRORE_DATA_INIZIO);
+					System.out.println(Costanti.ERRORE_DATA_INIZIO);
 					i--;
 				}
 			}
-			else if(i == Menu.INDICE_DATA_FINE) {
-				if(c.get(Menu.INDICE_DURATA).isInizializzato()) {//se durata è inizializzata la data di scadenza viene calcolata in modo automatico
-					String str = c.get(Menu.INDICE_DURATA).getValore();
-					Date data_inizio = Input.stringToDate(c.get(Menu.INDICE_DATA_INIZIO).getValore());
+			else if(i == Costanti.INDICE_DATA_FINE) {
+				if(c.get(Costanti.INDICE_DURATA).isInizializzato()) {//se durata è inizializzata la data di scadenza viene calcolata in modo automatico
+					String str = c.get(Costanti.INDICE_DURATA).getValore();
+					Date data_inizio = Input.stringToDate(c.get(Costanti.INDICE_DATA_INIZIO).getValore());
 					Scanner s = new Scanner(str);
 					s.useDelimiter(",");
 					int ore = s.nextInt()*60;
@@ -89,52 +92,52 @@ public class Proposta implements Serializable {
 				else {//se la durata non è inizializzata la scadenza viene compilata da utente
 					c.get(i).compila();
 					if(c.get(i).isInizializzato() && Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(4).getValore()))) {
-						System.out.println(Menu.ERRORE_DATA_FINE);
+						System.out.println(Costanti.ERRORE_DATA_FINE);
 						i--;
 					}
 				}
 					
 			}
 
-			else if(i == Menu.INDICE_TERMINE_RITIRO) {
+			else if(i == Costanti.INDICE_TERMINE_RITIRO) {
 				c.get(i).compila();
 				if(c.get(i).isInizializzato()) {
-					if(Input.stringToDate(c.get(i).getValore()).after(Input.stringToDate(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
-						System.out.print(Menu.ERRORE_TERMINE_RITIRO);
+					if(Input.stringToDate(c.get(i).getValore()).after(Input.stringToDate(c.get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
+						System.out.print(Costanti.ERRORE_TERMINE_RITIRO);
 						i--;
 					}
 				}
 				else
-					c.get(i).setValore(c.get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
+					c.get(i).setValore(c.get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore());
 				}
-			else if(n==1 && i==Menu.INDICE_GENERE) {//se la categoria è partita di calcio e si sta compilando il genere
+			else if(n==1 && i==Costanti.INDICE_GENERE) {//se la categoria è partita di calcio e si sta compilando il genere
 				c.get(i).compila();
 				String genere=c.get(i).getValore();
 				if(!(genere.equalsIgnoreCase("MASCHIO")||genere.equalsIgnoreCase("FEMMINA")||genere.equalsIgnoreCase("MISTO"))){
-					System.out.print(Menu.ERRORE_GENERE);
+					System.out.print(Costanti.ERRORE_GENERE);
 					i--;
 				}
 			}
 			
-			else if (n==1 && i==Menu.INDICE_RANGE) {//se la categoria è partita di calcio e si sta comilando il range d'eta
-				System.out.print(c.get(i).toString()+Menu.LINEA);
+			else if (n==1 && i==Costanti.INDICE_RANGE) {//se la categoria è partita di calcio e si sta comilando il range d'eta
+				System.out.print(c.get(i).toString()+Costanti.LINEA);
 				String str;
-				if(c.get(i).isObbligatorio())str=Menu.COMPILAZIONE_STRINGA_RANGE;
-				else str=Menu.COMPILAZIONE_STRINGA_RANGE+Menu.FACOLTATIVO_STRINGA;
-				String v=Input.leggiStringaFormattata(str, Menu.FORMATO_RANGE, c.get(i).isObbligatorio());
+				if(c.get(i).isObbligatorio())str=Costanti.COMPILAZIONE_STRINGA_RANGE;
+				else str=Costanti.COMPILAZIONE_STRINGA_RANGE+Costanti.FACOLTATIVO_STRINGA;
+				String v=Input.leggiStringaFormattata(str, Costanti.FORMATO_RANGE, c.get(i).isObbligatorio());
 				c.get(i).setValore(v);
 			}
 			else
 				c.get(i).compila();
 		}
-		if(!c.get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).isInizializzato()){
-			c.get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).setValore("0");
+		if(!c.get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).isInizializzato()){
+			c.get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).setValore("0");
 		}
-		aggiungiPartecipante(creatore,Float.parseFloat(c.get(Menu.INDICE_QUOTA_BASE).getValore().replace(',', '.')));
+		aggiungiPartecipante(creatore,Float.parseFloat(c.get(Costanti.INDICE_QUOTA_BASE).getValore().replace(',', '.')));
 		System.out.print(categoria);
 		this.aggiornaStato();
 		creatore.aggiungiPropostaValida(this);
-		System.out.println(Menu.COMPILAZIONE_EFFETTUATA);
+		System.out.println(Costanti.COMPILAZIONE_EFFETTUATA);
 	}
 	
 	public void aggiungiPartecipante(Utente u,Float f) {
@@ -148,9 +151,9 @@ public class Proposta implements Serializable {
 	 */
 	public void aggiornaStato() throws NumberFormatException, ParseException {
 		
-		Date scadenza_iscrizione=Input.stringToDate(categoria.getCampi().get(Menu.INDICE_SCADENZA_ISCRIZIONE).getValore());
-		Date termine_ritiro=Input.stringToDate(categoria.getCampi().get(Menu.INDICE_TERMINE_RITIRO).getValore());
-		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore());
+		Date scadenza_iscrizione=Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore());
+		Date termine_ritiro=Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_TERMINE_RITIRO).getValore());
+		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_PARTECIPANTI).getValore());
 		
 		switch (this.stato) {
 		case VUOTA : 
@@ -171,7 +174,7 @@ public class Proposta implements Serializable {
 			}
 			break;
 		case APERTA :
-			int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
+			int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
 			
 			if((scadenza_iscrizione.after(new Date()) && termine_ritiro.before(new Date()) && partecipanti.size() == massimo_partecipanti)
 				||(new Date().after(scadenza_iscrizione) && partecipanti.size()>=numero_partecipanti && partecipanti.size()<=massimo_partecipanti)){
@@ -186,7 +189,7 @@ public class Proposta implements Serializable {
 			break;
 		case CHIUSA :
 			Calendar c = Calendar.getInstance();
-			c.setTime(Input.stringToDate(categoria.getCampi().get(Menu.INDICE_DATA_INIZIO).getValore()));
+			c.setTime(Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_DATA_INIZIO).getValore()));
 			c.add(Calendar.DAY_OF_MONTH, 1);
 			Date d = c.getTime();
 			if(new Date().after(d)) {
@@ -205,8 +208,8 @@ public class Proposta implements Serializable {
 	
 	public boolean isFull() {
 		
-		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_PARTECIPANTI).getValore());
-		int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Menu.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
+		int numero_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_PARTECIPANTI).getValore());
+		int massimo_partecipanti=Integer.parseInt(categoria.getCampi().get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).getValore())+numero_partecipanti;
 		if(partecipanti.size() == massimo_partecipanti)
 			return true;
 			else
@@ -215,14 +218,14 @@ public class Proposta implements Serializable {
 	}
 	
 	public boolean isRitirabile() {
-		if(new Date().before(Input.stringToDate(categoria.getCampi().get(Menu.INDICE_TERMINE_RITIRO).getValore())))
+		if(new Date().before(Input.stringToDate(categoria.getCampi().get(Costanti.INDICE_TERMINE_RITIRO).getValore())))
 			return true;
 		else
 			return false;
 	}
 	
 	public boolean haveOptionalChoice() {
-		Campo spese_opzionali=getCategoria().getCampi().get(Menu.INDICE_SPESE_OPZIONALI);
+		Campo spese_opzionali=getCategoria().getCampi().get(Costanti.INDICE_SPESE_OPZIONALI);
 		if(this.getCategoria().getNome().equals("Escursione in montagna") && spese_opzionali.isInizializzato())
 			return true;
 		return false;
@@ -239,15 +242,15 @@ public class Proposta implements Serializable {
 	 */
 	public void iscrizioneProposta(Utente u,float f ) {
 		if(this.getStato() == Stato.CHIUSA)
-			System.out.println(Menu.PROPOSTA_CHIUSA);
+			System.out.println(Costanti.PROPOSTA_CHIUSA);
 		else {	
 			if(this.getPartecipanti().contains(u))
-				System.out.println(Menu.ISCRIZIONE_RIDONDANTE);
+				System.out.println(Costanti.ISCRIZIONE_RIDONDANTE);
 			else if(this.isFull())
-				System.out.print(Menu.ISCRIZIONE_PIENA);
+				System.out.print(Costanti.ISCRIZIONE_PIENA);
 			else {
 				this.aggiungiPartecipante(u,new Float(f));
-				System.out.println(Menu.ISCRIZIONE_EFFETTUATA);
+				System.out.println(Costanti.ISCRIZIONE_EFFETTUATA);
 		}
 		}
 	}
@@ -262,7 +265,7 @@ public class Proposta implements Serializable {
 	 * Nome_Creatore Stato Data_attuale Numero_partecipanti_attuali
 	 */
 	public void aggiungiLog() {
-		logStati.add(String.format(Menu.FORMATO_LOG, creatore.getNome(), stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
+		logStati.add(String.format(Costanti.FORMATO_LOG, creatore.getNome(), stato, Input.dateToString(new Date()), partecipanti.size())+"\n");
 	}
 
 	public Stato getStato() {
@@ -285,24 +288,6 @@ public class Proposta implements Serializable {
 		return partecipanti.keySet();
 	}
 	
-
-	
-	/**
-	 * Il metodo ritorna una stringa che riassume le informazioni principali di una proposta
-	 * @return
-	 */
-	public String header() {
-		String str=String.format("%-20s ", creatore.getNome());
-		str=str+categoria.header();
-		return str;
-		
-	}
-	
-	public String toString() {
-		StringBuffer str= new StringBuffer();
-		str.append(creatore.getNome()).append(Menu.LINEA).append(categoria);
-		return str.toString();
-	}
 	
 	/**
 	 * Metodo di debug, stampa a video i logi riguardanti una proposta

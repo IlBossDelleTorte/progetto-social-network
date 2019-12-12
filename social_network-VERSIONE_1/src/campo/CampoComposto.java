@@ -1,13 +1,15 @@
-package versione_5;
+package campo;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class Campo_Composto extends Campo {
+import view.Costanti;
+
+public class CampoComposto extends Campo {
 
 	private ArrayList<Campo> valore;
 	
-	public Campo_Composto(String nome,String descrizione,boolean obbligatorio,ArrayList<Campo>valore) {
+	public CampoComposto(String nome,String descrizione,boolean obbligatorio,ArrayList<Campo>valore) {
 		super(nome,descrizione,obbligatorio);
 		this.valore=valore;
 	}
@@ -17,7 +19,7 @@ public class Campo_Composto extends Campo {
 	 * Essendo valore un ArrayList di Campi, compila viene di fatto eseguito su ogni singolo elemento di questo
 	 */
 	public void compila() {
-		System.out.print(String.format("%-35s %-100s", this.getNome(), this.getDescrizione())+Menu.COMPILAZIONE_COMPOSTO);
+		System.out.print(String.format("%-35s %-100s", this.getNome(), this.getDescrizione())+Costanti.COMPILAZIONE_COMPOSTO);
 		valore.forEach(c->c.compila());
 
 	}
@@ -50,16 +52,10 @@ public class Campo_Composto extends Campo {
 		return r;
 	}
 	
-	public String toString() {
-		StringBuffer str=new StringBuffer(super.toString());
-		str.append("\n");
-		for(int i=0;i<valore.size();i++) {
-			if(valore.get(i).isInizializzato())
-			str.append("    ").append(valore.get(i).toString()).append("\n");
-		}
-		return str.toString();
+	public boolean isComposito()
+	{
+		return true;
 	}
-
 
 	public void setValore(String valore) throws ParseException {
 

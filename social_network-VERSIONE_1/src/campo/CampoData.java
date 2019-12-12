@@ -1,4 +1,4 @@
-package versione_5;
+package campo;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -6,8 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import versione_5.Input;
+import view.Costanti;
 
-public class Campo_Data extends Campo implements Serializable {
+
+public class CampoData extends Campo implements Serializable {
 	
 	private Date valore;
 	
@@ -17,7 +20,7 @@ public class Campo_Data extends Campo implements Serializable {
 	 * @param descrizione
 	 * @param obbligatorio
 	 */
-	public Campo_Data(String nome,String descrizione,boolean obbligatorio) {
+	public CampoData(String nome,String descrizione,boolean obbligatorio) {
 		super(nome,descrizione,obbligatorio);
 	}
 	
@@ -45,12 +48,6 @@ public class Campo_Data extends Campo implements Serializable {
 		return false;
 	}
 	
-	public String toString() {
-		String str;
-		str=super.toString();
-		if(valore!=null)str=str+"\t"+getValore();
-		return str;
-	}
 	
 	/**
 	 * Il metodo compila permette all'utente di assegnare il valore al campo mediante una procedura interattiva 
@@ -58,10 +55,10 @@ public class Campo_Data extends Campo implements Serializable {
 	 */
 	
 	public void compila() {
-		System.out.print(this.toString()+Menu.LINEA);
-		String str=Menu.COMPILAZIONE_DATA;
+		System.out.print(this.toString()+Costanti.LINEA);
+		String str=Costanti.COMPILAZIONE_DATA;
 		if(this.isObbligatorio())str=str;
-		else str=str+Menu.FACOLTATIVO_DATA;
+		else str=str+Costanti.FACOLTATIVO_DATA;
 		this.valore=Input.leggiData(str,this.isObbligatorio());
 		
 	}

@@ -10,11 +10,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import view.Messaggi;
+
 public class IOFile {
-	public static final String FILE_NOT_FOUND="File non trovato";
-	public static final String IO_ERROR="Errore di input/output";
-	public static final String ERROR="Errore";
-	
 	/**
 	 * Metodo con il quale è possibile se i dati di salvataggio del programma esistono o meno, il controllo viene fatto nella stessa cartella
 	 * in cui è presente l'eseguibile del programma 
@@ -33,7 +31,7 @@ public class IOFile {
 		try {
 			f.createNewFile();
 		} catch (IOException e) {
-			System.out.print(IO_ERROR);
+			Messaggi.erroreIO();;
 		}
 	}
 	
@@ -55,20 +53,20 @@ public class IOFile {
 		}
 		catch(FileNotFoundException fnf)
 		{
-			System.out.println(FILE_NOT_FOUND);
+			Messaggi.erroreFile();
 		}
 		catch(IOException io)
 		{
-			System.out.println(IO_ERROR);
+			Messaggi.erroreIO();
 		}
 		catch(Exception e)
 		{
-			System.out.println(ERROR);
+			Messaggi.errore();
 		}
 		return o;
 
 	}
-	
+
 	/**
 	 * Metodo con il quale vengono salvati i dati del programma
 	 * @param name: nome del file di salvataggio
@@ -86,7 +84,7 @@ public class IOFile {
 		}
 		catch(IOException io)
 		{
-			System.out.println(IO_ERROR);
+			Messaggi.erroreIO();
 		}
 	}
 

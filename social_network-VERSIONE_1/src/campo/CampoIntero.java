@@ -1,8 +1,11 @@
-package versione_5;
+package campo;
 
 import java.io.Serializable;
 
-public class Campo_Intero extends Campo implements Serializable {
+import versione_5.Input;
+import view.Costanti;
+
+public class CampoIntero extends Campo implements Serializable {
 	private int valore;
 	public final int VALORE_NULLO=-1;
 	
@@ -14,17 +17,13 @@ public class Campo_Intero extends Campo implements Serializable {
 	 * @param descrizione
 	 * @param obbligatorio
 	 */
-	public Campo_Intero(String nome,String descrizione,boolean obbligatorio) {
+	public CampoIntero(String nome,String descrizione,boolean obbligatorio) {
 		super(nome,descrizione,obbligatorio);
 		valore=VALORE_NULLO;
 	}
 	
 
-	public String toString() {
-		String str = super.toString();
-		if(valore!=VALORE_NULLO)str=str+"\t"+valore;
-		return str;
-	}
+
 	
 	/**
 	 * Metodo con il quale è possibile sapere se il campo ha valore o meno.
@@ -42,10 +41,10 @@ public class Campo_Intero extends Campo implements Serializable {
 	 * per mezzo del metodo leggiInt di Input
 	 */
 	public void compila() {
-		System.out.print(this.toString()+Menu.LINEA);
-		String str=Menu.COMPILAZIONE_INT;
+		System.out.print(this.toString()+Costanti.LINEA);
+		String str=Costanti.COMPILAZIONE_INT;
 		if(this.isObbligatorio())str=str;
-		else str=str+Menu.FACOLTATIVO_NUMERICO;
+		else str=str+Costanti.FACOLTATIVO_NUMERICO;
 		this.valore=Input.leggiInt(str,this.isObbligatorio());
 	}
 	

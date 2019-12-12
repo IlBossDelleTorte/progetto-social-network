@@ -3,6 +3,12 @@ package versione_5;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import campo.Campo;
+import campo.CampoComposto;
+import view.Costanti;
+import view.Messaggi;
+import view.ObjectPrinter;
 //
 public class Main5 {
 	
@@ -14,24 +20,22 @@ public class Main5 {
 		else {
 			int b=0;
 			do {
-				b=Input.leggiInt(Input.proposteToString(array)+Menu.MESSAGGIO_BACHECA, true);
+				ObjectPrinter.stampaListaProposte(array);
+				b=Input.leggiInt(Costanti.MESSAGGIO_BACHECA, true);
 				if(b<array.size()+1 && b!=0)
 				{
 					Proposta selezionata=array.get(b-1);
-					int n=Input.yesNo(selezionata+Menu.ISCRIZIONE_PROPOSTA);
+					int n=Input.yesNo(selezionata+Costanti.ISCRIZIONE_PROPOSTA);
 					if (n==1) {
-						float spesa=Float.parseFloat(selezionata.getCategoria().getCampi().get(Menu.INDICE_QUOTA_BASE).getValore().replace(',', '.'));
+						float spesa=Float.parseFloat(selezionata.getCategoria().getCampi().get(Costanti.INDICE_QUOTA_BASE).getValore().replace(',', '.'));
 						
 						//Caso in cui la proposta selezionata abbia delle spese opzionali da scegliere
 						if(selezionata.haveOptionalChoice()&& !selezionata.getPartecipanti().contains(u)){
-							Campo_Composto c=(Campo_Composto)selezionata.getCategoria().getCampi().get(Menu.INDICE_SPESE_OPZIONALI);
+							CampoComposto c=(CampoComposto)selezionata.getCategoria().getCampi().get(Costanti.INDICE_SPESE_OPZIONALI);
 							ArrayList<Campo> spese_opzionali=(ArrayList<Campo>)c.getElencoCampi().clone();
-							System.out.print(Menu.ISCRIZIONE_OPZIONALE);
+							Messaggi.stampa(Costanti.ISCRIZIONE_OPZIONALE);
 							do {
-								System.out.print(Menu.MESSAGGIO_SPESE);
-								for(int i=0;i<spese_opzionali.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
-									System.out.print(i+1+")"+spese_opzionali.get(i)+"\n");
-								}
+								ObjectPrinter.stampaListaCampi(spese_opzionali);
 								n=Input.leggiIntTra(false,1,spese_opzionali.size());
 								if(n!=-1) {
 									spesa+=Float.parseFloat((spese_opzionali.get(n-1).getValore()).replace(',', '.'));
@@ -57,9 +61,9 @@ public class Main5 {
 		Bacheca bacheca;
 		ListaUtenti listaUtenti;
 
-		if(IOFile.esistenzaDati(Menu.DATI))//controllo dell'esistenza del salvataggio 
+		if(IOFile.esistenzaDati(Costanti.DATI))//controllo dell'esistenza del salvataggio 
 		{
-			dati=(ContainerDati)IOFile.leggiDati(Menu.DATI);
+			dati=(ContainerDati)IOFile.leggiDati(Costanti.DATI);
 			bacheca=dati.getBacheca();
 			listaUtenti=dati.getListaUtenti();
 		}
@@ -73,21 +77,21 @@ public class Main5 {
 		String nome;
 		Utente utente;
 		
-		nome=Input.leggiStringa(Menu.UTENTE, true);//lettura del nome utente
+		nome=Input.leggiStringa(Costanti.UTENTE, true);//lettura del nome utente
 		if(listaUtenti.contiene(nome))
 			utente=listaUtenti.estraiUtente(nome);
 		else{  //routine per la creazione di un nuovo utente
 			
 			String range=null;
-			System.out.print(Menu.MESSAGGIO_RANGE+Range_eta.visualizzaRange());
+			System.out.print(Costanti.MESSAGGIO_RANGE+RangeEta.visualizzaRange());
 			int n=Input.leggiIntTra(false,1,4);//lettura dell'indice del range 
 			if(n!=-1) 
-				range=Range_eta.values()[n-1].getRange(); //se l'utente ha deciso di inserire il range prende il rispettivo valore dall'enum
+				range=RangeEta.values()[n-1].getRange(); //se l'utente ha deciso di inserire il range prende il rispettivo valore dall'enum
 			
-			ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Menu.ELENCO_CATEGORIE));//inizializzaione di un arraylist contente le categorie che l'utente può scegliere come interesse
+			ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Costanti.ELENCO_CATEGORIE));//inizializzaione di un arraylist contente le categorie che l'utente può scegliere come interesse
 			ArrayList<String> categorieInteresse=new ArrayList<>();
 			do {
-				System.out.print(Menu.MESSAGGIO_INTERESSI);
+				System.out.print(Costanti.MESSAGGIO_INTERESSI);
 				for(int i=0;i<elencoCategorie.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
 					System.out.println(i+1+")"+elencoCategorie.get(i));
 				}
@@ -100,24 +104,24 @@ public class Main5 {
 			utente=new Utente(nome,range,categorieInteresse);
 			listaUtenti.aggiungiUtente(utente);
 			System.out.println("UTENTE CREATO CON SUCCESSO\n"+utente.toString());
-			IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+			IOFile.salvaDati(Costanti.DATI, dati);//salvataggio dei dati
 		}
 		
 		int i=0;
 		do
 		{
-			i=Input.leggiInt(Menu.MENU_INIZIALE, true);
+			i=Input.leggiInt(Costanti.MENU_INIZIALE, true);
 			switch(i) {
 			case 1://Accesso alla bacheca per iscriversi ad una proposta
 				bacheca.aggiorna();
 				routineIscrizione(bacheca.getProposteAperte(),utente);
-				IOFile.salvaDati(Menu.DATI, dati);
+				IOFile.salvaDati(Costanti.DATI, dati);
 				break;				
 			case 2://Accesso al menu proposta
 				bacheca.aggiorna();
 				int p=0;
 				do {
-					p=Input.leggiInt(Menu.MENU_PROPOSTE, true);
+					p=Input.leggiInt(Costanti.MENU_PROPOSTE, true);
 					switch(p) {
 					case 1://compilazione di una nuova proposta
 						new Proposta(utente).compilazione();
@@ -126,29 +130,29 @@ public class Main5 {
 					case 2: //visualizzazione delle proposte valide e pubblicazione
 						int p2=0;
 						if(utente.getProposteValide().size()== 0) {
-							System.out.print(Menu.PROPOSTE_VALIDE_VUOTO);
+							System.out.print(Costanti.PROPOSTE_VALIDE_VUOTO);
 						}
 							else {
 								do {
-									p2=Input.leggiInt(Input.proposteToString(utente.getProposteValide())+Menu.MESSAGGIO_SELEZIONE_PROPOSTA, true);
+									p2=Input.leggiInt(Input.proposteToString(utente.getProposteValide())+Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 									if(p2<=utente.getProposteValide().size() && p2>0)
 									{
-										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Menu.GESTIONE_PROPOSTA_VALIDA,true);
+										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Costanti.GESTIONE_PROPOSTA_VALIDA,true);
 										if (n==1){//pubblica una proposta valida (diviene aperta)
 											Proposta selezionata=utente.getProposteValide().get(p2-1);
 											bacheca.aggiungiPropostaAperta(selezionata,listaUtenti);
 											utente.rimuoviPropostaValida(selezionata);
-											System.out.print(Menu.PUBBLICAZIONE_EFFETTUATA);
+											System.out.print(Costanti.PUBBLICAZIONE_EFFETTUATA);
 											
 											//ROUTINE DI INVIO DEGLI INVITI ALLA PROPOSTA CORRENTE
 											ArrayList<Utente>correlati=bacheca.utentiCorrelati(utente, selezionata);
 											if (correlati.size()!=0) {
 												do {
-												System.out.print(Input.nomeUtentetoString(correlati)+Menu.MESSAGGIO_INVITI);
+												System.out.print(Input.nomeUtentetoString(correlati)+Costanti.MESSAGGIO_INVITI);//rimpiazzare con i metodi della view
 												n=Input.leggiIntTra(false,1,correlati.size());
 												if(n!=-1) {
 													correlati.get(n-1).aggiungiInvito(selezionata);
-													correlati.get(n-1).riceviNotifica(String.format(Menu.NOTIFICA_INVITO,selezionata.getCreatore().getNome(),selezionata.getCategoria().getNome()));
+													correlati.get(n-1).riceviNotifica(String.format(Costanti.NOTIFICA_INVITO,selezionata.getCreatore().getNome(),selezionata.getCategoria().getNome()));
 													//In seguito alla scelta di invitarte un utente, questo riceve una notifica con il nome del creatore della proposta e la categoria di appartenenza
 													correlati.remove(n-1);
 												}
@@ -163,29 +167,29 @@ public class Main5 {
 									}
 								}while(p2!=0);
 						}
-						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+						IOFile.salvaDati(Costanti.DATI, dati);//salvataggio dei dati
 						break;
 						
 					case 3: //visualizzazione dell'elenco iscrizioni e ritiro dell'iscrizione 
 						int p3=0;
 						if(bacheca.getIscrizioni(utente).size()==0) {
-							System.out.print(Menu.ELENCO_ISCRIZIONE_VUOTO);
+							System.out.print(Costanti.ELENCO_ISCRIZIONE_VUOTO);
 						}
 						else {
 							do {
-								p3=Input.leggiInt(Input.proposteToString(bacheca.getIscrizioni(utente))+Menu.MESSAGGIO_SELEZIONE_PROPOSTA, true);
+								p3=Input.leggiInt(Input.proposteToString(bacheca.getIscrizioni(utente))+Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 								if(p3 <= bacheca.getIscrizioni(utente).size() && p3>0){
 									Proposta propostaSelezionata = bacheca.getIscrizioni(utente).get(p3-1);
-									int n=Input.leggiInt(propostaSelezionata+Menu.GESTIONE_RITIRO_ISCRIZIONE, true);
+									int n=Input.leggiInt(propostaSelezionata+Costanti.GESTIONE_RITIRO_ISCRIZIONE, true);
 				
 									if (n==1 && propostaSelezionata.isRitirabile()) {
 										propostaSelezionata.annullaIscrizione(utente);
-										System.out.print(Menu.MESSAGGIO_DISISCRIZIONE);
+										System.out.print(Costanti.MESSAGGIO_DISISCRIZIONE);
 									}
 
 									if (n==1 && !propostaSelezionata.isRitirabile())
 									{
-										System.out.print(Menu.MESSAGGIO_NON_RITIRABILE);
+										System.out.print(Costanti.MESSAGGIO_NON_RITIRABILE);
 									}
 									if(utente.getProposteValide().size() == 0)
 										break;
@@ -193,36 +197,36 @@ public class Main5 {
 									
 							}while(p3 != 0);
 						}
-						IOFile.salvaDati(Menu.DATI, dati);
+						IOFile.salvaDati(Costanti.DATI, dati);
 						break;
 						
 					case 4://visualizzazione dell'elenco delle proposte create e ritiro di queste 
 						int p4=0;
 						if(bacheca.getProposteCreatore(utente).size()==0) {
-							System.out.print(Menu.ELENCO_CREAZIONI_VUOTO);
+							System.out.print(Costanti.ELENCO_CREAZIONI_VUOTO);
 						}
 						else {
 							do {
-								p4=Input.leggiInt(Input.proposteToString(bacheca.getProposteCreatore(utente))+Menu.MESSAGGIO_SELEZIONE_PROPOSTA,true);
+								p4=Input.leggiInt(Input.proposteToString(bacheca.getProposteCreatore(utente))+Costanti.MESSAGGIO_SELEZIONE_PROPOSTA,true);
 								if(p4 <= bacheca.getProposteCreatore(utente).size() && p4>0) {
 									Proposta propostaSelezionata = bacheca.getProposteCreatore(utente).get(p4-1);
-									int n=Input.leggiInt(propostaSelezionata+Menu.GESTIONE_PROPOSTA_RITIRO, true);
+									int n=Input.leggiInt(propostaSelezionata+Costanti.GESTIONE_PROPOSTA_RITIRO, true);
 				
 									if (n==1 && propostaSelezionata.isRitirabile()) {
 										bacheca.ritiraProposta(propostaSelezionata);
-										System.out.print(Menu.MESSAGGIO_RITIRO);
+										System.out.print(Costanti.MESSAGGIO_RITIRO);
 										
 									}
 									if (n==1 && !propostaSelezionata.isRitirabile())
 									{
-										System.out.print(Menu.MESSAGGIO_NON_RITIRABILE);
+										System.out.print(Costanti.MESSAGGIO_NON_RITIRABILE);
 									}
 									if(utente.getProposteValide().size() == 0)
 										break;
 								}
 							}while(p4!=0);
 						}
-						IOFile.salvaDati(Menu.DATI, dati);
+						IOFile.salvaDati(Costanti.DATI, dati);
 						break;
 					}
 					}while(p!=0);
@@ -232,20 +236,20 @@ public class Main5 {
 				bacheca.aggiorna();
 				int sp=0;
 				do {
-					sp=Input.leggiInt(Menu.MENU_SPAZIO_PERSONALE, true);
+					sp=Input.leggiInt(Costanti.MENU_SPAZIO_PERSONALE, true);
 					switch(sp) {
 					case 1://Accesso alle notifiche
 						int sp1=0;
 						if(utente.getNotifiche().size() == 0)	{//se non ci sono notifiche visualizza un messaggio e torna indietro
-							System.out.print(Menu.SPAZIO_PERSONALE_VUOTO);
+							System.out.print(Costanti.SPAZIO_PERSONALE_VUOTO);
 							break;
 						}
 						else {
 							do {
-								sp1=Input.leggiInt(utente.elencoNotifiche()+Menu.MENU_NOTIFICHE, true);
+								sp1=Input.leggiInt(utente.elencoNotifiche()+Costanti.MENU_NOTIFICHE, true);
 								if(sp1<=utente.getNotifiche().size() && sp1>0) {
 								
-									int n=Input.yesNo(utente.getNotifiche().get(sp-1)+Menu.LINEA+Menu.RIMOZIONE_NOTIFICA);
+									int n=Input.yesNo(utente.getNotifiche().get(sp-1)+Costanti.LINEA+Costanti.RIMOZIONE_NOTIFICA);
 									if (n==1)
 										{
 										utente.rimuoviNotifica(sp1-1);
@@ -254,20 +258,20 @@ public class Main5 {
 								if(utente.getNotifiche().size() == 0)
 									break;
 							}while(sp1!=0);					
-							IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+							IOFile.salvaDati(Costanti.DATI, dati);//salvataggio dei dati
 							break;
 						}
 						
 					case 2://accesso al menu di modifica dei dati personali
 						System.out.print(utente.toString());
-						System.out.print(Menu.MESSAGGIO_RANGE+Range_eta.visualizzaRange());
+						System.out.print(Costanti.MESSAGGIO_RANGE+RangeEta.visualizzaRange());
 						int n=Input.leggiIntTra(false,1,4);//lettura dell'indice del range 
-						if(n!=-1) utente.setFasciaEta(Range_eta.values()[n-1].getRange());
+						if(n!=-1) utente.setFasciaEta(RangeEta.values()[n-1].getRange());
 						
-						ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Menu.ELENCO_CATEGORIE));
+						ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Costanti.ELENCO_CATEGORIE));
 						ArrayList<String> categorieInteresse=new ArrayList<>();
 						do {
-							System.out.print(Menu.MESSAGGIO_INTERESSI);
+							System.out.print(Costanti.MESSAGGIO_INTERESSI);
 							for(int k=0;k<elencoCategorie.size();k++) { //stampa dell'elenco di tutte le categorie disponibili
 								System.out.println(k+1+")"+elencoCategorie.get(k));
 							}
@@ -279,19 +283,19 @@ public class Main5 {
 						}while(n!=-1 && elencoCategorie.size()!=0);
 						if(!categorieInteresse.isEmpty())utente.setCategorieInteresse(categorieInteresse);//se l'utente ha scelto qualche categoria i dati sono aggiornati
 						System.out.print("ECCO I DATI AGGIORNATI:\n"+utente.toString());
-						IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+						IOFile.salvaDati(Costanti.DATI, dati);//salvataggio dei dati
 						break;
 						
 					case 3://da fare:Accesso agli affini 
 						bacheca.aggiorna();
 						routineIscrizione(utente.getProposteAffini(),utente);
-						IOFile.salvaDati(Menu.DATI, dati);
+						IOFile.salvaDati(Costanti.DATI, dati);
 						break;
 						
 					case 4: //Accesso agli inviti
 						bacheca.aggiorna();
 						routineIscrizione(utente.getInviti(),utente);
-						IOFile.salvaDati(Menu.DATI, dati);
+						IOFile.salvaDati(Costanti.DATI, dati);
 						break;
 						
 						}
@@ -300,7 +304,7 @@ public class Main5 {
 				
 		}
 		}while (i!=0);
-		IOFile.salvaDati(Menu.DATI, dati);//salvataggio dei dati
+		IOFile.salvaDati(Costanti.DATI, dati);//salvataggio dei dati
 	}
 
 }

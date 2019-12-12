@@ -1,4 +1,4 @@
-package versione_5;
+package campo;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -48,14 +48,8 @@ public abstract class Campo implements Serializable {
 		this.obbligatorio = obbligatorio;
 	}
 	
-	/**
-	 * Metodo toString di un Campo che ritorna una stringa nome descrizione ed eventualmente un asterisco che indica l'obbligatorietà del campo stesso
-	 */
-	public String toString() {
-		String str = String.format("%-35s %-100s", this.nome, this.descrizione);
-		if(this.obbligatorio)str=str+"*"; //se il campo è obbligatorio viene posto un asterisco dopo la descrizione
-		else str=str+" ";
-		return str;
+	public boolean isComposito() {
+		return false;
 	}
 	
 	public abstract void compila();

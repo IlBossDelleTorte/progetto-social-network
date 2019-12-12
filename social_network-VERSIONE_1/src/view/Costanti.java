@@ -1,8 +1,11 @@
-package versione_5;
+package view;
 
 import java.util.ArrayList;
 
-public class Menu {
+import campo.Campo;
+import campo.CampoFloat;
+
+public class Costanti {
 	
 	//Utilities
 	public static String creaLinea() {
@@ -134,8 +137,8 @@ public class Menu {
 	
 	public static ArrayList<Campo> speseOpzionaliEscursione(){
 		ArrayList <Campo> array=new ArrayList<>();
-		array.add(new Campo_Float("Trasporto","Spesa per raggiungere il luogo dell'escursione",false));
-		array.add(new Campo_Float("Pasto","Spesa del pasto nel rifugio",false));
+		array.add(new CampoFloat("Trasporto","Spesa per raggiungere il luogo dell'escursione",false));
+		array.add(new CampoFloat("Pasto","Spesa del pasto nel rifugio",false));
 		return array;
 	}
 	

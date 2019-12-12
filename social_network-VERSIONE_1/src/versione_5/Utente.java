@@ -150,21 +150,6 @@ public String elencoNotifiche() {
 	return str.toString();
 }
 
-/**
- * Metodo toString di utente che ritorna una stringa contenente
- * nome, fascia d'eta e categorie di interesse se queste sono disponibili
- */
-public String toString() {
-	StringBuffer str=new StringBuffer();
-	str.append("NOME:"+nome);
-	if(fasciaEta!=null) str.append(" FASCIA D'ETA':"+fasciaEta);
-	if(categorieInteresse.size()!=0) {
-		str.append(" CATEGORIE D'INTERESSE:");
-		categorieInteresse.forEach(c->str.append(c+" "));
-	}
-	return str.toString();
-}
-
 
 public ArrayList<Proposta> getInviti() {
 	return inviti;

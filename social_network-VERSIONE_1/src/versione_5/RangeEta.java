@@ -2,7 +2,7 @@ package versione_5;
 
 import java.io.Serializable;
 
-public enum Range_eta implements Serializable {
+public enum RangeEta implements Serializable {
 	GIOVANI("1-17",1,17),
 	GIOVANI_ADULTI("18-25",18,25),
 	ADULTI("26-40",26,40),
@@ -12,7 +12,7 @@ public enum Range_eta implements Serializable {
 	private int min;
 	private int max;
 	
-	private Range_eta(String s,int min,int max) {
+	private RangeEta(String s,int min,int max) {
 		this.range=s;
 		this.min=min;
 		this.max=max;
@@ -32,7 +32,7 @@ public enum Range_eta implements Serializable {
 	
 	public static String visualizzaRange() {
 		StringBuffer str=new StringBuffer();
-		Range_eta [] range=Range_eta.values();
+		RangeEta [] range=RangeEta.values();
 		for(int i=0;i<range.length;i++){
 			str.append(i+1+")").append(range[i].getRange()).append("\n");
 		}

@@ -3,6 +3,14 @@ package versione_5;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import campo.Campo;
+import campo.CampoComposto;
+import campo.CampoData;
+import campo.CampoFloat;
+import campo.CampoIntero;
+import campo.CampoStringa;
+import view.Costanti;
+
 public class Categoria implements Serializable {
 	
 	private String nome;
@@ -29,32 +37,24 @@ public class Categoria implements Serializable {
 		campi.add(c);
 	}
 	
-	/**
-	 * Metodo che ritorna una stringa che riassume il contenuto della categoria 
-	 * @return
-	 */
-	public String header() {
-		String str=String.format("%-30s %-24s %-24s %-30s %-14s",
-				nome,campi.get(4).getValore(),campi.get(2).getValore(),campi.get(3).getValore(),campi.get(6).getValore()+"€");
-		return str;
-	}
+	
 	
 	/**
 	 * Metodo che aggiunge tutti i campi generali ad un oggetto di tipo Categoria
 	 */
 	public void inizializzazioneStandard() {
-		campi.add(new Campo_Stringa("Titolo", "Nome di fantasia attribuito all'evento",false));
-		campi.add(new Campo_Intero("Numero di partecipanti", "Numero di persone da coinvolgere nell’evento", true));
-		campi.add(new Campo_Data("Termine ultimo di iscrizione","Ultimo giorno utile per iscriversi all’evento",true));
-		campi.add(new Campo_Stringa("Luogo","L’indirizzo del luogo che ospiterà l’evento oppure il luogo di ritrovo dei partecipanti",true));
-		campi.add(new Campo_Data("Data e Ora di inizio","Data e orario in cui l’evento proposto deve svolgersi o ha inizio",true));
-		campi.add(new Campo_Float("Durata","Numero di ore e minuti di durata dell'evento",false));
-		campi.add(new Campo_Float("Quota individuale","Spesa che ogni partecipante dovrà sostenere",true));
-		campi.add(new Campo_Stringa("Compreso nella quota","Elenco delle voci comprese nella quota individuale",false));
-		campi.add(new Campo_Data("Data e ora conclusiva","Data e orario che fissa la conclusione dell'evento",false));
-		campi.add(new Campo_Intero("Tolleranza partecipanti", "Quanti partecipanti sono accettabili in esubero rispetto al numero di partecipanti",false));
-		campi.add(new Campo_Data("Termine ultimo ritiro iscrizione", "Data entro la quale è possibile rimuovere una iscrizione applicata",false));
-		campi.add(new Campo_Stringa("Note","Informazioni aggiuntive",false));
+		campi.add(new CampoStringa("Titolo", "Nome di fantasia attribuito all'evento",false));
+		campi.add(new CampoIntero("Numero di partecipanti", "Numero di persone da coinvolgere nell’evento", true));
+		campi.add(new CampoData("Termine ultimo di iscrizione","Ultimo giorno utile per iscriversi all’evento",true));
+		campi.add(new CampoStringa("Luogo","L’indirizzo del luogo che ospiterà l’evento oppure il luogo di ritrovo dei partecipanti",true));
+		campi.add(new CampoData("Data e Ora di inizio","Data e orario in cui l’evento proposto deve svolgersi o ha inizio",true));
+		campi.add(new CampoFloat("Durata","Numero di ore e minuti di durata dell'evento",false));
+		campi.add(new CampoFloat("Quota individuale","Spesa che ogni partecipante dovrà sostenere",true));
+		campi.add(new CampoStringa("Compreso nella quota","Elenco delle voci comprese nella quota individuale",false));
+		campi.add(new CampoData("Data e ora conclusiva","Data e orario che fissa la conclusione dell'evento",false));
+		campi.add(new CampoIntero("Tolleranza partecipanti", "Quanti partecipanti sono accettabili in esubero rispetto al numero di partecipanti",false));
+		campi.add(new CampoData("Termine ultimo ritiro iscrizione", "Data entro la quale è possibile rimuovere una iscrizione applicata",false));
+		campi.add(new CampoStringa("Note","Informazioni aggiuntive",false));
 	}
 	
 	/**
@@ -63,8 +63,8 @@ public class Categoria implements Serializable {
 	public void partitaDiCalcio() {
 		this.nome="Partita di Calcio";
 		this.descrizione="Organizza una partita di calcio con i tuoi amici :)";
-		campi.add(new Campo_Stringa("Genere", "Il genere dei partecipanti", true));
-		campi.add(new Campo_Stringa("Fascia d'età", "Range d'età dei partecipanti", true));
+		campi.add(new CampoStringa("Genere", "Il genere dei partecipanti", true));
+		campi.add(new CampoStringa("Fascia d'età", "Range d'età dei partecipanti", true));
 		
 	}
 	
@@ -74,24 +74,10 @@ public class Categoria implements Serializable {
 	public void escursione() {
 		this.nome="Escursione in montagna";
 		this.descrizione="Organizza un esursione in montagna con i tuoi amici :)";
-		campi.add(new Campo_Composto("Spese opzionali","",false
-				,Menu.speseOpzionaliEscursione()));
+		campi.add(new CampoComposto("Spese opzionali","",false
+				,Costanti.speseOpzionaliEscursione()));
 	}
 	
-	/**
-	 * Metodo toString di Categoria.
-	 * Ad ogni linea della stringa viene aggiunto l'indice dell'ArrayList Campi utilizzato poi per la selezione degli stessi da linea di comando
-	 */
-	public String toString() {
-		StringBuffer str = new StringBuffer("");
-		int i=1;
-		str.append(this.nome + "\n" + this.descrizione + "\n");
-		for(Campo c:this.campi){
-			str.append(String.format("%2d",i)+") "+c.toString()+"\n");
-			i++;
-		}
-		return str.toString();
-	}
 	
 	public String getNome() {
 		return nome;
@@ -111,6 +97,10 @@ public class Categoria implements Serializable {
 
 	public ArrayList<Campo> getCampi() {
 		return campi;
+	}
+	
+	public String valoreDi(int i) {
+		return campi.get(i).getValore();
 	}
 
 	public void setCampi(ArrayList<Campo> campi) {
