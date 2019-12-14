@@ -130,7 +130,7 @@ public class Costanti {
 	public static final int INDICE_TOLLERANZA_PARTECIPANTI = 9;
 	public static final int INDICE_QUOTA_BASE=6;
 	public static final int INDICE_SPESE_OPZIONALI=12;
-	public static final int INDICE_GENERE_E_SPESE_OPZIONALI=12;
+	public static final int INDICE_GENERE=12;
 	public static final int INDICE_RANGE=13;
 	
 	public static String[] ELENCO_CATEGORIE= {"Partita di Calcio","Escursione in montagna"};
@@ -141,5 +141,7 @@ public class Costanti {
 		array.add(new CampoFloat("Pasto","Spesa del pasto nel rifugio",false));
 		return array;
 	}
+
+	public static final int NUMERO_CAMPI_STANDARD = 12;
 	
 }

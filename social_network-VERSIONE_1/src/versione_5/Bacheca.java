@@ -33,10 +33,11 @@ public class Bacheca implements Serializable {
 		for(Utente u : l.getUtenti()) {
 			if(u.getCategorieInteresse().contains(p.getCategoria().getNome())) {
 				u.riceviNotifica(Costanti.NOTIFICA_PROPOSTA_AFFINE);
+				//INVIO DI UNA NOTIFICA
 				u.aggiungiPropostaAffine(p);
 			}
 		}
-		p.aggiornaStato();
+		ControllerStato.aggiornaProposta(p);
 	}
 	
 
@@ -55,72 +56,17 @@ public class Bacheca implements Serializable {
 	 * @throws ParseException 
 	 * @throws NumberFormatException 
 	 */
-	public void aggiorna() throws NumberFormatException, ParseException {
-		String notifica;
-		
+	public void aggiorna() {
 		//Aggiornamento di tutte le proposte aperte 
+		proposteAperte.forEach(p->ControllerStato.aggiornaProposta(p));
 		for(int i = 0; i < proposteAperte.size(); i++) {
-			proposteAperte.forEach(p->ControllerStato.aggiornaProposta(p));
+			if(proposteAperte.get(i).getStato()!=Stato.APERTA)
+				this.rimuoviPropostaAperta(i);
 		}
 		
-		
-		for(int i = 0; i < proposteAperte.size(); i++) {
-			Set<Notificabile> partecipanti = proposteAperte.get(i).getPartecipanti();
-			
-			
-			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
-			{
-				notifica=Costanti.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();
-				for(Notificabile u : partecipanti) {
-					String messaggio_spese=String.format(Costanti.NOTIFICA_SPESA_OPZIONALE, proposteAperte.get(i).spesaPersonale(u));
-					u.riceviNotifica(notifica+messaggio_spese);
-				}
-				this.rimuoviPropostaAperta(i);
-			}
-			else if(proposteAperte.get(i).getStato() == Stato.FALLITA)
-			{
-				notifica=Costanti.NOTIFICA_FALLIMENTO+"\t   "+proposteAperte.get(i).header();
-				for(Notificabile u : partecipanti) {
-					u.riceviNotifica(notifica);
-				}
-				this.rimuoviPropostaAperta(i);
-			}
-			else if(proposteAperte.get(i).getStato() == Stato.RITIRATA) {
-				notifica=Costanti.NOTIFICA_RITIRO+"\t   "+proposteAperte.get(i).header();
-				for(Notificabile u : partecipanti) {
-					u.riceviNotifica(notifica);
-				}
-				this.rimuoviPropostaAperta(i);
-			}
-				
-		}
 	}
 	
-	/**
-	 * Il metodo genera l'elenco di tutti gli utenti correlati con l'utente c relativi alla proposta p
-	 * @param c creatore della proposta
-	 * @param p proposta da cui si attinge la categoria 
-	 * @return un'arrayList di utenti correlati 
-	 */
-	public ArrayList<Utente> utentiCorrelati(Utente c, Proposta p) {
-		ArrayList<Utente> utentiCorrelati = new ArrayList<>();
-		for(Proposta x : proposteInvalide) {
-			//prende le proposte che sono state create in passato dallo stesso utente
-			if(x.getCreatore().getNome() == c.getNome()) {
-				//prende le proposte concluse e chiuse che condividono la stessa categoria della proposta da aprire
-				if(p.getCategoria().getNome().equals(x.getCategoria().getNome())) {
-					if(x.getStato() == Stato.CHIUSA || x.getStato() == Stato.CONCLUSA) {
-						for(Utente u : x.getPartecipanti()) {
-							//Se il partecipante scelto dalla proposta non è contenuto nella lista degli utenti correlati, allora viene aggiunto
-							if(!utentiCorrelati.contains(u)&& !u.equals(c))
-								utentiCorrelati.add(u);	
-						}
-					}
-				}
-			}
-		}
-		return utentiCorrelati;
-	}
+	
 	
 	/**
 	 * Metodo per inviare inviti ad una lista di utenti aggiungendo la proposta 

@@ -77,5 +77,9 @@ public abstract class  Categoria implements Serializable {
 	public void impostaCampo(String s,int i) throws ParseException {
 		campi.get(i).setValore(s);
 	}
+	
+	public Campo getCampo(int i) {
+		return campi.get(i);
+	}
 
 }

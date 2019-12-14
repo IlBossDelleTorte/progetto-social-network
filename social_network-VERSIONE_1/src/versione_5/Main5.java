@@ -122,7 +122,10 @@ public class Main5 {
 					p=Input.leggiInt(Costanti.MENU_PROPOSTE, true);
 					switch(p) {
 					case 1://compilazione di una nuova proposta
-						new Proposta(utente).compilazione();
+						FactoryControllerCompilazione fabbrica= new FactoryControllerCompilazione();
+						Proposta prop=new Proposta(utente);
+						ControllerCompilazione comp=fabbrica.sceltaCategoria(prop);
+						comp.compilaProposta(prop);
 						IOFile.salvaDati("DATA.save", dati);//salvataggio dei dati
 						break;
 					case 2: //visualizzazione delle proposte valide e pubblicazione
@@ -132,7 +135,8 @@ public class Main5 {
 						}
 							else {
 								do {
-									p2=Input.leggiInt(Input.proposteToString(utente.getProposteValide())+Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
+									ObjectPrinter.stampaListaProposte(utente.getProposteValide());
+									p2=Input.leggiInt(Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 									if(p2<=utente.getProposteValide().size() && p2>0)
 									{
 										int n=Input.leggiInt(utente.getProposteValide().get(p2-1)+Costanti.GESTIONE_PROPOSTA_VALIDA,true);
@@ -143,19 +147,7 @@ public class Main5 {
 											System.out.print(Costanti.PUBBLICAZIONE_EFFETTUATA);
 											
 											//ROUTINE DI INVIO DEGLI INVITI ALLA PROPOSTA CORRENTE
-											ArrayList<Utente>correlati=bacheca.utentiCorrelati(utente, selezionata);
-											if (correlati.size()!=0) {
-												do {
-												System.out.print(Input.nomeUtentetoString(correlati)+Costanti.MESSAGGIO_INVITI);//rimpiazzare con i metodi della view
-												n=Input.leggiIntTra(false,1,correlati.size());
-												if(n!=-1) {
-													correlati.get(n-1).aggiungiInvito(selezionata);
-													correlati.get(n-1).riceviNotifica(String.format(Costanti.NOTIFICA_INVITO,selezionata.getCreatore().getNome(),selezionata.getCategoria().getNome()));
-													//In seguito alla scelta di invitarte un utente, questo riceve una notifica con il nome del creatore della proposta e la categoria di appartenenza
-													correlati.remove(n-1);
-												}
-											}while(n!=-1 && correlati.size()!=0);
-											}
+											ControllerInviti.invita(bacheca,selezionata);
 											
 										}
 										if (n==2)//rimuove una proposta dall'elenco delle proposte valide
@@ -175,7 +167,8 @@ public class Main5 {
 						}
 						else {
 							do {
-								p3=Input.leggiInt(Input.proposteToString(bacheca.getIscrizioni(utente))+Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
+								ObjectPrinter.stampaListaProposte(bacheca.getIscrizioni(utente));
+								p3=Input.leggiInt(Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 								if(p3 <= bacheca.getIscrizioni(utente).size() && p3>0){
 									Proposta propostaSelezionata = bacheca.getIscrizioni(utente).get(p3-1);
 									int n=Input.leggiInt(propostaSelezionata+Costanti.GESTIONE_RITIRO_ISCRIZIONE, true);
@@ -205,7 +198,8 @@ public class Main5 {
 						}
 						else {
 							do {
-								p4=Input.leggiInt(Input.proposteToString(bacheca.getProposteCreatore(utente))+Costanti.MESSAGGIO_SELEZIONE_PROPOSTA,true);
+								ObjectPrinter.stampaListaProposte(bacheca.getProposteCreatore(utente));
+								p4=Input.leggiInt(Costanti.MESSAGGIO_SELEZIONE_PROPOSTA,true);
 								if(p4 <= bacheca.getProposteCreatore(utente).size() && p4>0) {
 									Proposta propostaSelezionata = bacheca.getProposteCreatore(utente).get(p4-1);
 									int n=Input.leggiInt(propostaSelezionata+Costanti.GESTIONE_PROPOSTA_RITIRO, true);

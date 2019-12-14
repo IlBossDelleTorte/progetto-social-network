@@ -20,7 +20,7 @@ import view.Messaggi;
 public class Proposta implements Serializable {
 	private Categoria categoria;
 	private Stato stato;
-	private HashMap<Notificabile,Float> partecipanti=new HashMap<Notificabile,Float>();
+	private HashMap<Notificabile, Float> partecipanti=new HashMap<Notificabile,Float>();
 	private Utente creatore;
 	private ArrayList<String> logStati;
 
@@ -81,7 +81,7 @@ public class Proposta implements Serializable {
 	 * @param n: indice della proposta nell'array di Bacheca 
 	 * @param u: utente che si vuole iscrivere
 	 */
-	public void aggiungiPartecipante(Notificabile u,float f ) {
+	public void aggiungiPartecipante(Utente u,float f ) {
 		if(this.getStato() == Stato.CHIUSA)
 			Messaggi.stampa(Costanti.PROPOSTA_CHIUSA);
 		else {	
@@ -115,9 +115,16 @@ public class Proposta implements Serializable {
 
 	public void setStato(Stato stato) {
 		this.stato = stato;
-		for(Notificabile u:this.getPartecipanti()) {
-			u.riceviNotifica("Culo"));
+		notificaUtenti();
+	}
+	
+	private void notificaUtenti() {
+		String notifica=CreatoreNotifiche.creaNotifica(this);
+		if(stato!=Stato.CONCLUSA||stato!=Stato.VALIDA||stato!=Stato.APERTA)
+			for(Notificabile u:this.getPartecipanti()) {
+				u.riceviNotifica(notifica);
 		}
+		
 	}
 
 	public Utente getCreatore() {
