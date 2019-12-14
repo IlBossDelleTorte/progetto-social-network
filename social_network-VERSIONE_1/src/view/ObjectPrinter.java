@@ -131,6 +131,18 @@ public class ObjectPrinter {
 		System.out.print(str);
 		headCategoria(p.getCategoria());
 	}
+	public static String stringaHeadC(Categoria c) {
+		String str=String.format("%-30s %-24s %-24s %-30s %-14s",
+				c.getNome(),c.valoreDi(4),c.valoreDi(2),c.valoreDi(3),c.valoreDi(6)+"€");
+		return str;
+	}
+	public static String stringaHeadP(Proposta p) {
+		String str=String.format("%-20s ", p.getCreatore().getNome());
+		str=str+stringaHeadC(p.getCategoria());
+		return str;
+		
+		
+	}
 	
 	public static void stampaBacheca(Bacheca b) {
 		StringBuffer str= new StringBuffer(String.format(Costanti.HEADER_BACHECA));

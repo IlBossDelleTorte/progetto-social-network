@@ -19,5 +19,8 @@ public class Escursione extends Categoria{
 		Campo spese_opzionali=getCampi().get(Costanti.INDICE_SPESE_OPZIONALI);
 		return spese_opzionali.isInizializzato();
 	}
+	
+	
+	
 
 }

@@ -57,11 +57,17 @@ public class Bacheca implements Serializable {
 	 */
 	public void aggiorna() throws NumberFormatException, ParseException {
 		String notifica;
+		
+		//Aggiornamento di tutte le proposte aperte 
 		for(int i = 0; i < proposteAperte.size(); i++) {
 			proposteAperte.forEach(p->ControllerStato.aggiornaProposta(p));
 		}
+		
+		
 		for(int i = 0; i < proposteAperte.size(); i++) {
 			Set<Notificabile> partecipanti = proposteAperte.get(i).getPartecipanti();
+			
+			
 			if (proposteAperte.get(i).getStato() == Stato.CHIUSA)
 			{
 				notifica=Costanti.NOTIFICA_SUCCESSO+"\t   "+proposteAperte.get(i).header();

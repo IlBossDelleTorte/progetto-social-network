@@ -44,6 +44,10 @@ public class Proposta implements Serializable {
 		return this.categoria.valoreDi(i);
 	}
 	
+	public void impostaCampo(String s,int i) throws ParseException {
+		categoria.impostaCampo(s, i);
+	}
+	
 	public boolean isFull() {
 		
 		int numero_partecipanti=Integer.parseInt(categoria.valoreDi(Costanti.INDICE_PARTECIPANTI));
@@ -60,6 +64,10 @@ public class Proposta implements Serializable {
 			return true;
 		else
 			return false;
+	}
+	
+	public boolean haSpeseOpzionali() {
+		return categoria.haveOptionalChoice();
 	}
 	
 	
@@ -107,6 +115,9 @@ public class Proposta implements Serializable {
 
 	public void setStato(Stato stato) {
 		this.stato = stato;
+		for(Notificabile u:this.getPartecipanti()) {
+			u.riceviNotifica("Culo"));
+		}
 	}
 
 	public Utente getCreatore() {
@@ -136,105 +147,4 @@ public class Proposta implements Serializable {
 		this.categoria=c;
 	}
 
-	/**
-	 * Metodo che elabora la routine per assegnare i valori ai campi di una proposta, il metodo effettua anche i controlli della validità
-	 * dei valori introdotti.
-	 * Le letture da terminale vengono effettuate dalla classe statica Input
-	 * @throws ParseException
-	 */
-	public void compilazione() throws ParseException {
-		ArrayList<Campo> c = categoria.getCampi();
-		ArrayList<String> elencoCategorie=new ArrayList<>(Arrays.asList(Costanti.ELENCO_CATEGORIE));
-		
-		for(int i=0;i<elencoCategorie.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
-			System.out.println(i+1+")"+elencoCategorie.get(i));
-		}
-		System.out.print(Costanti.SELEZIONE_CATEGORIA);//scelta della categoria della proposta 
-		int n=Input.leggiIntTra(true,1,elencoCategorie.size());
-		switch(n) {
-		case 1:
-			categoria=new PartitaDiCalcio();
-			break;
-		case 2:
-			categoria=new Escursione();
-			break;
-		}
-		
-		int size = c.size();
-		for(int i = 0; i < size; i++) {
-			if(i == Costanti.INDICE_DATA_INIZIO) {
-				c.get(i).compila();
-				
-				Date data_inizio=Input.stringToDate(c.get(i).getValore());
-				Date data_scadenza=Input.stringToDate(c.get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore());
-				
-				if(data_inizio.before(data_scadenza)) {
-					System.out.println(Costanti.ERRORE_DATA_INIZIO);
-					i--;
-				}
-			}
-			else if(i == Costanti.INDICE_DATA_FINE) {
-				if(c.get(Costanti.INDICE_DURATA).isInizializzato()) {//se durata è inizializzata la data di scadenza viene calcolata in modo automatico
-					String str = c.get(Costanti.INDICE_DURATA).getValore();
-					Date data_inizio = Input.stringToDate(c.get(Costanti.INDICE_DATA_INIZIO).getValore());
-					Scanner s = new Scanner(str);
-					s.useDelimiter(",");
-					int ore = s.nextInt()*60;
-					int min = s.nextInt();
-					Calendar dataTerm = Calendar.getInstance();
-					dataTerm.setTime(data_inizio);
-					dataTerm.add(Calendar.MINUTE, ore+min);
-					String val=Input.dateToString(dataTerm.getTime());
-					c.get(i).setValore(val);
-				}
-				else {//se la durata non è inizializzata la scadenza viene compilata da utente
-					c.get(i).compila();
-					if(c.get(i).isInizializzato() && Input.stringToDate(c.get(i).getValore()).before(Input.stringToDate(c.get(4).getValore()))) {
-						System.out.println(Costanti.ERRORE_DATA_FINE);
-						i--;
-					}
-				}
-					
-			}
-
-			else if(i == Costanti.INDICE_TERMINE_RITIRO) {
-				c.get(i).compila();
-				if(c.get(i).isInizializzato()) {
-					if(Input.stringToDate(c.get(i).getValore()).after(Input.stringToDate(c.get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore()))) {
-						System.out.print(Costanti.ERRORE_TERMINE_RITIRO);
-						i--;
-					}
-				}
-				else
-					c.get(i).setValore(c.get(Costanti.INDICE_SCADENZA_ISCRIZIONE).getValore());
-				}
-			else if(n==1 && i==Costanti.INDICE_GENERE) {//se la categoria è partita di calcio e si sta compilando il genere
-				c.get(i).compila();
-				String genere=c.get(i).getValore();
-				if(!(genere.equalsIgnoreCase("MASCHIO")||genere.equalsIgnoreCase("FEMMINA")||genere.equalsIgnoreCase("MISTO"))){
-					System.out.print(Costanti.ERRORE_GENERE);
-					i--;
-				}
-			}
-			
-			else if (n==1 && i==Costanti.INDICE_RANGE) {//se la categoria è partita di calcio e si sta comilando il range d'eta
-				System.out.print(c.get(i).toString()+Costanti.LINEA);
-				String str;
-				if(c.get(i).isObbligatorio())str=Costanti.COMPILAZIONE_STRINGA_RANGE;
-				else str=Costanti.COMPILAZIONE_STRINGA_RANGE+Costanti.FACOLTATIVO_STRINGA;
-				String v=Input.leggiStringaFormattata(str, Costanti.FORMATO_RANGE, c.get(i).isObbligatorio());
-				c.get(i).setValore(v);
-			}
-			else
-				c.get(i).compila();
-		}
-		if(!c.get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).isInizializzato()){
-			c.get(Costanti.INDICE_TOLLERANZA_PARTECIPANTI).setValore("0");
-		}
-		aggiungiPartecipante(creatore,Float.parseFloat(c.get(Costanti.INDICE_QUOTA_BASE).getValore().replace(',', '.')));
-		System.out.print(categoria);
-		this.aggiornaStato();
-		creatore.aggiungiPropostaValida(this);
-		System.out.println(Costanti.COMPILAZIONE_EFFETTUATA);
-	}
 }

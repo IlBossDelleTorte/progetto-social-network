@@ -1,6 +1,7 @@
 package versione_5;
 
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import campo.Campo;
@@ -71,6 +72,10 @@ public abstract class  Categoria implements Serializable {
 	
 	public String valoreDi(int i) {
 		return campi.get(i).getValore();
+	}
+	
+	public void impostaCampo(String s,int i) throws ParseException {
+		campi.get(i).setValore(s);
 	}
 
 }

@@ -37,4 +37,20 @@ public class Messaggi {
 		System.out.print(Costanti.LINEA);
 	}
 
+	public static void erroreDataInizio() {
+		System.out.println(Costanti.ERRORE_DATA_INIZIO);
+	}
+
+	public static void errroreDataFine() {
+		System.out.println(Costanti.ERRORE_DATA_FINE);
+	}
+
+	public static void erroreGenere() {
+		System.out.print(Costanti.ERRORE_GENERE);
+	}
+
+	public static void compilazioneEffettuata() {
+		System.out.println(Costanti.COMPILAZIONE_EFFETTUATA);
+	}
+
 }

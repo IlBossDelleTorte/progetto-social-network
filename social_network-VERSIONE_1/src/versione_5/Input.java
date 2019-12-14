@@ -240,6 +240,24 @@ public class Input
 		}while(!getInput);
 		return temp;
 	}
+
+	/**
+	 * Il metodo accetta una stringa nel formato minuti,secondi e la somma a data inizio ritornando una stringa nel formato Costanti.FORMATO_DATA
+	 * @param str
+	 * @param data_inizio
+	 * @return
+	 */
+	public static String sommaAData(String str, Date data_inizio) {
+		Scanner s = new Scanner(str);
+		s.useDelimiter(",");
+		int ore = s.nextInt()*60;
+		int min = s.nextInt();
+		Calendar dataTerm = Calendar.getInstance();
+		dataTerm.setTime(data_inizio);
+		dataTerm.add(Calendar.MINUTE, ore+min);
+		String val=dateToString(dataTerm.getTime());
+		return val;
+	}
 	
 	
 
