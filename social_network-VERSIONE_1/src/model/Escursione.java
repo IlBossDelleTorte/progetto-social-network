@@ -1,4 +1,4 @@
-package versione_5;
+package model;
 
 import campo.Campo;
 import campo.CampoComposto;

@@ -1,5 +1,7 @@
-package versione_5;
+package controller;
 
+import model.Proposta;
+import model.Stato;
 import view.Costanti;
 import view.ObjectPrinter;
 

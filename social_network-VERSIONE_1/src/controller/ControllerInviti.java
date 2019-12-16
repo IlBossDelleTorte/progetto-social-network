@@ -1,7 +1,12 @@
-package versione_5;
+package controller;
 
 import java.util.ArrayList;
 
+import model.Bacheca;
+import model.Notificabile;
+import model.Proposta;
+import model.Stato;
+import model.Utente;
 import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;

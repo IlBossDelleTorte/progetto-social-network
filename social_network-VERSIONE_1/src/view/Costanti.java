@@ -143,5 +143,8 @@ public class Costanti {
 	}
 
 	public static final int NUMERO_CAMPI_STANDARD = 12;
+
+
+	public static final String SUCCESSO_CREAZIONE = "UTENTE CREATO CON SUCCESSO\n";
 	
 }

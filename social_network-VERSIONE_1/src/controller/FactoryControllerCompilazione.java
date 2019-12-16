@@ -1,8 +1,11 @@
-package versione_5;
+package controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import model.Escursione;
+import model.PartitaDiCalcio;
+import model.Proposta;
 import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;

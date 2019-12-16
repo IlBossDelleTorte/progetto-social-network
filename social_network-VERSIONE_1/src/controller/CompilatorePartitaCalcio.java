@@ -1,8 +1,10 @@
-package versione_5;
+package controller;
 
 import java.text.ParseException;
 
 import campo.Campo;
+import model.Categoria;
+import model.Proposta;
 import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;

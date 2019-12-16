@@ -1,8 +1,10 @@
-package versione_5;
+package controller;
 
 import java.util.Calendar;
 import java.util.Date;
 
+import model.Proposta;
+import model.Stato;
 import view.Costanti;
 
 public class ControllerStato {

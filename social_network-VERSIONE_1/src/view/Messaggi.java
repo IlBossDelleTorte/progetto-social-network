@@ -1,5 +1,7 @@
 package view;
 
+import model.Utente;
+
 public class Messaggi {
 	public static final String ERRORE="ERRORE:Input non valido";
 	public static final String ERRORE_CRITICO="Il programma è andato incontro ad un errore, riavviare l'applicazione.";
@@ -51,6 +53,27 @@ public class Messaggi {
 
 	public static void compilazioneEffettuata() {
 		System.out.println(Costanti.COMPILAZIONE_EFFETTUATA);
+	}
+
+	public static void creazioneUtente(Utente utente) {
+		System.out.println(Costanti.SUCCESSO_CREAZIONE);
+		ObjectPrinter.stampaUtente(utente);
+	}
+
+	public static void aggiornamentoDati() {
+		System.out.print("ECCO I DATI AGGIORNATI:\n");
+	}
+
+	public static void messaggioSuccessoRitiro() {
+		System.out.print(Costanti.MESSAGGIO_RITIRO);
+	}
+
+	public static void messaggioNonRitirabile() {
+		System.out.print(Costanti.MESSAGGIO_NON_RITIRABILE);
+	}
+
+	public static void messaggioDisiscrizione() {
+		System.out.print(Costanti.MESSAGGIO_DISISCRIZIONE);
 	}
 
 }

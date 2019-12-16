@@ -1,4 +1,4 @@
-package versione_5;
+package controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.Date;
 
 import campo.Campo;
+import model.Categoria;
+import model.Proposta;
+import model.Utente;
 import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;

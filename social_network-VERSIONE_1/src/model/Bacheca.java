@@ -1,4 +1,4 @@
-package versione_5;
+package model;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import controller.ControllerStato;
 import view.Costanti;
 
 public class Bacheca implements Serializable {
@@ -68,20 +69,7 @@ public class Bacheca implements Serializable {
 	
 	
 	
-	/**
-	 * Metodo per inviare inviti ad una lista di utenti aggiungendo la proposta 
-	 * invitata nell'array degli inviti di questi
-	 * @param utentiInvitati: elenco degli utenti che ricevono l'invito
-	 * @param p: proposta oggetto dell'invito
-	 */
-	public void invitaUtenti(ArrayList<Utente> utentiInvitati, Proposta p) {
-		for(Utente u : utentiInvitati) {
-			u.riceviNotifica(String.format(Costanti.NOTIFICA_INVITO, p.getCreatore().getNome(),p.getCategoria().getNome()));
-			u.aggiungiInvito(p);
-		}
-		
-	}
-	
+
 	
 	
 	/**

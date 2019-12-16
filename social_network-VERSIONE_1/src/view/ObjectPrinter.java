@@ -5,10 +5,10 @@ import java.util.Arrays;
 
 import campo.Campo;
 import campo.CampoComposto;
-import versione_5.Bacheca;
-import versione_5.Categoria;
-import versione_5.Proposta;
-import versione_5.Utente;
+import model.Bacheca;
+import model.Categoria;
+import model.Proposta;
+import model.Utente;
 
 public class ObjectPrinter {
 	
@@ -23,16 +23,16 @@ public class ObjectPrinter {
 				System.out.print(Costanti.ELENCO_VUOTO);
 		else
 		{
-			StringBuffer str= new StringBuffer(String.format(Costanti.HEADER_BACHECA));
-			str.append(Costanti.LINEA);
-		
+			
+			System.out.print(String.format(Costanti.HEADER_BACHECA)+Costanti.LINEA);
+			StringBuffer str=new StringBuffer();
 			for(int i=0;i<l.size();i++) {
-				str.append(String.format("%2s", i+1));
-				System.out.print(str);
-				headProposta(l.get(i));
-				System.out.print("\n");
+				
+				str.append(String.format("%2s ", i+1));
+				str.append(stringaHeadP(l.get(i)));
+				str.append("\n");
+				System.out.print(str.toString());
 			}
-			System.out.print(str.toString());
 		}
 		
 	}
@@ -168,6 +168,19 @@ public class ObjectPrinter {
 	public static void stampaLista(ArrayList<String> lista) {
 		for(int i=0;i<lista.size();i++) { //stampa dell'elenco di tutte le categorie disponibili
 			System.out.println(i+1+")"+lista.get(i));
+		}
+	}
+	
+	public static void stampaNotifiche(ArrayList<String>l) {
+		if(l.size()==0) {
+			System.out.print(Costanti.SPAZIO_PERSONALE_VUOTO);
+		}
+		else {
+			StringBuffer str=new StringBuffer();
+			for(int i=0;i<l.size();i++){
+				str.append(String.format("%-2s %s", i+1,l.get(i))).append("\n\n");
+			}
+			System.out.print(str.toString());
 		}
 	}
 

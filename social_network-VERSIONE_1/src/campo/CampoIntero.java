@@ -2,7 +2,7 @@ package campo;
 
 import java.io.Serializable;
 
-import versione_5.Input;
+import controller.Input;
 import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;

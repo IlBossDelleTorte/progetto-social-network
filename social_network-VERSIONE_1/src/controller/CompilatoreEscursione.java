@@ -1,7 +1,9 @@
-package versione_5;
+package controller;
 
 import java.text.ParseException;
 
+import model.Categoria;
+import model.Proposta;
 import view.Costanti;
 
 public class CompilatoreEscursione extends ControllerCompilazione {

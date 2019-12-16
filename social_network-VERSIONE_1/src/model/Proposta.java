@@ -1,4 +1,4 @@
-package versione_5;
+package model;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
@@ -14,6 +14,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import campo.Campo;
+import controller.CreatoreNotifiche;
+import controller.Input;
 import view.Costanti;
 import view.Messaggi;
 
