@@ -49,29 +49,6 @@ public class Bacheca implements Serializable {
 		
 	}
 	
-
-	/**
-	 * Metodo che aggiorna lo stato di tutte le proposte della bacheca in accordo con l'automa e
-	 * permette la rimozione dalla bacheca delle proposte concluse o fallite.
-	 * Prima della rimozione viene inviata un'opportuna notifica a tutti i partecipanti della proposta rimossa
-	 * @throws ParseException 
-	 * @throws NumberFormatException 
-	 */
-	public void aggiorna() {
-		//Aggiornamento di tutte le proposte aperte 
-		proposteAperte.forEach(p->ControllerStato.aggiornaProposta(p));
-		for(int i = 0; i < proposteAperte.size(); i++) {
-			if(proposteAperte.get(i).getStato()!=Stato.APERTA)
-				this.rimuoviPropostaAperta(i);
-		}
-		
-	}
-	
-	
-	
-
-	
-	
 	/**
 	 * Metodo che ritorna l'elenco delle proposte di cui c è creatore
 	 * @param c : utente di cui si vogliono trovare le proposte create 
@@ -109,7 +86,7 @@ public class Bacheca implements Serializable {
 	 */
 	public void ritiraProposta(Proposta p) throws NumberFormatException, ParseException {
 		p.setStato(Stato.RITIRATA);
-		this.aggiorna();
+		ControllerStato.aggiornaBacheca(this);
 		
 	}
 	

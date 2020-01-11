@@ -31,10 +31,10 @@ public class ObjectPrinter {
 				str.append(String.format("%2s ", i+1));
 				str.append(stringaHeadP(l.get(i)));
 				str.append("\n");
-				System.out.print(str.toString());
+				
 			}
+			System.out.print(str.toString());
 		}
-		
 	}
 	
 	

@@ -21,6 +21,7 @@ public class MenuSpazioPersonale {
 			switch(selezione) {
 			
 			case NOTIFICHE://Accesso alle notifiche
+				ControllerStato.aggiorna(utente, bacheca);
 				MenuSpazioPersonale.routineNotifiche(utente);					
 				IOFile.salvaDati(Costanti.DATI, dati);//salvataggio dei dati
 				break;
@@ -32,14 +33,12 @@ public class MenuSpazioPersonale {
 				break;
 				
 			case AFFINI://Accesso agli affini 
-				bacheca.aggiorna();
-				Main5.routineIscrizione(utente.getProposteAffini(),utente);
+				Main5.routineIscrizione(utente.getProposteAffini(),utente,bacheca);
 				IOFile.salvaDati(Costanti.DATI, dati);
 				break;
 				
 			case INVITI: //Accesso agli inviti
-				bacheca.aggiorna();
-				Main5.routineIscrizione(utente.getInviti(),utente);
+				Main5.routineIscrizione(utente.getInviti(),utente,bacheca);
 				IOFile.salvaDati(Costanti.DATI, dati);
 				break;
 				
@@ -71,6 +70,7 @@ public class MenuSpazioPersonale {
 		ObjectPrinter.stampaUtente(utente);
 	}
 
+	
 	public static void routineNotifiche(Utente utente) {
 		int selezione=0;
 		do {

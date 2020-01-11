@@ -29,7 +29,8 @@ public class MenuGestioneProposte {
 			selezione=Input.leggiInt(Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 			if(selezione<=utente.getProposteValide().size() && selezione>0)
 				{
-					int n=Input.leggiInt(utente.getProposteValide().get(selezione-1)+Costanti.GESTIONE_PROPOSTA_VALIDA,true);
+					ObjectPrinter.stampaProposta(utente.getProposteValide().get(selezione-1));
+					int n=Input.leggiInt(Costanti.GESTIONE_PROPOSTA_VALIDA,true);
 					if (n==1)
 					{//pubblica una proposta valida (diviene aperta)
 						Proposta selezionata=utente.getProposteValide().get(selezione-1);
@@ -45,14 +46,14 @@ public class MenuGestioneProposte {
 						utente.rimuoviPropostaValida(utente.getProposteValide().get(selezione-1));
 	
 				}
-			}while(selezione!=0);
+			}while(selezione!=0 && utente.getProposteValide().size()!= 0);
 	}
 
 	public static void routineDisiscrizione(Bacheca bacheca, Utente utente) {
 		int selezione=0;
 		do {
 			ObjectPrinter.stampaListaProposte(bacheca.getIscrizioni(utente));
-			if(utente.getProposteValide().size() == 0) break;
+			if(bacheca.getIscrizioni(utente).size() == 0) break;
 			selezione=Input.leggiInt(Costanti.MESSAGGIO_SELEZIONE_PROPOSTA, true);
 			if(selezione <= bacheca.getIscrizioni(utente).size() && selezione>0){
 				Proposta propostaSelezionata = bacheca.getIscrizioni(utente).get(selezione-1);
@@ -70,14 +71,14 @@ public class MenuGestioneProposte {
 					
 			}
 					
-		}while(selezione != 0);
+		}while(selezione != 0 && bacheca.getIscrizioni(utente).size() != 0);
 	}
 
 	public static void routineRitiro(Bacheca bacheca, Utente utente) throws ParseException {
 		int selezione=0;
 		do {
 			ObjectPrinter.stampaListaProposte(bacheca.getProposteCreatore(utente));
-			if(utente.getProposteValide().size() == 0) break;
+			if(bacheca.getProposteCreatore(utente).size() == 0) break;
 			selezione=Input.leggiInt(Costanti.MESSAGGIO_SELEZIONE_PROPOSTA,true);
 			if(selezione <= bacheca.getProposteCreatore(utente).size() && selezione>0) {
 				Proposta propostaSelezionata = bacheca.getProposteCreatore(utente).get(selezione-1);
@@ -94,7 +95,7 @@ public class MenuGestioneProposte {
 				}
 					
 			}
-		}while(selezione!=0);
+		}while(selezione!=0 && bacheca.getProposteCreatore(utente).size() != 0);
 	}
 
 	public static void gestioneProposte(ContainerDati dati, Bacheca bacheca, ListaUtenti listaUtenti, Utente utente)

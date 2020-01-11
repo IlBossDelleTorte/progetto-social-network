@@ -120,36 +120,10 @@ public ArrayList<Proposta> getProposteValide() {
 	return proposteValide;
 }
 
-public void aggiornaProposte() {
-
-	for(int i = 0; i < proposteAffini.size(); i++) {
-		if(proposteAffini.get(i).getStato() != Stato.APERTA)
-			proposteAffini.remove(i);
-		else if(proposteAffini.get(i).getPartecipanti().contains(this))
-			proposteAffini.remove(i);
-	}
-	for(int j = 0; j < inviti.size(); j++) {
-		if(inviti.get(j).getStato() != Stato.APERTA)
-			inviti.remove(j);
-		else if(inviti.get(j).getPartecipanti().contains(this))
-			inviti.remove(j);
-	}
-		
-}
 
 
 public void setProposteValide(ArrayList<Proposta> proposteValide) {
 	this.proposteValide = proposteValide;
-}
-
-
-public String elencoNotifiche() {
-	StringBuffer str=new StringBuffer();
-	for(int i=0;i<notifiche.size();i++)
-	{
-		str.append(String.format("%-2s %s", i+1,notifiche.get(i))).append("\n\n");
-	}
-	return str.toString();
 }
 
 

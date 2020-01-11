@@ -22,26 +22,27 @@ public class Main5 {
 	private static final int ACCESSO_MENU_PROPOSTE = 2;
 	private static final int ACCESSO_BACHECA = 1;
 
-	public static void routineIscrizione(ArrayList<Proposta>array,Utente u) {
-		u.aggiornaProposte();
-		ObjectPrinter.stampaListaProposte(array);
+	public static void routineIscrizione(ArrayList<Proposta>array,Utente u,Bacheca b) {
+		ControllerStato.aggiorna(u, b);
 		if(array.size()!=0){
-			int b=0;
+			int i=0;
 			do {
-				b=Input.leggiInt(Costanti.MESSAGGIO_BACHECA, true);
-				if(b<array.size()+1 && b!=0)
+				ObjectPrinter.stampaListaProposte(array);
+				i=Input.leggiInt(Costanti.MESSAGGIO_BACHECA, true);
+				if(i<array.size()+1 && i!=0)
 				{
-					Proposta selezionata=array.get(b-1);
-					
-					int n=Input.yesNo(selezionata+Costanti.ISCRIZIONE_PROPOSTA);
+					Proposta selezionata=array.get(i-1);
+					ObjectPrinter.stampaProposta(selezionata);
+					int n=Input.yesNo(Costanti.ISCRIZIONE_PROPOSTA);
 					if (n==1) {
 						float spesa = calcoloSpesa(u, selezionata);
 						selezionata.aggiungiPartecipante(u,spesa);
 					}
 				}
-				u.aggiornaProposte();
-			}while(b!=0 && array.size()!=0);
-		}	
+				ControllerStato.aggiorna(u, b);
+			}while(i!=0 && array.size()!=0);
+		}
+		else ObjectPrinter.stampaListaProposte(array);
 	}
 
 	public static float calcoloSpesa(Utente u, Proposta selezionata) {
@@ -86,18 +87,17 @@ public class Main5 {
 			switch(i) {
 			
 			case ACCESSO_BACHECA:
-				bacheca.aggiorna();
-				routineIscrizione(bacheca.getProposteAperte(),utente);
+				routineIscrizione(bacheca.getProposteAperte(),utente,bacheca);
 				IOFile.salvaDati(Costanti.DATI, dati);
 				break;		
 				
 			case ACCESSO_MENU_PROPOSTE://Accesso al menu proposta
-				bacheca.aggiorna();
+				ControllerStato.aggiorna(utente,bacheca);
 				MenuGestioneProposte.gestioneProposte(dati, bacheca, listaUtenti, utente);
 				break;
 
 			case ACCESSO_SPAZIO_PERSONALE: 
-				bacheca.aggiorna();
+				ControllerStato.aggiornaBacheca(bacheca);
 				MenuSpazioPersonale.spazioPersonale(dati, bacheca, utente);
 				break;	
 		}
