@@ -74,17 +74,22 @@ public class ObjectPrinter {
 			
 			str.append("\n");
 			ArrayList<Campo> valore = ((CampoComposto) c).getElencoCampi();
+			System.out.print(str);
 			for(int i=0;i<valore.size();i++) {
-				if(valore.get(i).isInizializzato())
-				str.append("    ").append(valore.get(i).toString()).append("\n");
+				if(valore.get(i).isInizializzato()) {
+					System.out.print("    ");
+					stampaCampo(valore.get(i));
+					System.out.print("\n");
+				}
 			}
 		}
 		else {
 			if(c.isInizializzato())
-			str.append("\t").append(c.getValore());//se il campo ha valore esso viene stampato 
+			str.append("\t").append(c.getValore());//se il campo ha valore esso viene stampato
+			System.out.print(str);
 		}
 		
-		System.out.print(str);
+		
 	}
 	
 	/**
