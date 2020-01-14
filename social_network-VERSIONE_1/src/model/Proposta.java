@@ -120,9 +120,10 @@ public class Proposta implements Serializable {
 	}
 	
 	private void notificaUtenti() {
-		String notifica=CreatoreNotifiche.creaNotifica(this);
+		
 		if(stato==Stato.CHIUSA||stato==Stato.FALLITA||stato==Stato.RITIRATA) {
 			for(Notificabile u:this.getPartecipanti()) {
+				String notifica=CreatoreNotifiche.creaNotifica(this,u);
 				u.riceviNotifica(notifica);
 			}
 		}

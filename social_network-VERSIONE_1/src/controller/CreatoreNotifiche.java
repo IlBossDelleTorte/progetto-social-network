@@ -1,18 +1,22 @@
 package controller;
 
 import model.Costanti;
+import model.Notificabile;
 import model.Proposta;
 import model.Stato;
+
 import view.ObjectPrinter;
 
 public class CreatoreNotifiche {
 	
-	public static String creaNotifica(Proposta p) {
+	public static String creaNotifica(Proposta p,Notificabile u) {
 		String notifica=null;
 		Stato stato=p.getStato();
 		switch(stato) {
 		case CHIUSA:
 			notifica=Costanti.NOTIFICA_SUCCESSO+"\t   "+ObjectPrinter.stringaHeadP(p);
+			String messaggio_spese=String.format(Costanti.NOTIFICA_SPESA_OPZIONALE, p.spesaPersonale(u));
+			notifica=notifica+messaggio_spese;
 			break;
 			
 		case FALLITA:
@@ -27,5 +31,7 @@ public class CreatoreNotifiche {
 		}
 		return notifica;
 	}
+	
+	
 
 }
