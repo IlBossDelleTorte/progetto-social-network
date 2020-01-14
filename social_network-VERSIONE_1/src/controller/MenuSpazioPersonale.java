@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 import model.Bacheca;
 import model.ContainerDati;
+import model.Costanti;
 import model.RangeEta;
 import model.Utente;
-import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;
 

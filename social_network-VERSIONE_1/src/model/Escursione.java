@@ -2,7 +2,6 @@ package model;
 
 import campo.Campo;
 import campo.CampoComposto;
-import view.Costanti;
 
 public class Escursione extends Categoria{
 	

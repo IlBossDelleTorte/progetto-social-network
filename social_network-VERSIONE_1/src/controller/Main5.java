@@ -8,11 +8,11 @@ import campo.Campo;
 import campo.CampoComposto;
 import model.Bacheca;
 import model.ContainerDati;
+import model.Costanti;
 import model.ListaUtenti;
 import model.Proposta;
 import model.RangeEta;
 import model.Utente;
-import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;
 //

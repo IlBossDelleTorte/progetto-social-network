@@ -1,5 +1,6 @@
 package view;
 
+import model.Costanti;
 import model.Utente;
 
 public class Messaggi {

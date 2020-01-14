@@ -1,8 +1,8 @@
 package controller;
 
+import model.Costanti;
 import model.Proposta;
 import model.Stato;
-import view.Costanti;
 import view.ObjectPrinter;
 
 public class CreatoreNotifiche {

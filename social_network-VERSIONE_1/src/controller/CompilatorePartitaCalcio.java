@@ -4,8 +4,8 @@ import java.text.ParseException;
 
 import campo.Campo;
 import model.Categoria;
+import model.Costanti;
 import model.Proposta;
-import view.Costanti;
 import view.Messaggi;
 import view.ObjectPrinter;
 

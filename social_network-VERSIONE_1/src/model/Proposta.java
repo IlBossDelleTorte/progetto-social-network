@@ -16,7 +16,6 @@ import java.util.Set;
 import campo.Campo;
 import controller.CreatoreNotifiche;
 import controller.Input;
-import view.Costanti;
 import view.Messaggi;
 
 public class Proposta implements Serializable {

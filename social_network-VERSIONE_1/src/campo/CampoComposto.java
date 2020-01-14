@@ -3,7 +3,7 @@ package campo;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import view.Costanti;
+import model.Costanti;
 import view.Messaggi;
 
 public class CampoComposto extends Campo {

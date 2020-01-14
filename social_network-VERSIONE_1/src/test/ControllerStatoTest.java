@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import controller.ControllerStato;
 import controller.Input;
 import model.Categoria;
+import model.Costanti;
 import model.PartitaDiCalcio;
 import model.Proposta;
 import model.Stato;
 import model.Utente;
-import view.Costanti;
 
 class ControllerStatoTest {
 	
@@ -79,28 +79,6 @@ class ControllerStatoTest {
 	}
 	
 	
-
-	@Test
-	void fromApertaToChiusaWhenScadutaAndPartecipantiEqualsMin() throws ParseException {
-		Categoria c=new PartitaDiCalcio();
-		Utente u=new Utente("Test",null,null);
-		Proposta p=new Proposta(u);
-		
-		c.impostaCampo("1", Costanti.INDICE_PARTECIPANTI);
-		c.impostaCampo(Input.dateToString(new Date()), Costanti.INDICE_SCADENZA_ISCRIZIONE);
-		c.impostaCampo(Input.dateToString(new Date()), Costanti.INDICE_TERMINE_RITIRO);
-		c.impostaCampo("0", Costanti.INDICE_TOLLERANZA_PARTECIPANTI);
-		c.impostaCampo(Input.dateToString(new Date()), Costanti.INDICE_DATA_INIZIO);
-		
-		p.setStato(Stato.APERTA);
-		p.setCategoria(c);
-		p.aggiungiPartecipante(u, (float)0.0);
-		
-		
-		ControllerStato.aggiornaProposta(p);
-		assertEquals(Stato.CHIUSA,p.getStato());
-		
-	}
 	
 	@Test
 	void fromApertaToChiusaWhenScadutaAndPartecipantiBetweenMinAndMax() throws ParseException {

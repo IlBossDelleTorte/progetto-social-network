@@ -1,5 +1,7 @@
 package view;
 
+import model.Costanti;
+
 public class Menu {
 	
 	public static void menuIniziale() {

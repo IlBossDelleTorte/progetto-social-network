@@ -3,8 +3,8 @@ package controller;
 import java.text.ParseException;
 
 import model.Categoria;
+import model.Costanti;
 import model.Proposta;
-import view.Costanti;
 
 public class CompilatoreEscursione extends ControllerCompilazione {
 

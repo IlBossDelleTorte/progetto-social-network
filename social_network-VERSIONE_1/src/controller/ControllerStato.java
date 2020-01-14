@@ -5,10 +5,10 @@ import java.util.Calendar;
 import java.util.Date;
 
 import model.Bacheca;
+import model.Costanti;
 import model.Proposta;
 import model.Stato;
 import model.Utente;
-import view.Costanti;
 
 public class ControllerStato {
 	

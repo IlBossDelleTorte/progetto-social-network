@@ -7,6 +7,7 @@ import campo.Campo;
 import campo.CampoComposto;
 import model.Bacheca;
 import model.Categoria;
+import model.Costanti;
 import model.Proposta;
 import model.Utente;
 

@@ -10,7 +10,6 @@ import campo.CampoData;
 import campo.CampoFloat;
 import campo.CampoIntero;
 import campo.CampoStringa;
-import view.Costanti;
 
 public abstract class  Categoria implements Serializable {
 	

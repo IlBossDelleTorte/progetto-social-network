@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import controller.ControllerStato;
-import view.Costanti;
 
 public class Bacheca implements Serializable {
 

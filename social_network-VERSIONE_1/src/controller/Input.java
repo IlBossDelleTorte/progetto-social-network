@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Vector;
 
-import view.Costanti;
+import model.Costanti;
 import view.Messaggi;
 
 

@@ -2,7 +2,6 @@ package model;
 
 import campo.CampoComposto;
 import campo.CampoStringa;
-import view.Costanti;
 
 public class PartitaDiCalcio extends Categoria {
 	
