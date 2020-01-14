@@ -37,7 +37,7 @@ public class CampoStringa extends Campo implements Serializable {
 	 * @return true se inizializzato false altrimenti 
 	 */
 	public boolean isInizializzato(){
-		if(valore.trim()!=VALORE_NULLO)return true;
+		if(!valore.trim().equals(VALORE_NULLO))return true;
 		return false;
 	}
 	

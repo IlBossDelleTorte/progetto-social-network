@@ -85,8 +85,7 @@ public class ObjectPrinter {
 			}
 		}
 		else {
-			if(c.isInizializzato())
-			str.append("\t").append(c.getValore());//se il campo ha valore esso viene stampato
+			if(c.isInizializzato())str.append("\t").append(c.getValore());//se il campo ha valore esso viene stampato
 			System.out.print(str);
 		}
 		
